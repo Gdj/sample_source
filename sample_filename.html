@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8">  
+  <title>sample file name</title>
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <style type="text/css">
+      label { display:inline-block; width:130px; }
+  </style>
+ </head>
+ <body>
+    <div class="urlpath"></div> <br />
+    <label for="output1">확장자 : </label>            <input id="output1" type="text" readonly="readonly" /> <br />
+    <label for="output2">파일명.확장자 : </label>     <input id="output2" type="text" readonly="readonly" /> <br />
+    <label for="output3">파라미터값 : </label>        <input id="output3" type="text" readonly="readonly" /> <br />
+    <label for="output4">url 파일명 : </label>        <input id="output4" type="text" readonly="readonly" /> <br />
+    <label for="output5">해쉬값 가져오기 : </label>   <input id="output5" type="text" readonly="readonly" /> <br />
+    
+    <script>
+    //var urls = "./images/sample/video/poster_1.png?open=00";
+    var urls = "./images/sample/video/poster_1.png#open";
+    $(".urlpath").text(urls);
+    
+    
+    
+     /**
+     * 파일명에서 확장자명 추출
+     * @param filename   파일명
+     * @returns _fileExt 확장자명
+     */
+    function getExtensionOfFilename(filename) {
+        var _fileLen = filename.length;
+        /** 
+         * lastIndexOf('.') 
+         * 뒤에서부터 '.'의 위치를 찾기위한 함수
+         * 검색 문자의 위치를 반환한다.
+         * 파일 이름에 '.'이 포함되는 경우가 있기 때문에 lastIndexOf() 사용
+         */
+        var _lastDot = filename.lastIndexOf('.');
+        // 확장자 명만 추출한 후 소문자로 변경
+        var _fileExt = filename.substring(_lastDot, _fileLen).toLowerCase();
+        return _fileExt;
+    }
+        
+    // 확장자 출력   
+    $("#output1").val( getExtensionOfFilename(urls) );
+
+    
+    /**
+     * 파일경로에서 파일명.확장자명 추출
+     * @param strFilepath   파일명
+     * @returns _fileExt  파일.확장자
+     */
+    function getNameFromPath(strFilepath) {
+        var objRE = new RegExp(/([^\/\\]+)$/);
+        var strName = objRE.exec(strFilepath);
+        if (strName == null) {
+           return null;
+        }
+        else {
+            return strName[0];
+        }
+    }
+    // 파일명.확장자 출력
+    $("#output2").val( getNameFromPath(urls)  );  
+    
+    
+    /**
+     * 현제 파일경로에서 파라미터 값 추출
+     * @param strFilepath   파일명
+     * @returns _fileExt  파일.확장자
+     */
+    function getParams(strFilepath) {
+        // 파라미터가 담길 배열
+        var param = new Array();
+     
+        // 현재 페이지의 url
+        var url = strFilepath; //decodeURIComponent(location.href);
+        // url이 encodeURIComponent 로 인코딩 되었을때는 다시 디코딩 해준다.
+        url = decodeURIComponent(url);
+     
+        var params;
+        // url에서 '?' 문자 이후의 파라미터 문자열까지 자르기
+        params = url.substring( url.indexOf('?')+1, url.length );
+        // 파라미터 구분자("&") 로 분리
+        params = params.split("&");
+    
+        // params 배열을 다시 "=" 구분자로 분리하여 param 배열에 key = value 로 담는다.
+        var size = params.length;
+        var key, value;
+        for(var i=0 ; i < size ; i++) {
+            key = params[i].split("=")[0];
+            value = params[i].split("=")[1];
+    
+            param[key] = value;
+        }
+    
+        return param;
+    }
+      
+    $("#output3").val(  getParams(urls)["open"]  );    
+     
+     
+     
+     /**
+     * url 파일명 
+     * @param strFilepath   파일명
+     * @returns _fileExt  파일.확장자
+     */   
+    function getFilename(strFilepath){       
+        var pattern = /(^.*\/)([^&#?]*)/;
+        var m = strFilepath.match(pattern);   
+        var filename = m[2];
+        return filename; 
+    } 
+    $("#output4").val(  getFilename(urls) );    
+    
+    
+     
+    // 해쉬값 가저 오기
+    var h = window.location.hash; 
+    $("#output5").val(  h );
+     
+     
+    </script>
+	
+ </body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8">  
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/library/jquery.easing.1.3.min.js"></script>
+  <script type="text/javascript" src="./js/library/jquery-ui-1.10.2.custom.min.js"></script> 
+  <script type="text/javascript" src="./js/library/jsmovie/jquery.jsmovie.1.4.4.js"></script>
+  <script type="text/javascript" src="./js/library/jquery.fitvids.js"></script>
+  <script type="text/javascript" src="./js/library/rolling_number.js"></script>
+  <script type="text/javascript" src="./js/common.js"></script>
+ </head>
+ <body>
+ 	<style>
+ 		p { height:50px }
+ 	</style>
+	<p>셈플2</p><p>셈플2</p><p>셈플2</p><p>셈플2</p><p>셈플2</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p class="point1">=================================================================ok</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	
+	<script type="text/javascript">
+		//var currentPage ="";
+		//var nextPage = "";
+		//scrollAutoEndPage(currentPage, nextPage);
+		/* ========================= 스크롤 반응 실행 ======================== */
+		var off1 = true;	
+		var off1Y =$(".point1").offset().top;			
+		function scrollCall(){		
+			off1 = callBackScrollActive( off1Y, off1, function(){
+				console.log("실행");
+			}, function(){
+				console.log("초기화");
+			});
+			
+		    console.log(">>>: "+ WHELL_OFFSET)				
+		}	
+		
+		
+	</script>
+ </body>  
+</html>

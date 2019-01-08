@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Panzoom for jQuery</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<style type="text/css">
+		body {background: #f5fcff;color: #333666;}
+		section {text-align: center;margin: 50px 0;}
+		
+		.circlemenu-wrap { position: fixed;  right:10px; bottom: 10px;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+			background-color: rgba(38,38,38,1);  border-radius: 50%; }
+		.circlemenu-wrap .menu-list { position: absolute; bottom:20px; right:0px;}
+		.circlemenu-wrap .menu-list li { margin-bottom: 4px; list-style: none; font-size: 0; line-height: 0; }
+		.circlemenu-wrap .menu-list li>a { 
+			background-color: #231f20; 
+			transform: scaleY(0.5) scaleX(0.5) translateY(-30px) translateX(0px);
+			vertical-align: middle;}
+		.circlemenu-wrap .circl-list li span{display:block; width:23px; height:25px;}
+		.circlemenu-wrap .btn-circle {
+			display: block;width: 36px;height: 36px;
+			color: #fff; font-size: 20px; font-weight: bold;  line-height: 36px; 
+			background-color: rgba(0,0,0,0.3);border-radius: 50%;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+			border: 0 none;
+			/*background: transparent;*/
+			cursor: pointer;
+			overflow: hidden;
+		}
+	</style>
+	<script src="js/library/jquery-1.10.2.min.js"></script>
+	<script src="js/library/tweenmax/TweenMax.min.js"></script>
+	<script src="js/library/imMenu.js"></script>
+	
+	
+</head>
+
+<body>
+	<section>
+		<h1> circle Mnue</h1>
+		<div class="circlemenu-wrap">
+			<button class="btn-circle">=</button>
+			<ul class="menu-list">			
+				<li><a href="javascript:void(false);" class="btn-circle">F</a></li>
+				<li><a href="javascript:void(false);" class="btn-circle">B</a></li>
+				<li><a href="javascript:void(false);" class="btn-circle">K</a></li>
+			</ul>
+		</div>
+		<script>
+			var snsControl;
+			snsControl =  $(".circlemenu-wrap button.btn-circle").imToggleBtn( 
+				function( $this){		console.log("1111")
+					TweenMax.to($(".menu-list a") , 0.2, {scaleX:1.0, scaleY:1.0, y:0, autoAlpha:1, ease:Expo.easeOut});				
+				},function( $this){		console.log("222")		
+					TweenMax.to($(".menu-list a") , 0.2, {scaleX:0.5, scaleY:0.5, y:20, autoAlpha:0, ease:Expo.easeOut});				
+			})
+			TweenMax.to($(".menu-list a") , 0.0, {scaleX:0.5, scaleY:0.5, y:20, autoAlpha:0, ease:Expo.easeOut});
+		</script>
+	</section>
+</body>
+
+</html>

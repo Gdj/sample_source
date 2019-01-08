@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0"> 
+  <title>sample_guide</title> 
+  <!-- <link rel="stylesheet" href="./css/base.css" /> -->
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js" ></script>  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  
+
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <!-- <script type="text/javascript" src="./js/common.js"></script> -->
+  <style type="text/css">
+      #wrap { width:500px; height:500px;  background-color: red; }
+      #btn  { width:500px; height:100px; background-color: blue;  }
+      #swipe{ width:500px; height:500px;  background-color: green;}
+      p {font-size:30px; color:#CCCCCC; }
+  </style>
+ </head>
+ <body>
+    <div id="wrap">
+            <p>hi</p>
+            <p id="msg"></p>
+            <p id="msg2"></p>
+    </div> 
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <div id="btn">
+            <p id="msg3">텝해주세요</p>
+    </div>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+            <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <div id="swipe">
+            <p id="msg4">swipeTarget</p>
+    </div>
+       
+	<script type="text/javascript">
+	     //$("body").off('touchmove'); //스크롤 방지 해제
+	     
+	     $("#wrap").on('touchmove', function(e) {
+
+            var event = e.originalEvent;
+            $('#msg').html('touch 이벤트 중입니다.');            
+
+            $('#msg2').html(event.touches[0].screenX + ',' + event.touches[0].screenY );
+
+            //event.preventDefault();
+
+        });
+        
+        $("#btn").on('tap', function(e) {
+
+            $('#msg3').html("= 탭 =" );
+            event.preventDefault();
+
+        });
+        
+        
+        $('#swipe').on("swipe",function(e){
+            $('#msg4').html(e.type);
+        });
+        	</script>
+ </body>  
+</html>

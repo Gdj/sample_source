@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8">  
+  <title>sample_popup</title>
+  <link rel="stylesheet" href="./css/base.css" />
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/common.js"></script> 
+    <style type="text/css">
+
+        /** //popup-wrap **/        
+        .im.popup-wrap  { position: absolute; display:none; table-layout:fixed; top: 0; left: 0;  width: 100%; height: 100%; min-height:100%; z-index: 9999;} 
+        .im.popup-wrap  .popup-dim { position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%;  background: #000000; opacity: 0.7;  filter: alpha(opacity=70); }
+        .im.popup-wrap .popup-vertical { display: table-cell; text-align: center; vertical-align: middle;  width: 100%; padding:20px 0; }
+        .im.popup-wrap .popup-layer { display: inline-block; *display:inline; zoom:1; position: relative;   } 
+        .im.popup-wrap .popup-layer.option { position:relative; top:0px; width:600px; height:auto; min-height:1300px;  text-align: left; background:#fff ;border:1px solid red;   }
+        .im.popup-wrap .popup-layer .btn_close { position:absolute; top:15px; right:15px; background:#aaa;}
+
+    </style>    
+ </head>
+ <body>
+     <div id="wrap"> <!-- 필수요소 id="wrap"  -->
+        <a href="#popup-wrap">popup</a>
+        <div style="height:200px">a</div>
+        <div style="height:200px">b</div>
+        <div style="height:200px">c</div>
+        <div style="height:200px">d</div>
+        <div style="height:200px">e</div>
+        <div style="height:200px">f</div>
+        <div style="height:200px">g</div>
+        <a href="#popup-wrap">popup</a>
+        <div style="height:200px">h</div>
+    </div>
+    
+    
+    <div id="popup-wrap" class="im popup-wrap"> 
+        <div class="popup-dim"></div>   
+        <div class="popup-vertical">
+            <div class="popup-layer option">
+                <a class="btn_close" href="#">X</a>         
+            </div>
+        </div>
+    </div>      
+     
+     
+    <script type="text/javascript">
+         
+        var layerPopup = $("a").imLayerPopup();   //   console.log("layerPopup.getBtn" + layerPopup.getBtn )
+               
+        $("a").on("click", function($e){
+            $e.preventDefault();         
+            layerPopup.open(this);    // or false
+        });
+    
+        $(".btn_close").on("click", function($e){
+            $e.preventDefault();       
+            layerPopup.close();
+        });
+        
+        
+        
+        
+    </script>
+ </body>  
+</html>

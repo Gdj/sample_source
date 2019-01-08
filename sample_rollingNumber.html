@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="kr">
+<head>
+	<meta charset="UTF-8">  
+	<title>sample_guide</title>
+	<link rel="stylesheet" href="./css/base.css" />
+	<script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="./js/library/jquery.easing.1.3.min.js"></script>
+	<script type="text/javascript" src="./js/library/rolling_number.js"></script>
+	 <style type="text/css">
+		#rollingNum { width:200px; height:100px;  background:#222 ;}
+		.hidden { position:absolute; width:1px; height:1px; margin: 0; padding: 0; overflow:hidden; font-size:0; line-height:0; }
+		.ml_rate {  display: block; float: left; width: 33px; height: 57px; margin-left: -4px; background:  url("./images/sample/rollingNumber/no_rate_light.png") no-repeat;		}	
+		.ml_rate.comma { width: 10px; 	background: url("./images/sample/rollingNumber/no_rate_light_comma.png") 0 7px no-repeat;}	
+		.ml_rate.dot { width: 10px; margin-bottom: -9px; background: url("./images/sample/rollingNumber/no_rate_light_dot.png") no-repeat; }
+	  
+	</style>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		var rollingIntro;
+		function showRecent($numString){			
+			rollingIntro = new RollingNumber({
+				container:'#rollingNum .recent_rate_area',
+				type:'ml_rate',    // no_type01, no_type02, no_type03, mb_rate, ml_rate
+				value:$numString,
+				autoPlay:true
+			});
+		}
+
+		showRecent("5,666,7");
+		
+		// 지우고 3초뒤 다시 실행
+		setTimeout( callFn , 3000 )
+		function callFn(){
+			$("#rollingNum .recent_rate_area").empty();
+			showRecent("75,654,7");
+		}
+	})
+	</script>
+</head>
+<body>
+	<div id="rollingNum">
+		<div class="recent_rate_area"></div> 
+	</div>  
+</body>  
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8">  
+  <title>sample_guide</title>
+  <link rel="stylesheet" href="./css/base.css" />
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/library/tweenmax/TweenMax.min.js"></script>
+
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+
+    body { background-color:#000000; margin:0px; padding:0px; color:#CCCCCC; font-family:Verdana, Geneva, sans-serif;  }
+    .class1 { border:none; background-color:#CCC; padding:10px; color:#CC0000; font-size:24px; margin:0;  }
+    .class2 { width:100px; background-color:green; opacity:0.5; padding:1px 20px; margin-left:10px; font-size:24px; filter:alpha(opacity=50);   }
+    
+</style>
+ </head>
+ <body>
+    <div id="wrap">
+            <div id="div1" class="class1"><p>This is d1</p></div>
+            <div id="div2" class="class1"><p>This is d2</p></div>
+            <div id="div3" class="class1"><p>This is d3</p></div>
+    </div> 
+    
+       
+    <script type="text/javascript">
+    $(function() {
+    
+        var d1 = document.getElementById("div1"),
+            d2 = document.getElementById("div2"),
+            d3 = document.getElementById("div3");
+        
+        TweenLite.to( $(".class1"), 2, {css:{width:"50%"}, ease:Strong.easeInOut});
+        TweenLite.to( d1, 0.75, {css:{backgroundColor:"#0CF", color:"rgb(255,255,255)", marginLeft:"100px"}, delay:1});        
+        TweenLite.to( d2, 2, {css:"background-color:rgb(255,0,0); font-size:12px; width:70%; color:#000", delay:2});                
+        TweenLite.to( d3, 1, {css:{className:"class2"}, delay:4});        
+        TweenMax.to(  d1, 1, {css:{width:"90%"}, delay:5, ease:Quad.easeInOut, repeat:3, yoyo:true });
+        
+        
+        var tl = new TimelineLite({delay:9, onComplete:completeHandler});
+        tl.to( $(".class1"), 2, {css:{marginLeft:0, backgroundColor:"#CCC", color:"#F00", width:"100%", opacity:1, padding:"10px"}})
+          .to( d1, 2, {css:{height:200}})
+          .staggerTo( $(".class1"), 2, {css:{marginLeft:"+=100", width:"400px"}}, 0.2) 
+          .staggerTo( $(".class1"), 2, {css:{rotation:360, scaleX:0.5, scaleY:0.8, x:100}}, 0.2) 
+          .staggerTo( $(".class1"), 2, {css:{autoAlpha:0}}, 0.2);  
+        
+        function completeHandler() {
+            console.log("done with sequence.");
+        }
+    
+    }); 
+    </script>
+ </body>  
+</html>

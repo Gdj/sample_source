@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8">  
+  <title>sample_guide_jsmovie</title>
+  <link rel="stylesheet" href="./css/base.css" />
+  <style type="text/css">		
+		.controler img { width:50px; }
+  </style>
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/library/jsmovie/jquery.jsmovie.1.4.4.js"></script>
+  <script type="text/javascript">
+	$(document).ready(function(){
+
+
+		var mmm = $('#movie').jsMovie({
+		sequence: 'scene_#####.jpg',
+		from: 1,
+		to: 71,			
+		folder : "./images/sample/sequence/",
+		width:(1920/2),
+		height:(845/2),
+		fps:30,		
+        playOnLoad : false,         // 로드후 자동 플레이 하지 않음
+		showPreLoader : true,       // 로더 보이게 
+		loader: {path:"./js/library/jsmovie/loader.png", height:40, width:40, rows:2, columns:4},		 
+		repeat:false
+		});
+	
+		/* 컨트롤		
+			$('#movie').jsMovie('play');	
+			$('#movie').jsMovie('pause');
+			$('#movie').jsMovie('stop');			
+		*/	
+
+		$('#movie').on('ended', function(v) { 
+			console.log("플레이 끝!");
+			$('#movie').jsMovie('pause');
+			$("#movie").jsMovie("gotoFrame",71); 
+		});
+		$('#movie').on('loaded', function() { 
+			console.log("로드 완료!");			
+		});
+			
+				
+	});// document.ready
+  </script>
+ </head>
+ <body>
+	<div class="wrap">		
+		<div id="movie"></div>
+		<div class="controler">
+			<a href="javascript:$('#movie').jsMovie('play');"	><img src="./images/sample/btn_play.png"	alt="play" /></a>
+			<a href="javascript:$('#movie').jsMovie('pause');"	><img src="./images/sample/btn_pause.png"	alt="pause"/></a>
+			<a href="javascript:$('#movie').jsMovie('stop');"	><img src="./images/sample/btn_stop.png"	alt="stop" /></a>
+		</div>
+	</div>
+ </body>  
+</html>

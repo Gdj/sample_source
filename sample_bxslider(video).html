@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sample_pageScroll</title>
+	<link 	rel="stylesheet" href="./css/base.css">
+	<script type="text/javascript" src="./js/library/jquery-1.10.2.min.js" ></script>
+	<script type="text/javascript" src="./js/library/jquery.easing.1.3.min.js" ></script>
+	<script type="text/javascript" src="./js/library/bxslider/jquery.bxslider.min.js" ></script>
+	<script type="text/javascript" src="./js/library/jplayer/jquery.jplayer.min.js" ></script>
+	<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+	<script type="text/javascript" src=./js/scrollActive.js></script>
+	<style>
+		.bx-pager-link { display: block; width: 20px; height: 20px; border-radius: 50%; background-color:darkgray;}
+		.bx-pager-link.active {  background-color: aquamarine; }
+	</style>
+</head>
+<body>
+	<!-- 메인 키비주얼 -->
+					
+	<div class="keyvisual">
+		<ul class="visual-list">
+			<li>
+				<img src="./images/sample/video/poster_1.png" alt="">
+			</li>
+			<li class="m-video">
+				<div id="movie1"></div>
+				<div class="video-control">
+					<a href="#" class="btn-play">
+						<img src="./images/sample/btn_play.png" alt="버튼재생">
+					</a>
+				</div>
+			</li>
+			<li><img src="./images/sample/video/poster_3.png" alt=""></li>
+			<li class="m-youtube">
+				<div class="youtube">
+					<div id="movie2"></div>
+				</div>
+			</li>
+		</ul>
+			<div class="bx-controls-btn">
+				<a class="btn-prev" href="#" >Prev</a>
+				<a class="btn-next" href="#" >Next</a>
+			</div>						
+		<script>
+
+			var _bxslider = $('.visual-list').bxSlider({
+			  pager: true,
+			  controls : false,
+			  mode:"fade",
+			  auto: false,                   
+			  speed: 1000,
+			  autoDelay: 5000,
+			  onSlideAfter: function($slideElement, oldIndex, newIndex){
+
+				// 비디오 upload
+				jPlayer_stop();
+				if($(".visual-list li").eq(newIndex).hasClass("m-video")){
+					jPlayer_play();	
+					_bxslider.stopAuto();
+				//스탑 setTimeout(jPlay_pause, 10);
+				}
+
+				// 비디오 youtube 
+				uPlayer_stop();
+				if($(".visual-list li").eq(newIndex).hasClass("m-youtube")){
+					uPlayer_play();
+					_bxslider.stopAuto();
+				}                           
+
+			  }	
+			});
+
+		   // 좌화살표 버튼 스크립트 
+			$(".keyvisual .bx-controls-btn .btn-prev").on("click", function(e){ 
+				e.preventDefault(); 
+				_bxslider.goToPrevSlide();
+			})
+			$(".keyvisual .bx-controls-btn .btn-next").on("click", function(e){
+				e.preventDefault(); 
+				_bxslider.goToNextSlide();
+			})
+
+
+			/* ===================== 비디오 upload =====================   */
+			$("#movie1").jPlayer({
+				ready: function () {
+					$(this).jPlayer("setMedia", {
+						poster: "./images/sample/video/poster_2.png",
+						m4v: "./images/sample/video/video.mp4"
+							//ogv: "./images/sample/video/video_1.ogv"
+							//webmv: "./images/sample/video/video_1.webmv"
+					}).jPlayer("stop");;
+				},
+				swfPath: "./js/library/jplayer/",
+				supplied: "m4v, webmv, ogv ",
+				size: {
+					width: "960",
+					height: "467",
+					cssClass: "jp-video-360p"
+				},
+				nativeVideoControls: {
+					ipad: /ipad/,
+					iphone: /iphone/,
+					android: /android/,
+					blackberry: /blackberry/,
+					iemobile: /iemobile/
+				},
+
+				useStateClassSkin: true,
+				autoBlur: false,
+				smoothPlayBar: true,
+				keyEnabled: true,
+				remainingDuration: true,
+				volume: 0.5,
+				loop: false,
+
+				//cssSelectorAncestor: "#player_wrap",
+				toggleDuration: true,
+				ended: function () { // 동영상 재생종료		
+					jPlayer_stop( $("#movie1"));   //console.log("upload 동영상 재생 종료!!")
+					_bxslider.goToNextSlide();
+					_bxslider.startAuto();
+				}
+
+			});	
+			function jPlayer_play(){
+				//$("#movie1").find("img").hide();
+				$("#movie1").next(".video-control").css({ opacity:0 });
+				$('#movie1').find("video").css({ height:"auto"});
+				$('#movie1').jPlayer('play');
+				$('#movie1').attr("playState",true);
+				_bxslider.stopAuto();
+			}
+
+			function jPlayer_stop(){
+				//$("#movie1").find("img").show();
+				$("#movie1").next(".video-control").css({ opacity:1 });
+				$('#movie1').find("video").css({ height:0});
+				$('#movie1').jPlayer('stop');
+				$('#movie1').attr("playState",false);
+				_bxslider.startAuto();
+			}
+			function jPlay_pause(){ 
+				$("#movie1").next(".video-control").css({ opacity:1 });
+				$('#movie1').jPlayer('pause');	
+				$('#movie1').attr("playState",false);
+				_bxslider.startAuto();
+			}
+
+
+			//동영상 버튼 클릭 영상 재생
+			$(".m-video .btn-play").on("click", function(e){
+				var _target = $('#movie1');
+				if(_target.attr("playState")=="true"){
+					jPlay_pause(); 
+				}else{
+					jPlayer_play();                                           
+				}
+				e.preventDefault();
+			});
+
+
+			/* ===================== 비디오 youtube ===================== */	
+			var uPlayer;
+			function onYouTubeIframeAPIReady() {
+				uPlayer = new YT.Player('movie2', {
+					width: '960',
+					height: '467',
+					videoId: 'TBfMy3_0HDc',
+					events: {
+						'onReady': uPlayer_stop,										
+						'onStateChange': onPlayerStateChange
+					}
+				});
+
+			}
+			/* 유투브 재생 */
+			function uPlayer_play() {
+				if(uPlayer){uPlayer.playVideo();};		
+			}
+
+			/* 유투브 재생정지 */
+			function uPlayer_stop() {
+				if(uPlayer){uPlayer.seekTo(0, true);uPlayer.stopVideo(); };
+			}
+			/* 유투브 상태이벤트  */
+			function onPlayerStateChange($event) {								
+				if($event.data ==  0 ){ // 재생종료! YT.PlayerState.ENDED
+					//console.log("유투브 동영상 재생 종료!!")									
+					_bxslider.goToNextSlide();
+					_bxslider.startAuto();
+				}else if($event.data ==  1 ){  // 재생중
+					_bxslider.stopAuto(); 
+				}
+			}
+
+		</script>
+	</div>
+	<!-- //메인 키비주얼 -->
+	
+	
+</body>
+</html>

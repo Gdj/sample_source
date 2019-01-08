@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="kr">
+<head>
+	<meta charset="UTF-8">  
+	<title>sample_vr360</title>
+	<link rel="stylesheet" href="./css/base.css" />
+	<script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="./js/library/jquery-ui-1.10.2.custom.min.js"></script> 
+	<script type="text/javascript" src="./js/library/spritespin.js"></script>
+	<style type="text/css">
+		.vr360 {   }
+		.vr360 .bg_cover  { position:absolute; top:0 ; left:0; z-index:5; }
+		.vr360 .bg_line { position:absolute; top:135px; left:367px;  width:950px; height:3px; z-index:2; }
+		.vr360 .bg_line .line-resieze {  width:0%;  height:1px;  background-color:#c5a72f; }
+		.vr360  #spritespin {  height:955px; }
+		.vr360  #slider {  position:absolute; top:130px; left:367px; z-index:10; }
+		.vr360  #slider.ui-slider-horizontal { width:950px; height:14px;  margin-top:0; }
+		.vr360  #slider.ui-widget-content { border:0; background:transparent  ;}
+		.vr360  #slider.ui-slider .ui-slider-handle {
+			position: absolute;
+			z-index: 2;
+			width: 14px;
+			height: 14px;
+			cursor: default;
+			border:0;
+			border-radius : 50%;
+			background:url(./images/sample/vr360/s1-7_dot.png) no-repeat 0 0;
+			}
+	 </style>
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+		var frames = SpriteSpin.sourceArray('./images/sample/vr360/VR_000{frame}.jpg', { 
+			frame: [0, 71], 
+			digits: 2 
+			});
+
+		var spin = $('#spritespin');
+		var slide = $('#slider');
+		
+		spin.spritespin({
+			source: frames,
+			width: 1920, // 1920
+			height: 955, // 955
+			sense: -1,				
+			animate: false,
+			onLoad: function(){								
+				slide.slider({
+					min: 0,
+					max: frames.length - 1,
+					slide: function(e, ui){
+						var api = spin.spritespin('api');
+						api.stopAnimation();
+						api.updateFrame(ui.value);
+					}
+				})
+			},
+			onFrame: function(e, data){				
+				slide.slider('value', data.frame);
+				
+				var _w = $(".ui-slider-handle").css("left");				
+				$(".vr360 .bg_line .line-resieze").css( { width: _w  });
+			}
+		});
+
+	}) // ready
+	</script>
+
+ </head>
+ <body>
+ 		<div class="vr360">
+			<img class="bg_cover"  src="./images/sample/vr360/s1-7.png" alt="" /> 
+			<div class="bg_line" >
+				<div class="line_box">
+					<div class="line-resieze"></div>
+				</div>
+			</div>
+			<div id="spritespin"></div>
+			<div id="slider"></div>
+		</div>
+ </body>  
+</html>
