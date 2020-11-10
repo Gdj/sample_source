@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>nanoScrollerJS</title>
+	<link rel="stylesheet" href="/js/library/nanoscrolle/nanoscroller.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.1.min.js" ></script>
+	<script src="/js/library/nanoscrolle/jquery.nanoscroller.min.js"></script>
+	<style>
+		.nano { background: #bba; width: 700px; height: 500px; }
+		.nano .nano-content { padding: 10px; }
+		.nano .nano-pane   { background: #888; }
+		.nano .nano-slider { background: #111; }
+	</style>
+</head>
+<body>
+	<div id="about" class="nano">
+		<div class="nano-content overthrow description" tabindex="0" style="right: -17px;">
+		
+		
+			<h1 id="nanoscroller-js">nanoScroller.js</h1>
+			<p><a href="https://github.com/jamesflorentino/nanoScrollerJS">nanoScroller.js</a> 
+			nanoScroller.js는 Mac OS X Lion 스타일의 스크롤바를 웹 사이트에 구현할 수있는 간단한 방법을 제공하는 jQuery 플러그인입니다. .nano> .nano-content 인 최소한의 HTML 마크 업을 사용합니다. 다른 스크롤 막대 div 요소 인 .pane> .nano-slider는 템플릿 처리가 복잡해지지 않도록 런타임 중에 추가됩니다. 최신 버전은 네이티브 스크롤 기능을 사용하며 iPad, iPhone 및 일부 Android 태블릿에서 작동합니다.
+			</p>
+			<h3 id="downloads">Downloads</h3>
+			<ul>
+				<li><a href="https://raw.github.com/jamesflorentino/nanoScrollerJS/master/bin/javascripts/jquery.nanoscroller.min.js">Production version</a></li>
+				<li><a href="https://raw.github.com/jamesflorentino/nanoScrollerJS/master/bin/javascripts/jquery.nanoscroller.js">Development version</a></li>
+				<li><a href="https://raw.github.com/jamesflorentino/nanoScrollerJS/master/bin/css/nanoscroller.css">Default stylesheet</a></li>
+			</ul>
+			<p>사용을 시작하려면 세 가지 기본 사항이 필요합니다:</p>
+			<h3 id="1-markup">1. Markup</h3>
+			<p>플러그인을 작동 시키려면 다음 유형의 마크 업 구조가 필요합니다.:</p>
+			<pre>
+<code class="lang-html">&lt;div id="about" class="nano"&gt;
+	&lt;div class="nano-content"&gt; ... content here ...  &lt;/div&gt;
+&lt;/div&gt;
+</code>
+			</pre>
+			<p>
+				HTML 마크 업을 복사하십시오. .nano를 콘텐츠와 관련된 것으로 변경하십시오. ID 참조가있는 상위 div가있는 경우 해당 속성을 제거 할 수도 있습니다. 예 : #parent> .nano. 나노 및 나노 컨텐츠 클래스 이름은 플러그인 옵션을 통해 사용자 정의 할 수 있습니다 (이 경우 플러그인의 CSS 파일에서도 이름을 변경해야합니다).
+			</p>
+			<h3 id="2-css">2. CSS</h3>
+			<p>
+				페이지의 head 섹션에있는 nanoscroller.css 파일에 링크하십시오 (... 페이지의 주요 스타일 시트 파일로 내용을 복사하십시오).
+			</p>
+			<pre><code class="lang-html">&lt;link rel="stylesheet" href="nanoscroller.css"&gt;</code></pre>
+			<p>컨테이너의 너비와 높이를 지정하고 스크롤바에 사용자 정의 스타일을 적용해야합니다. 다음은 그 예입니다.:</p>
+			<pre><code class="lang-css">.nano { background: #bba; width: 500px; height: 500px; }
+.nano .nano-content { padding: 10px; }
+.nano .nano-pane   { background: #888; }
+.nano .nano-slider { background: #111; }</code></pre>
+			<h3 id="3-javascript">3. JavaScript</h3>
+			<p>이 스크립트를 실행하면 nanoScroller 플러그인이 .nano className을 갖는 모든 DOM 요소에 적용됩니다.</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller();</code></pre>
+			<h3 id="advanced-methods">Advanced methods</h3>
+			<h3 id="scroll">scroll</h3>
+			<p>To scroll at the top:</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ scroll: 'top' });</code></pre>
+			<p>To scroll at the bottom:</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ scroll: 'bottom' });</code></pre>
+			<p>To scroll at the top with an offset value:</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ scrollTop: value });</code></pre>
+			<p>To scroll at the bottom with an offset value:</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ scrollBottom: value });</code></pre>
+			<p>To scroll to an element:</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ scrollTo: $('#a_node') });</code></pre>
+			<h4 id="stop-">stop:</h4>
+			<p>작업을 중지합니다. 이 옵션은 모든 이벤트 바인딩을 비활성화하고 UI에서 가제트 스크롤바를 숨기도록 플러그인에 지시합니다.</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ stop: true });</code></pre>
+			<h4 id="destroy-">destroy:</h4>
+			<p>Destroys nanoScroller and restores browser's native scrollbar.</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ destroy: true });</code></pre>
+			<h4 id="flash-">flash:</h4>
+			<p>플러그인 설정에서 정의 된 시간 동안 스크롤바 가젯을 플래싱합니다 (기본값은 1,5 초). 사용자를 기다리는 콘텐츠가 더 많다는 것을 사용자 (예 : 페이지로드)에 표시하려는 경우 유용합니다.</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ flash: true });</code></pre>
+			<h4 id="nanoscroller-">nanoScroller();</h4>
+			<p>스크롤바를 새로 고침하십시오. 이것은 단순히 스크롤바 가젯의 위치와 높이를 다시 계산합니다.</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller();</code></pre>
+			<h3 id="custom-events">Custom events</h3>
+			<h4 id="-scrollend-">'scrollend'</h4>
+			<p>사용자가 'scrollend'이벤트는 사용자가 content 요소의 끝까지 스크롤 할 때마다 요소에서 트리거됩니다 (사용자가 아래로 스크롤하려고 할 때 한 번 이상 트리거되지 않고 이미 스크롤 가능한 내용의 끝에 도달 한 경우).</p>
+			<pre><code class="lang-js">$(".nano").bind("scrollend", function(e){
+				console.log("current HTMLDivElement", e.currentTarget);
+		});</code></pre>
+			<p>일부 브라우저는 매번이 이벤트를 두 번 이상 트리거하므로 jQuery의 정상적인 <code> .bind </code> 또는 <code> .on </code>을 사용하는 대신 사용자 정의 이벤트를 듣기 위해 <a href="https://github.com/diaspora/jquery-debounce">이 작은 jQuery는 플러그인을 디버깅 </a>하여 브라우저가 귀하의 기능을 100ms에 한 번 이상 실행하지 못하도록합니다.</p>
+			<pre><code class="lang-js">$(".nano").debounce("scrollend", function() {
+				alert("The end");
+		}, 100);</code></pre>
+			<h4 id="-scrolltop-">'scrolltop'</h4>
+			<p>Same as the <code>'scrollend'</code> event, but it is triggered every time the user has scrolled to the top of the content element.</p>
+			<h3 id="plugin-options">Plugin Options</h3>
+			<p>There are a few options that you can change when running nanoScroller, e.g. <code>$(".nano").nanoScroller({ paneClass: 'myclass' });</code></p>
+			<h4 id="iosnativescrolling">iOSNativeScrolling</h4>
+			<p>
+				iOS 5 이상에서 기본 스크롤을 사용하려면 true로 설정하십시오. 이렇게하면 iOS 5+에서 사용자 정의 nanoScroller 스크롤바가 비활성화되고 기본 nanoScroller가 대신 사용됩니다. 기본 iOS 스크롤바는 대개 훨씬 잘 작동하지만 특정 상황에서는 <a href="https://github.com/ohaibbq/jquery-debounce">버그가있을 수 있습니다.</a>
+			</p>
+			<p>iOSNativeScrolling 옵션을 사용하면 iOS 기본 스크롤을 지원하는 장치에 .pane 및 .slider 요소가 생성되거나 추가되지 않습니다.</p>
+			<p><strong>Default:</strong> false</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ iOSNativeScrolling: true });</code></pre>
+			<h4 id="sliderminheight">sliderMinHeight</h4>
+			<p>슬라이더 요소의 최소 높이를 설정합니다.</p>
+			<p><strong>Default:</strong> 20</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ sliderMinHeight: 40 });</code></pre>
+			<h4 id="slidermaxheight">sliderMaxHeight</h4>
+			<p>슬라이더 요소의 최대 높이를 설정합니다.</p>
+			<p><strong>Default:</strong> null</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ sliderMaxHeight: 200 });</code></pre>
+			<h4 id="preventpagescrolling">preventPageScrolling</h4>
+			<p>content div의 상단이나 하단에 도달하면 페이지 스크롤을 방지하려면 true로 설정하십시오.</p>
+			<p><strong>Default:</strong> false</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ preventPageScrolling: true });</code></pre>
+			<h4 id="disableresize">disableResize</h4>
+			<p>nanoscroller에서 크기 조정을 사용하지 않으려면 true로 설정하십시오. resize 이벤트를 완전하게 제어하고 싶을 때 유용합니다. 이 옵션을 true로 설정하면 스크롤이 이상한 동작을하지 않도록 reset 메소드를 호출해야합니다.</p>
+			<p><strong>Default:</strong> false</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ disableResize: true });</code></pre>
+			<h4 id="alwaysvisible">alwaysVisible</h4>
+			<p>true로 설정하면 자동 숨기기에서 스크롤바가 멈 춥니 다.</p>
+			<p><strong>Default:</strong> false</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ alwaysVisible: true });</code></pre>
+			<h4 id="flashdelay-">flashDelay:</h4>
+			<p>이 설정을 사용하여 <code> flash </ code> 옵션을 활성화 한 경우 스크롤 막대 숨기기 지연을 밀리 초 단위로 지정하십시오.</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ flashDelay: 1000 });</code></pre>
+			<p><strong>Default:</strong> 1500</p>
+			<h4 id="paneclass">paneClass</h4>
+			<p>스크롤 바의 트럭 요소의 클래스 명입니다. 이 설정을 변경하면 플러그인의 CSS 파일에서 설정을 변경해야합니다.</p>
+			<p><strong>Default:</strong> 'nano-pane'</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ paneClass: 'scrollPane' });</code></pre>
+			<h4 id="sliderclass">sliderClass</h4>
+			<p>스크롤 바의 샘 요소의 클래스 명입니다. 이 설정을 변경하면 플러그인의 CSS 파일에서 설정을 변경해야합니다.</p>
+			<p><strong>Default:</strong> 'nano-slider'</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ sliderClass: 'scrollSlider' });</code></pre>
+			<h4 id="contentclass">contentClass</h4>
+			<p>콘텐츠 div의 클래스 이름입니다. 이 설정을 변경하면 플러그인의 CSS 파일에서 설정을 변경해야합니다.</p>
+			<p><strong>Default:</strong> 'nano-content'</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ contentClass: 'sliderContent' });</code></pre>
+			<h4 id="tabindex">tabIndex</h4>
+			<p>스크롤 가능한 내용의 탭 순서를 설정하십시오. 탭으로 이동할 때 스크롤 가능한 내용을 건너 뛰려면 -1로 설정하십시오.</p>
+			<p><strong>Default:</strong> 0</p>
+			<pre><code class="lang-js">$(".nano").nanoScroller({ tabIndex: 0 });</code></pre>
+			<h2 id="how-it-works">How it works</h2>
+			<p><img src="https://github.com/jamesflorentino/nanoScrollerJS/raw/master/fig1.png" alt="Fig 1."></p>
+			<p>플러그인은 스크롤바 가젯 (스타일을 정의하기 위해 CSS가 미리 정의되어 있음)을 만든 다음 <code> .nano-content </ code>의 스크롤 이벤트를 구독하여 작동합니다. 마우스 누르기 및 끌기 이벤트는 <code> .nano-pane </ code> 및 <code> .nano-pane> .nano-slider </ code>를 사용하여 네이티브 스크롤바의 메커니즘을 에뮬레이트 할 수 있습니다. 시스템 스크롤바는 뷰포트에서 숨겨져 있습니다 (그림 1). 이렇게함으로써 우리는 여전히 OS가 제공하는 자연스러운 스크롤링 경험을 유지합니다.</p>
+			<p>우리는 여전히 수평 스크롤 기능을 수행하고 있습니다. 프로젝트에 참여하는 데 관심이 있다면 자유롭게 포크하고 끌어 오기 요청을 만들 수 있습니다.</p>
+			<h3 id="development">Development</h3>
+			<p>소스에서 nanoScroller를 빌드하려면 다음 라이브러리가 설치되어 있어야합니다.:</p>
+			<ul>
+				<li>Node.js and npm: <a href="http://nodejs.org/">homepage / download</a></li>
+				<li>Grunt: <a href="http://gruntjs.com/">homepage</a> | <code>npm install -g grunt-cli</code></li>
+			</ul>
+			<h4 id="how-to-build-contribute">How to build &amp; contribute</h4>
+			<ol>
+				<li>Make sure that you have <a href="http://gruntjs.com/">Grunt</a> installed.</li>
+				<li>In terminal move to nanoscroller folder and run <code>npm install</code> to install all dependencies.</li>
+				<li>Make all Javascript changes in Coffeescript file(s), CSS changes in CSS file(s).</li>
+				<li>run <code>grunt</code> to build nanoScroller</li>
+				<li>Make sure that all changes are valid and open a pull request.</li>
+			</ol>
+			<h4 id="how-to-run-tests">How to run tests</h4>
+			<ol>
+				<li>You need to have <a href="http://phantomjs.org/">PhantomJS</a> installed. On Mac OS X the easiest way is to install <a href="http://mxcl.github.com/homebrew/">Homebrew</a> and run <code>brew install phantomjs</code>.</li>
+				<li>run <code>grunt test</code> in terminal</li>
+			</ol>
+			<h3 id="browser-compatibility">Browser compatibility</h3>
+			<p><strong>Tested desktop browsers:</strong></p>
+			<ul>
+				<li>IE7+</li>
+				<li>Firefox 3+</li>
+				<li>Chrome</li>
+				<li>Safari 4+</li>
+				<li>Opera 11.60+</li>
+			</ul>
+			<p><strong>Mobile support:</strong></p>
+			<ul>
+				<li>iOS 5+ (iPhone, iPad and iPod Touch)</li>
+				<li>iOS 4 (<em>with a polyfill</em>)</li>
+				<li>Android Firefox</li>
+				<li>Android 2.2/2.3 native browser (<em>with a polyfill</em>)</li>
+				<li>Android Opera 11.6 (<em>with a polyfill</em>)</li>
+				<li>If you see it's broken on other tablets and mobile devices, please file a ticket in the git repo. Along with model name, and OS of the device.</li>
+			</ul>
+			<p>If you find a bug, please report here at the <a href="https://github.com/jamesflorentino/nanoScrollerJS/issues">issues section</a>.</p>
+			<h3 id="using-a-polyfill-for-better-mobile-browser-support">Using a polyfill for better mobile browser support</h3>
+			<p>You can use <a href="https://github.com/filamentgroup/Overthrow/">overthrow.js</a> polyfill (~1.5kb minified and gzipped) to make nanoScroller work on many mobile devices. It emulates CSS overflow (overflow: auto;/overflow: scroll;) in devices that are lacking it.</p>
+			<p>To use overthrow, link to the javascript file in your HTML document...</p>
+			<pre><code class="lang-html">&lt;script src="overthrow.js"&gt;&lt;/script&gt;</code></pre>
+			<p>...and add an <code>overthrow</code> class to your <code>content</code> div.</p>
+			<pre><code class="lang-html">&lt;div id="about" class="nano"&gt;
+				&lt;div class="overthrow nano-content"&gt; ... content here ...  &lt;/div&gt;
+		&lt;/div&gt;</code></pre>
+			<h3 id="contributors">Contributors</h3>
+			<ul>
+				<li><a href="https://github.com/jamesflorentino">jamesflorentino</a></li>
+				<li><a href="https://github.com/kristerkari">kristerkari</a></li>
+			</ul>
+			<p>Other people who have contributed code:</p>
+			<ul>
+				<li><a href="https://github.com/weareoutman">weareoutman</a> #170</li>
+				<li><a href="https://github.com/Sailias">Sailias</a> #138</li>
+				<li><a href="https://github.com/antonpinchuk">antonpinchuk</a> #123</li>
+				<li><a href="https://github.com/miljan-aleksic">miljan-aleksic</a> #144</li>
+				<li><a href="https://github.com/callmevlad">callmevlad</a> #122</li>
+				<li><a href="https://github.com/bobo76">bobo76</a> #115</li>
+				<li><a href="https://github.com/mente">mente</a> #110</li>
+				<li><a href="https://github.com/livskiy">livskiy</a> #83</li>
+				<li><a href="https://github.com/iStefo">iStefo</a> #65</li>
+				<li><a href="https://github.com/tahajahangir">tahajahangir</a> #60</li>
+				<li><a href="https://github.com/n0valyfe">n0valyfe</a> #57</li>
+				<li><a href="https://github.com/johanbaath">johanbaath</a> #42</li>
+				<li><a href="https://github.com/marcelombc">marcelombc</a> #40, #46</li>
+				<li><a href="https://github.com/zacstewart">zacstewart</a> #30</li>
+				<li><a href="https://github.com/michael-lefebvre">michael-lefebvre</a> #22, #29</li>
+				<li><a href="https://github.com/AlicanC">AlicanC</a> #28</li>
+				<li><a href="https://github.com/camerond">camerond</a> #26</li>
+				<li><a href="https://github.com/jesstelford">jesstelford</a> #23</li>
+				<li><a href="https://github.com/lluchs">lluchs</a> #7, #8</li>
+				<li><a href="https://github.com/Dlom">Dlom</a></li>
+			</ul>
+			<h3 id="credits">Credits</h3>
+			<ul>
+				<li>Initially written by <a href="http://jamesflorentino.com">James Florentino</a> in <a href="http://coffeescript.org">CoffeeScript</a></li>
+				<li>Released under <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a></li>
+			</ul>
+
+		</div>
+	</div>
+	<script>
+		$(".nano").nanoScroller();
+	</script>
+</body>
+</html>

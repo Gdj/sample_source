@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>img map</title>  
+  <style>
+    .img-box { position: relative; max-width: 1000px; }
+    .img-box img { width: 100%;}
+    area { display: block; background-color: rgba(255,0,0,0.25) }
+  </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/library/jqRwdImageMaps/jquery.rwdImageMaps.js"></script>
+</head>
+<body>
+  
+  <h3><a href="https://github.com/stowball/jQuery-rwdImageMaps">jQuery-rwdImageMaps</a></h3>
+  <h4><a href="http://www.image-maps.com/">ImageMaps 영역 잡기</a></h4>
+  
+  <div class="img-box">
+    <img src="./images/test/map_img.jpg" alt="" usemap="#ImageMapsCom-image-maps">
+     <map name="ImageMapsCom-image-maps" id="ImageMapsCom-image-maps">
+      <area  alt="img1" title="img1" href="#" shape="rect" coords="238,37,468,258" style="" target="_self"     />
+      <area  alt="img2" title="img2" href="#" shape="rect" coords="111,403,258,573" style="" target="_self"     />
+      <area  alt="img3" title="img3" href="#" shape="rect" coords="447,414,594,584" style="" target="_self"     />
+      <area  alt="img4" title="img4" href="#" shape="rect" coords="118,608,265,778" style="" target="_self"     />
+      <area  alt="img5" title="img5" href="#" shape="rect" coords="449,606,596,776" style="" target="_self"     />
+      <area  alt="img6" title="img6" href="#" shape="rect" coords="218,806,513,1100" style="" target="_self"     />
+    </map>
+    <script>
+      $('img[usemap]').rwdImageMaps();
+    </script>
+    
+  </div>
+  
+</body>
+</html>

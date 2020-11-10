@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+	<script type="text/javascript" src="./js/library/jquery-1.10.2.min.js" ></script>
+    <script type="text/javascript" src="./js/library/progressbar/progressbar.js"></script>
+    <title>Guide LoadingCSS</title>
+    <style>
+    body {  background-color: #000; }
+    #container {
+	    margin: 20px;
+	    width: 54px;
+	    height: 54px;
+	}
+    </style>
+</head>
+<body>
+
+    <h2><a href="https://kimmobrunfeldt.github.io/progressbar.js/#circle" target="_blank">progressbar.js</a></h2>
+	<div id="container"></div>
+	<script>
+	var bar = new ProgressBar.Circle(container, {
+		  strokeWidth: 4,
+		  duration: 3000,
+		  color: '#5fa5f8',
+		  trailColor: '#eee',
+		  trailWidth: 4,
+		  svgStyle: null
+		});
+
+        bar.animate(0.3, {
+            duration: 800
+        }, function() {
+            console.log('Animation has finished');
+        });
+
+		// bar.stop();
+		//bar.set(0.45);
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jsun</title>
+ <script>
+    var obj = {'a':1, 'b': 2};
+      var fs = require('fs');
+          obj = JSON.stringify(obj); 
+          fs.writeFileSync('sample_json.json', obj, 'utf-8');
+  </script>
+  
+</head>
+<body>
+  <h1>sample_jsun.json 파일 편집</h1>
+  
+</body>
+</html>

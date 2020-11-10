@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>fetch</title>
+</head>
+<body>
+  
+  <article></article>
+  
+  <input type="button" value="fetch" onclick="
+    /*
+    fatch('html').then(function(response){
+      response.text().then(function(text){
+        document.querySelector('article').innerHTML = text;
+      })
+    })
+    */
+    
+    // Asynchronous // 비동기 , 
+    function callbackme($response){
+      console.log($response.status);
+      if($response.status == '404'){
+        alert('Not found');
+      }else{
+        alert('OK');
+      }
+    }
+    fetch('html').then(callbackme);
+    
+  ">
+  
+  
+  
+</body>
+</html>

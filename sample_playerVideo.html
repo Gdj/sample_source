@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>VideoPlayer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <script src="js/library/jquery-1.10.2.min.js"></script>
+    <script src="js/html5VideoControl.js"></script>
+    <style>
+        /*Play button*/
+        .video_box .btnPlay{}
+
+        /*Pause button*/
+        .video_box .btnPause{}
+
+        /*Stop button*/
+        .video_box .btnStop{}
+
+        /*Play/Pause button*/
+        .video_box .btnPlayPause{}
+
+        /*Play trpVideo_slider*/
+        .video_box .trpVideo_slider{ position: relative;
+            width: 500px;height: 10px;background-color: black;}
+        .video_box .trpVideo_slider .progress_bar{ display: block; width: 0px;height: 10px;background-color: red; z-index: 10;}
+        .video_box .trpVideo_slider .buffer_bar{width: 0px;height: 10px;background-color: gray; z-index: 5;}
+
+
+        /*Volume Up Button*/
+        .video_box .btnVolume_up{}
+
+        /*Volume Down Button*/
+        .video_box .btnVolume_down{}
+
+        /*btnSound_on_off Button*/
+        .video_box .btnSound_on_off{}
+
+        /*volumeSlider*/
+        .video_box .trpVideo_volumeSlider{width: 500px;height: 10px;background-color: black;}
+        .video_box .trpVideo_volumeSlider .progress_bar{ position: relative; padding-left: 10px;
+            display: block; width: 0px;height: 10px;background-color: green; z-index: 10;
+            box-sizing: border-box;
+        }
+        .video_box .trpVideo_volumeSlider .progress_bar:after {content: ''; display: inline-block; position: absolute; width:10px; height:10px;  right:0;
+            border-radius: 100%; background: #5bafe6; }
+    </style>
+</head>
+
+<body>
+
+    <section class="section">
+        <div class="video_box">
+            <p>해당 이미지를 누르면 컨텐츠가 선택됩니다. </p>
+            <video id="myVideo" controls preload="auto" poster="./images/audio_video/WeLoved.jpg" width="600" height="350" >
+              <source src="./images/audio_video/WeLoved.mp4" type="video/mp4" />
+              <!--<source src="http://demo.inwebson.com/html5-video/iceage4.webm" type="video/webM" />
+              <source src="http://demo.inwebson.com/html5-video/iceage4.ogv" type="video/ogg" />-->
+              <p>Your browser does not support the video tag.</p>
+            </video>
+            <video id="myVideo2" preload="auto" poster="./images/audio_video/MasterOfTheMask.jpg" width="600" height="350" >
+              <source src="./images/audio_video/MasterOfTheMask.mp4" type="video/mp4" />
+              <!--<source src="http://demo.inwebson.com/html5-video/iceage4.webm" type="video/webM" />
+              <source src="http://demo.inwebson.com/html5-video/iceage4.ogv" type="video/ogg" />-->
+              <p>Your browser does not support the video tag.</p>
+            </video>
+            <div class="vedio-player">
+
+                <div>
+                    <strong>play bar</strong>
+                    <div class="trpVideo_slider" onmousedown="trpVideo_progress(this,event)"  >
+                        <!--<span class="buffer_bar"></span>-->
+                        <span class="progress_bar"></span>
+                    </div>
+                    <div class="trpVideoTimebar-box">
+                        <span class="trpVideoCurrentTime"></span> /
+                        <span class="trpVideoTotalTime"></span>
+                    </div>
+                    <a href="#none" class="btnPlay "  title="play video">play</a>
+                    <a href="#none" class="btnPause " title="pause video">pause</a>
+                    <a href="#none" class="btnStop "  title="Stop video">stop</a>
+                    <a href="#none" class="btnPlayPause " title="Play/Pause video">Play/Pause</a>
+                    <br>
+                    <a href="#none" class="btnFS "    title="Switch to full screen">video_fullscreen</a>
+                </div>
+
+                <br>
+
+                <div>
+                    <strong>sound bar</strong>
+                    <div class="trpVideo_volumeSlider" title="Set volume" onmousedown="trpVideo_volume(this,event)">
+                        <span class="progress_bar"></span>
+                    </div>
+                    <a href="#none" class="btnVolume_up"     title="Volume up  ">Volume up</a>
+                    <a href="#none" class="btnVolume_down"   title="Volume down">Volume down</a>
+                    <a href="#none" class="btnSound_on_off"  title="Mute/Unmute sound">sound on/off</a>
+                </div>
+
+                <br>
+
+                <div>
+                    <strong>download</strong>
+                    <di>
+                        <a href="/resources/eco/images/@temp/WeLoved.mp4" download>myVideo</a>
+                        <a href="/resources/eco/images/@temp/MasterOfTheMask.mp4" download>myVideo2</a>
+                    </di>
+                </div>
+            </div>
+            <div class="loading"></div>
+        </div>
+
+        <script>
+        /* 비디오 선택 */
+        trpVideo_set("#myVideo2", ".vedio-player");
+        $("#myVideo").on("click", function(){
+            trpVideo_set("#myVideo", ".vedio-player");
+            //video_play();
+        })
+
+        $("#myVideo2").on("click", function(){
+            trpVideo_set("#myVideo2", ".vedio-player");
+            //video_play();
+        })
+
+        /* 비디오 컨트롤 */
+        $(".btnPlay").on("click",           function(){ trpVideo_play(); });
+        $(".btnPause").on("click",          function(){ trpVideo_pause(); });
+        $(".btnStop").on("click",           function(){ trpVideo_stop(); });
+        $(".btnPlayPause").on("click",      function(){ trpVideo_playpause(); });
+        $(".btnFS").on("click",             function(){ trpVideo_fullscreen(); });
+
+        /* 사운드 컨트롤 */
+        $(".btnVolume_up").on("click", function(){
+            trpVideo_changeVolume(10, "up");
+        })
+        $(".btnVolume_down").on("click", function(){
+            trpVideo_changeVolume(10, "down");
+        })
+        $(".btnSound_on_off").on("click",   function(){
+            var _onOff = trpVideo_soundonoff();
+            if(_onOff){
+                $(this).addClass("off");
+            }else{
+                $(this).removeClass("off");
+            }
+        });
+
+
+        /*
+        $(".video_box .progress").on("mousedown", function($e){
+            video_progress(this, $e);
+        });
+        */
+
+
+        </script>
+    </section>
+
+</body>
+</html>

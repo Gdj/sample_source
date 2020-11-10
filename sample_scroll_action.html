@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="kr">
+ <head>
+  <meta charset="UTF-8">  
+  <title>sample_guide</title>
+  <link rel="stylesheet" href="./css/base.css" />
+  <link rel="stylesheet" href="./css/common.css" />
+  <!--<link rel="stylesheet" href="./css/skin/blue.monday/css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css" />-->
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <!--<script type="text/javascript" src="./js/library/jquery.easing.1.3.min.js"></script>
+  <script type="text/javascript" src="./js/library/jquery-ui-1.10.2.custom.min.js"></script> 
+  <script type="text/javascript" src="./js/library/jsmovie/jquery.jsmovie.1.4.4.js"></script>
+  <script type="text/javascript" src="./js/library/jquery.fitvids.js"></script>
+  <script type="text/javascript" src="./js/library/rolling_number.js"></script>-->
+  <script type="text/javascript" src="./js/scrollActive.js"></script>
+ </head>
+ <body data-page="main">
+ 	<style>
+ 		p { height:50px }
+		.point1 { height:100%; background-color: #CC0000 }
+		.point2 { height:100%; background-color: #008000 }
+ 	</style>
+	<p>=====start=====</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p class="point1">=================================================================ok point1</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<p class="point2">=================================================================ok point2</p>
+	<p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+    <p>no</p><p>no</p><p>no</p><p>no</p><p>no</p>
+	<a href="#" id="pagePrev"> PREV </a> <a href="#" id="pageNext"> NEXT </a>
+	<p>=====end=====</p>
+	
+	<script type="text/javascript">
+
+		/* ========================= 스크롤 반응 실행 ======================== */
+		var offSet = 0;							  // 컨텐츠 위치 상대값
+		var off1 = true;						  // 컨텐츠1 실행&초기화
+		var off1Y =$(".point1").offset().top;	  // 컨텐츠1 Y위치
+		var off2 = true;                          // 컨텐츠1 실행&초기화
+        var off2Y =$(".point2").offset().top;     // 컨텐츠1 Y위치
+		
+		// 스크롤 할때 실행 함수 
+		function scrollCall(){	
+			offSet = (RESIZE_HEIGHT/2);          // 윈도우 크기 절반
+			
+			off1Y =$(".point1").offset().top;      // 컨텐츠1 Y위치
+			off1 = callBackScrollActive( off1Y, offSet, off1, function(){
+				console.log("실행1");
+			}, function(){
+				console.log("초기화1");
+			});
+			
+			off2Y =$(".point2").offset().top;     // 컨텐츠1 Y위치
+			off2 = callBackScrollActive( off2Y, offSet, off2, function(){
+                console.log("실행2");
+            }, function(){
+                console.log("초기화2");
+            });
+                									
+			resizeCall();
+		}	
+       
+            
+		// 리싸이즈 할때 실행 함수
+		function resizeCall(){
+			$(".point1").css({ height:RESIZE_HEIGHT });
+			$(".point2").css({ height:RESIZE_HEIGHT });
+		}
+		 resizeCall();
+	
+		
+	</script>
+ </body>  
+</html>

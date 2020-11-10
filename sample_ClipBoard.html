@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<div id='editableDiv' contenteditable='true'>Paste 붙여넣기 이벤트</div>
+	<button id='btn1'>copyToExecCommand</button> 
+	<button id='btn2'>copyToClipboard</button>
+	<button onClick="$('#id_dextarea').val('')">del</button>
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.1.min.js" ></script>
+	<script>
+	function copyToExecCommand($val) {
+		var t = document.createElement("textarea");
+		$(t).css({ position: 'fixed', top:'-999px', opacity: '0' });
+		document.body.appendChild(t);
+		t.value = $val;
+		t.select();
+		document.execCommand('copy');
+		document.body.removeChild(t);
+		alert("복사되었습니다.");
+		return;
+	}
+	$('#btn1').click(function() {
+		copyToExecCommand($("#editableDiv").text());
+	});		
+</script>
+
+<br><br><br><br><br><br>
+
+
+<script type="text/javaScript">
+	function copyToClipboard($val) {
+		if( is_ie() ) {
+			window.clipboardData.setData("Text", $val);
+			alert("복사되었습니다.");
+			return;
+		}
+		prompt("Ctrl+C를 눌러 복사하세요.", $val);
+		function is_ie() {
+			if(navigator.userAgent.toLowerCase().indexOf("chrome") != -1) return false;
+			if(navigator.userAgent.toLowerCase().indexOf("msie") != -1) return true;
+			if(navigator.userAgent.toLowerCase().indexOf("windows nt") != -1) return true;
+			return false;
+		}
+	}
+	$('#btn2').click(function() {
+		copyToClipboard($("#editableDiv").text());
+	});		
+</script>
+ 
+
+<textarea id="id_dextarea" name="" id="" cols="30" rows="10"></textarea>
+</body>
+</html>

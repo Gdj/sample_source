@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>AudioPlayer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <script src="js/library/jquery-1.10.2.min.js"></script>
+    <script src="js/html5AudioControl.js"></script>
+    <style>
+        /*Play button*/
+        .music_box .btnPlay{}
+
+        /*Pause button*/
+        .music_box .btnPause{}
+
+        /*Stop button*/
+        .music_box .btnStop{}
+
+        /*Play/Pause button*/
+        .music_box .btnPlayPause{}
+
+        /*Song location slider*/
+        .music_box .trpAudio_slider{width: 500px;height: 10px;background-color: black;}
+        .music_box .trpAudio_slider .progress_bar{
+            width: 0px;height: 10px;background-color: red;
+        }
+
+
+        /*Volume Up Button*/
+        .music_box .volumeUp{}
+
+        /*Volume Down Button*/
+        .music_box .volumeDown{}
+
+        /*btnSound_on_off Button*/
+        .music_box .btnSound_on_off{}
+
+        /*volumeSlider*/
+        .music_box .trpAudio_volumeSlider {width: 500px;height: 10px;background-color: black;}
+        .music_box .trpAudio_volumeSlider .progress_bar{height: 10px;background-color: green;}
+    </style>
+</head>
+
+<body>
+
+    <section class="section">
+        <div class="music_box">
+            <audio id="song" ontimeupdate="trpAudio_updateTime()">
+                <source src="./images/audio_video/Bolbbalgan4_WeLoved.mp3" type="audio/mpeg" />
+                <!--<source src="sound/interlude.ogg" type="audio/ogg" />-->
+                Your browser does not support the audio tag.
+            </audio>
+
+            <div class="audio-player">
+                <strong>play bar</strong>
+                <div class="trpAudio_slider" onmousedown="trpAudio_progress(this,event)">
+                    <div class="progress_bar"></div>
+                </div>
+                <div class="trpAudioTimebar-box">
+                    <span class="trpAudioCurrentTime"></span> /
+                    <span class="trpAudioTotalTime"></span>
+                </div>
+                <a href="#none" class="btnPlay "  title="play video">play</a>
+                <a href="#none" class="btnPause " title="pause video">pause</a>
+                <a href="#none" class="btnStop "  title="Stop video">stop</a>
+                <a href="#none" class="btnPlayPause " title="Play/Pause video">Play/Pause</a>
+            </div>
+
+            <br>
+
+            <div>
+                <strong>sound bar</strong> trpAudio_volumeSlider
+                <div class="trpAudio_volumeSlider" onmousedown="trpAudio_volume(this,event)">
+                    <div class="progress_bar"></div>
+                </div>
+                <a href="#none" class="btnVolume_up"     title="Volume up  ">Volume up</a>
+                <a href="#none" class="btnVolume_down"   title="Volume down">Volume down</a>
+                <a href="#none" class="btnSound_on_off"  title="Mute/Unmute sound">sound on/off</a>
+                <a href="#none" class="volumeThirty"     onclick="trpAudio_volumeUpdate(30)">volume 30</a>
+
+            </div>
+        </div>
+        <script>
+            trpAudio_set("song" , ".music_box");
+
+            /* 비디오 컨트롤 */
+            $(".btnPlay").on("click",       function(){ trpAudio_play(); });
+            $(".btnPause").on("click",      function(){ trpAudio_pause(); });
+            $(".btnStop").on("click",       function(){ trpAudio_stop(); });
+            $(".btnPlayPause").on("click",  function(){ trpAudio_playpause(); });
+
+            /* 사운드 컨트롤 */
+            $(".btnVolume_up").on("click", function(){
+                trpAudio_changeVolume(10, "up");
+            })
+            $(".btnVolume_down").on("click", function(){
+                trpAudio_changeVolume(10, "down");
+            })
+            $(".btnSound_on_off").on("click",   function(){
+                var _onOff = trpAudio_soundonoff();
+                if(_onOff){
+                    $(this).addClass("off");
+                }else{
+                    $(this).removeClass("off");
+                }
+            });
+        </script>
+    </section>
+    <!-- //컨텐츠 -->
+
+</body>
+</html>

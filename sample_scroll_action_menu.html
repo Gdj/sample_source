@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sample_pageScroll</title>
+	<script type="text/javascript" src="./js/library/jquery-1.10.2.min.js" ></script>
+	<script type="text/javascript" src="./js/library/jquery.easing.1.3.min.js" ></script>
+	<script type="text/javascript" src=./js/scrollActive.js></script>
+	<style>
+		a:link, a:visited  { text-decoration:none; color:#333; }
+		a:active, a:hover, a:focus { text-decoration:underline; }
+		
+		.menu-list { position: fixed; top:0;}
+		.menu-list li{ float: left; margin-right: 30px; }
+		.btn-scroll.on { color: red; text-decoration: underline; }
+		
+		div { height: 500px; font-size: 30px; line-height: 2; text-align: right; font-weight: bold; }
+		#sroll_0 { background-color: burlywood;}
+		#sroll_1 { background-color: antiquewhite;}
+		#sroll_2 { background-color: aquamarine;}
+		#sroll_3 { background-color: blueviolet;}
+		
+	</style>
+</head>
+<body>
+	<ul class="menu-list">
+		<li><a href="#sroll_0" class="btn-scroll">sroll0</a></li>
+		<li><a href="#sroll_1" class="btn-scroll">sroll1</a></li>
+		<li><a href="#sroll_2" class="btn-scroll">sroll2</a></li>
+		<li><a href="#sroll_3" class="btn-scroll">sroll3</a></li>		
+	</ul>
+	
+	<div id="sroll_0">0</div>
+	<div id="sroll_1">1</div>
+	<div id="sroll_2">2</div>
+	<div id="sroll_3">3</div>
+	
+	<script type="text/javascript">
+		
+		/* ========================= 스크롤 반응 실행 ======================== */
+		var offSet = 0;							  // 컨텐츠 위치 상대값
+		var offSet = 0;                           // 컨텐츠 위치 상대값
+		var off0 = true;                          // 섹션0 실행&초기화
+		var off0Y =$("#sroll_0").offset().top;     // 섹션0 Y위치
+		var off1 = true;                          // 섹션1 실행&초기화
+		var off1Y =$("#sroll_1").offset().top;     // 섹션1 Y위치
+		var off2 = true;                          // 섹션2 실행&초기화
+		var off2Y =$("#sroll_2").offset().top;     // 섹션2 Y위치
+		var off3 = true;                          // 섹션3 실행&초기화
+		var off3Y =$("#sroll_3").offset().top;     // 섹션3 Y위치
+		var offBarr = [ off0, off1, off2, off3 ] 
+		
+		// 스크롤 할때 실행 함수 
+		function scrollCall(){	
+			resizeCall();
+			
+			offSet = (RESIZE_HEIGHT/2);          // 윈도우 크기 1/4 위치 올라가면 실행
+			
+			off0Y =$("#sroll_0").offset().top; 
+			off0 = callBackMenuActive( off0Y, offSet, off0, function(){
+			   menuActive(0);//console.log("실행0");		
+			}, function(){
+			  //console.log("초기화0");
+			});
+			
+			off1Y =$("#sroll_1").offset().top;  
+			off1 = callBackMenuActive( off1Y, offSet, off1, function(){
+				menuActive(1);//console.log("실행1");			
+			}, function(){
+				menuActive(0);//console.log("초기화1");
+			});
+
+			off2Y =$("#sroll_2").offset().top; 
+			off2 = callBackMenuActive( off2Y, offSet, off2, function(){
+				menuActive(2);//console.log("실행2");			
+			}, function(){
+				menuActive(1);//console.log("초기화2");
+			});
+
+			off3Y =$("#sroll_3").offset().top; 
+			off3 = callBackMenuActive( off3Y, offSet, off3, function(){
+				menuActive(3);//console.log("실행3");				
+			}, function(){
+				menuActive(2);//console.log("초기화3");
+			});			
+		
+                									
+			
+		}	
+       
+            
+		// 리싸이즈 할때 실행 함수
+		function resizeCall(){
+			$("div").css({height:RESIZE_HEIGHT});  
+		}
+		
+		
+	     
+
+		// 버튼 스크롤
+		$('.btn-scroll').click(function(e){
+			e.preventDefault();
+			var target = $(this).attr('href');
+			var targetOffset = $(target).offset().top; 
+			var targetIndex = $(this).parent().index();
+			menuActive(targetIndex);
+			pageScroll(targetOffset);
+		});
+		
+		// 메뉴 활성화 
+		function menuActive($index){
+			$('.btn-scroll').removeClass("on");
+			$('.btn-scroll').eq($index).addClass("on");
+			for (i in offBarr){
+				  offBarr[i] = false;
+			}
+			offBarr[$index] = true;
+		}
+		
+		// 타겟 스크롤 
+		function pageScroll($tarOffsetY){
+			$('html,body').stop().animate({scrollTop: $tarOffsetY}, 1000, 'easeOutExpo');			
+		}
+		
+		
+		
+	  $(window).ready(function () {
+		   scrollCall();
+	  })
+	</script>
+
+</body>
+</html>

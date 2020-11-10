@@ -1,0 +1,1 @@
+$("body").append("<div> common.js 로드 완료!! </div>")

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+  font-size:16px;
+  font-family: Dotum,'돋움',Helvetica,"Apple SD Gothic Neo",sans-serif;
+  color: #333;
+}
+
+div {
+  font-size: 30px;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
+#top-div {
+  font-size: 1rem;
+  border: 1px solid red; background-color: aquamarine
+}#top-div2 {
+  font-size: 30px;
+  font-size: 1vw;
+  border: 1px solid red; background-color: burlywood
+}
+  .box { width: 50vw; height: 30px; }
+</style>
+</head>
+<body>
+
+<p>The font-size of this document is 16px.</p>
+
+<div id="top-div">
+The font-size of this document is (fons-size)1rem<br>
+The font-size of this div element is 2rem, which translates to 2 x the browser's font size.
+<div>The font-size of this div element is 3rem. It also shows that it does not inherit from its parent element font size.
+  <div id="top-div">The font-size of this document is</div>
+</div>
+<div class="box">(box-size)50vw</div>
+</div>
+
+<p>The font-size of this document is 16px.</p>
+
+<div id="top-div2">
+The font-size of this document is (fons-size)1vw<br>
+The font-size of this div element is 2rem, which translates to 2 x the browser's font size.
+<div>The font-size of this div element is 3rem. It also shows that it does not inherit from its parent element font size.
+  <div id="top-div2">The font-size of this document is</div>
+</div>
+<div class="box">(box-size)50vw</div>
+</div>
+
+<p>The rem unit sets the font-size relative to the browsers base font-size, and will not inherit from its parents.</p>
+
+<div>
+  The font-size of this document is 16px.
+  <p>The font-size of this document is 16px.
+    <span>The font-size of this document is 16px.</span>
+    <a href="#">The font-size of this document is 16px.</a>
+    <em>The font-size of this document is 16px.</em>
+  </p>
+</div>
+ 
+<p>font : 1vw ( root 100%) = (window 1600px , font-size 16px)</p>
+<p>box  : 100vw ( root 100%) </p>
+
+</body>
+</html>

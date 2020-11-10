@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>lottie Web Player</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.1.min.js" ></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
+  <style>
+    #movin { width: 300px; background-color: aqua }    
+    table , th, td { border: 1px solid #888; border-spacing: 0;border-collapse: collapse;}
+  </style>
+</head>
+<body>
+  <h1><a href="https://lottiefiles.com/web-player">lottie player</a></h1>
+  <h2><a href="https://www.webcomponents.org/element/@lottiefiles/lottie-player">lottie player API</a></h2>
+  <h2><a href="https://svgsprite.com/tools/lottie-player/">lottie player Tools</a></h2>
+  <hr>
+  
+  
+  <div id="movin"></div>
+  
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <lottie-player
+      src="./js/lottie_data.json"  speed="1"  style="width: 300px; height: 300px;"  mode="normal" loop controls autoplay >
+  </lottie-player>  
+  
+
+  <br><br><br><br>
+  
+  <div>
+    <h2>Properties</h2>
+    <table class="style-scope catalog-element-readme">
+    <thead class="style-scope catalog-element-readme">
+      <tr class="style-scope catalog-element-readme">
+        <th class="style-scope catalog-element-readme">Property</th>
+        <th class="style-scope catalog-element-readme">Attribute</th>
+        <th class="style-scope catalog-element-readme">Description</th>
+        <th class="style-scope catalog-element-readme">Type</th>
+        <th class="style-scope catalog-element-readme">Default</th>
+      </tr>
+    </thead>
+    <tbody class="style-scope catalog-element-readme">
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">autoplay</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">autoplay</code></td>
+        <td class="style-scope catalog-element-readme">Autoplay animation on load.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">boolean</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">false</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">background</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">background</code></td>
+        <td class="style-scope catalog-element-readme">Background color.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">string</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">undefined</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">controls</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">controls</code></td>
+        <td class="style-scope catalog-element-readme">Show controls.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">boolean</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">false</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">count</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">count</code></td>
+        <td class="style-scope catalog-element-readme">Number of times to loop animation.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">number</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">undefined</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">direction</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">direction</code></td>
+        <td class="style-scope catalog-element-readme">Direction of animation.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">number</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">1</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">hover</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">hover</code></td>
+        <td class="style-scope catalog-element-readme">Whether to play on mouse hover.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">boolean</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">false</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">loop</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">loop</code></td>
+        <td class="style-scope catalog-element-readme">Whether to loop animation.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">boolean</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">false</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">mode</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">mode</code></td>
+        <td class="style-scope catalog-element-readme">Play mode.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">PlayMode.Bounce | PlayMode.Normal</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">PlayMode.Normal</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">renderer</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">renderer</code></td>
+        <td class="style-scope catalog-element-readme">Renderer to use.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">"svg"</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">'svg'</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">speed</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">speed</code></td>
+        <td class="style-scope catalog-element-readme">Animation speed.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">number</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">1</code></td>
+      </tr>
+      <tr class="style-scope catalog-element-readme">
+        <td class="style-scope catalog-element-readme">
+          <code class="style-scope catalog-element-readme">src</code> <em class="style-scope catalog-element-readme">(required)</em>
+        </td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">src</code></td>
+        <td class="style-scope catalog-element-readme">Bodymovin JSON data or URL to JSON.</td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">string</code></td>
+        <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">undefined</code></td>
+      </tr>
+    </tbody>
+    </table>
+    
+    <br><br>
+    <h2>EVENT</h2>
+    <table class="style-scope catalog-element-readme">
+      <thead class="style-scope catalog-element-readme">
+        <tr class="style-scope catalog-element-readme">
+          <th class="style-scope catalog-element-readme">Name</th>
+          <th class="style-scope catalog-element-readme">Description</th>
+        </tr>
+      </thead>
+      <tbody class="style-scope catalog-element-readme">
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">load</code></td>
+          <td class="style-scope catalog-element-readme">Animation data is loaded.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">error</code></td>
+          <td class="style-scope catalog-element-readme">An animation source cannot be parsed, fails to load or has format errors.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">ready</code></td>
+          <td class="style-scope catalog-element-readme">Animation data is loaded and player is ready.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">play</code></td>
+          <td class="style-scope catalog-element-readme">Animation starts playing.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">pause</code></td>
+          <td class="style-scope catalog-element-readme">Animation is paused.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">stop</code></td>
+          <td class="style-scope catalog-element-readme">Animation is stopped.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">freeze</code></td>
+          <td class="style-scope catalog-element-readme">Animation is paused due to player being invisible.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">loop</code></td>
+          <td class="style-scope catalog-element-readme">An animation loop is completed.</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">complete</code></td>
+          <td class="style-scope catalog-element-readme">Animation is complete (all loops completed).</td>
+        </tr>
+        <tr class="style-scope catalog-element-readme">
+          <td class="style-scope catalog-element-readme"><code class="style-scope catalog-element-readme">frame</code></td>
+          <td class="style-scope catalog-element-readme">A new frame is entered.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  
+  
+</body>
+</html>

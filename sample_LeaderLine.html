@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sample_LeaderLine</title>
+  <script src="./js/leader-line.min.js"></script>
+  
+  <style>
+    .wrap { position: relative; }
+    .box { position: absolute; padding: 5px 10px; background-color: aqua}
+    .sta  { top:10px;  left: 10px;  }
+    .end  { top:100px; left: 400px; }  
+    .sta1 { top:100px; left: 10px;  }
+    .end1 { top:150px; left: 400px; }
+    .sta2 { top:100px; left: 500px;  }
+    .end2 { top:150px; left: 900px; }    
+    .sta3 { top:200px; left: 10px;  }
+    .end3 { top:250px; left: 400px; }
+  </style>
+  
+</head>
+<body>
+ <h2>
+   <a href="https://anseki.github.io/leader-line">leader-line</a>
+ </h2>
+ <div class="wrap">
+    <div id="sta" class="box sta">start</div>
+    <div id="end" class="box end">end</div>    
+    
+    <div id="sta1" class="box sta1">start</div>
+    <div id="end1" class="box end1">end</div>
+    
+    <div id="sta2" class="box sta2">start</div>
+    <div id="end2" class="box end2">end</div> 
+    
+    <div id="sta3" class="box sta3">start</div>
+    <div id="end3" class="box end3">end</div>
+ </div>
+  <script>
+    /*new LeaderLine(
+      $(".start"), $(".end")
+    );
+    */
+    var sta   = document.getElementById('sta'),
+        end   = document.getElementById('end'),
+        sta1  = document.getElementById('sta1'),
+        end1  = document.getElementById('end1'),
+        sta2  = document.getElementById('sta2'),
+        end2  = document.getElementById('end2'),       
+        sta3  = document.getElementById('sta3'),
+        end3  = document.getElementById('end3');
+    
+    /* 0 기본형 */
+    var aa = new LeaderLine(sta ,end );
+    
+    
+    /* 1 도트 모션 */
+    var bb = new LeaderLine( sta1, end1, 
+      {
+        path : "grid",            /* 각진라인 */
+        dash: {animation: {duration:500 }},  /* 도트 모션 */
+        startSocket: 'top',       /* 시작 방향 */
+        endSocket: 'bottom',       /* 도착 방향 */
+        startSocketGravity: [0, -30],  /* x,y */
+        endSocketGravity:   [-150, 30],  /* x,y */
+      
+      }
+    );
+    
+    setInterval( function(){      // 실시간 감시
+      bb.position();
+    },100)
+    
+    /* 2
+    컬러, 라인 기울기  */
+    var cc = new LeaderLine( sta2 , LeaderLine.pointAnchor(end2, {x: '100%', y: 10}));
+    cc.setOptions({                                       // x,y
+      startSocketGravity: [50, -172],
+      endSocketGravity: [-192, -172],
+      
+      startPlug: "square",    // 시작 모양 (discs, quare, arrow1, arrow2, arrow3, hand, crosshair, behind)
+      endPlug :  "disc",      // 도착 모양
+      
+      startLabel: 'START',    // 시작 라벨
+      middleLabel: 'MIDDLE',  // 중간 라벨    
+      endLabel: 'END',        // 끝 라벨
+      
+      color: "#f00"
+    })
+    
+    
+    /* 3 라벨 변경 */
+    var dd = new LeaderLine( sta3 , end3);
+    //dd.middleLabel = LeaderLine.captionLabel('lineOffset: ' + 50 , {color: 'blue', lineOffset: 50});
+    dd.middleLabel = LeaderLine.pathLabel('lineOffset: ' + 50 , {color: '#00bb00', lineOffset: 50});
+      
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - Welcome</title>
+  <meta charset="utf-8">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+  <!-- <script src="fetch/fetch.js"></script>-->
+  <script src=https://cdn.jsdelivr.net/npm/promise-polyfill@8.1/dist/polyfill.min.js></script>
+  <script src=https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0/dist/fetch.umd.min.js></script>
+  
+  
+  
+  
+</head>
+<body>
+  <h1><a href="index.html">WEB</a></h1>
+  <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+  <ol id="nav">
+    
+  </ol>
+  
+  <article>
+    
+  </article>
+  
+  <script>
+    /* 컨텐츠 내용 가져오기 */
+    function fetchPage(name){
+      fetch(name).then(function($response){
+        $response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        })
+      });
+    }
+    
+    /* 해쉬테그 있으면  */
+    if(location.hash){
+      fetchPage(location.hash.substr(2)); // 0:# 1:! 2:이름만 출력
+    }else{
+      fetchPage("welcome");
+    }
+    
+    
+    /* 리스트 목록 가져오기 */
+    fetch('list').then(function($response){
+      $response.text().then(function(text){        
+        console.log(text);
+        var items = text.split(',');
+        var i = 0; 
+        var tags = '';
+        while(i < items.length){
+          var item = items[i];
+          item = item.trim();     // 공백 제거
+          //<li><a href="#!html"       onclick="fetchPage('html')">HTML</a></li>
+          var tag = '<li><a href="#!'+ item +'"       onclick="fetchPage(\''+ item +'\')">'+ item +'</a></li>';
+          tags = tags + tag;
+          i = i + 1; 
+        }
+        console.log(items);
+        document.querySelector('#nav').innerHTML = tags;
+      })
+    });
+    
+  </script>
+  
+</body>
+</html>

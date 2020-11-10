@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>swiper youtube</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
+	<script src="https://www.youtube.com/player_api?enablejsapi=1"></script>
+	<style>
+		.swiper-container {
+			height: 500px;
+		}
+
+		.swiper-slide {
+			background: #fff;
+			text-align: center;
+		}
+
+		.video-container {
+			position: relative;
+			padding-bottom: 67%;
+		}
+
+		.video-play,
+		.video-container iframe,
+		.video-container object,
+		.video-container embed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.video-container iframe,
+		.video-container object,
+		.video-container embed {
+			pointer-events: none;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<div class="video-container" data-id="afERIdorzEo">
+					<div class="video-iframe"></div>
+					<div class="video-play">
+					</div>
+				</div>
+			</div>
+			<div class="swiper-slide">Slide 7</div>
+			<div class="swiper-slide">
+				<div class="video-container" data-id="-Y42e6FcWP0">
+					<div class="video-iframe"></div>
+					<div class="video-play">
+					</div>
+				</div>
+			</div>
+			<div class="swiper-slide">Slide 8</div>
+			<div class="swiper-slide">
+				<div class="video-container" data-id="WBurbI8d3qI">
+					<div class="video-iframe"></div>
+					<div class="video-play">
+					</div>
+				</div>
+			</div>
+			<div class="swiper-slide">Slide 10</div>
+		</div>
+	</div>
+	<script>
+		var initPlayer = function(element) {
+		var player = element.querySelector('.video-iframe');
+		var button = element.querySelector('.video-play');
+		var ytplayer = new YT.Player(player, {
+			playerVars: {
+				'autoplay': 0,
+				'modestbranding': 1,
+				'controls': 0,
+				'rel': 0,
+			},
+			videoId: element.dataset.id
+		});
+
+		button.addEventListener('click', function() {
+			switch (ytplayer.getPlayerState()) {
+				case 1:
+					ytplayer.stopVideo();
+					break;
+				default:
+					ytplayer.playVideo();
+					break;
+			}
+		})
+	}
+
+	var swiper = new Swiper('.swiper-container', {
+		'onSlideChangeStart': function(swiper) {
+			// stop video on change
+			var isVideo = swiper.slides[swiper.previousIndex].querySelector('.video-container');
+			if (isVideo) {
+				YT.get(isVideo.querySelector('iframe').id).stopVideo()
+			}
+		}
+	});
+
+	window.onYouTubePlayerAPIReady = function() {
+		var container = document.querySelectorAll('.video-container');
+		for (var i = 0; i < container.length; i++) {
+			initPlayer(container[i])
+		}
+	}
+
+	</script>
+	
+</body>
+</html>

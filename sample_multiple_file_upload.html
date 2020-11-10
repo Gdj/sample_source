@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>jQuery MultiFile</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="./js/library/jQuery.MultiFile.min.js"></script>
+
+ </head>
+
+ <body>
+    <!--반드시 file input 엘리먼트에 "multi" class 추가-->
+    1: 기본 (사용하기위해서는 file input요소에 class="multi" 추가)
+    <input type="file" class="multi"/>
+    
+    <br/>
+    <!--업로드 갯수 제한 : maxlength 속성 사용-->
+    2: 업로드 갯수 제한 (maxlength) 
+    <input type="file" class="multi" maxlength="2"/>
+    
+    <br/>
+    <!--업로드 파일 제한 : 
+    accept 속성을 사용하여 업로드할수있는 파일의 확장자를 지정
+    ※ 서버사이드에서도 체크하는것을 권장.
+    -->
+    3: 업로드 허용할 파일 확장자 지정 (accept) 
+    <input type="file" class="multi" accept="gif|jpg"/>
+    
+    <br/>
+    <!--업로드 전체 파일 크기 제한 : 
+        data-maxsize 속성 이용 (max size in kb)
+        (under <1MB in total) 
+    -->
+
+    4: 업로드 전체 파일크기 제한 (data-maxsize)  <br>
+    (max size in kb) (under <1MB in total) 
+    <input type="file" class="multi" maxlength="3"  data-maxsize="1024"/>
+
+    <br/>
+    <!--업로드 각 파일 크기 제한 : 
+        data-maxfile 속성 이용 (max size in kb)
+        (under <1MB each) 
+    -->
+    5: 업로드 각 파일크기 제한 (data-maxfile) <br>
+    (under <1MB each) 
+    <input type="file" class="multi" maxlength="3"   data-maxfile="1024"/>
+    
+    <br/>
+    <!-- Selecting many files at once (HTML5) 
+         HTML5에서는 한번에 다중 파일 선택 가능.
+         multiple 속성 추가.
+    -->
+    6: HTML5. 한번에 다중파일 선택 (multiple)
+    <input type="file" multiple class="multi" maxlength="10"/>
+
+ </body>
+</html>
