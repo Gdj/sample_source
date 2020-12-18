@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "ftp-deploy": "^2.3.8"
+  }
+}

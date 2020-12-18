@@ -12,7 +12,7 @@
     .end  { top:100px; left: 400px; }  
     .sta1 { top:100px; left: 10px;  }
     .end1 { top:150px; left: 400px; }
-    .sta2 { top:100px; left: 500px;  }
+    .sta2 { top:100px; left: 500px; }
     .end2 { top:150px; left: 900px; }    
     .sta3 { top:200px; left: 10px;  }
     .end3 { top:250px; left: 400px; }
@@ -57,11 +57,18 @@
     /* 1 도트 모션 */
     var bb = new LeaderLine( sta1, end1, 
       {
-        path : "grid",            /* 각진라인 */
+        path : "grid",            
+        /* 각진라인 
+        straight : 직선
+        arc      : 위곡선
+        fluid    : 기본 S곡선
+        magnet   : 아래곡선
+        grid     : 직각 선
+        */
         dash: {animation: {duration:500 }},  /* 도트 모션 */
-        startSocket: 'top',       /* 시작 방향 */
+        startSocket: 'top',        /* 시작 방향 */
         endSocket: 'bottom',       /* 도착 방향 */
-        startSocketGravity: [0, -30],  /* x,y */
+        startSocketGravity: [0, -30],    /* x,y */
         endSocketGravity:   [-150, 30],  /* x,y */
       
       }

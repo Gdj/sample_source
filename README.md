@@ -9,3 +9,5 @@
 4. ajax
 
 5. server script
+
+6. ftp upload `node ftp_upload`

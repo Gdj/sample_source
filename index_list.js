@@ -147,8 +147,29 @@ __CONSTANT_LIST = [
         url  	  	: './sample_search_text.html',
 				pubUpdate : '2019-0000',	
         etc 	  	: '',				
+    }, {
+        dep1 	  	: '',
+        dep2 	  	: 'json download',
+        url  	  	: './sample_json_download.html',
+				pubUpdate : '2019-0000',	
+        etc 	  	: '',				
     }, 
-	
+	{
+        dep1 	  	: '',
+        dep2 	  	: 'SVG 도넛',
+        url  	  	: './sample_svg_donut.html',
+				pubUpdate : '2019-0000',	
+        etc 	  	: '',				
+    }, 
+    {
+        dep1 	  	: '',
+        dep2 	  	: 'SVG 라인',
+        url  	  	: './sample_svg_line.html',
+				pubUpdate : '2019-0000',	
+        etc 	  	: '',				
+    }, 
+  
+  
 	
 		{
         dep1 	  	: 'plugins',
@@ -274,6 +295,13 @@ __CONSTANT_LIST = [
 				pubUpdate : '2019-0000',	
         etc 	  	: '시컨스 회전',				
     }, 	{
+      dep1 	  	: '',
+      dep2 	  	: 'spritespin_v4.0.11',
+      url  	  	: './sample_vr360v2.html',
+      pubUpdate : '2019-0000',	
+      etc 	  	: '시컨스 회전 컨트롤러',				
+    },
+    {
         dep1 	  	: '',
         dep2 	  	: 'panzoom',
         url  	  	: './sample_zoom.html',

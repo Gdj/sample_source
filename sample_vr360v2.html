@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="kr">
+<head>
+	<meta charset="UTF-8">  
+	<title>sample_vr360</title>
+	<link rel="stylesheet" href="./css/base.css" />
+	<script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="./js/library/spritespin_v4.0.11.js"></script>
+
+ </head>
+ <body>
+
+		<style>
+			.area_360 { width: 50%;}
+			.button { margin: 20px; padding: 10px; border: 1px solid #ccc;}
+		</style>
+		<div class="area_360">
+			<div draggable="true" class="spritespin" style="width: 100%;"></div>
+			<div class="around_control">
+				<button class="button btn_play">play</button>
+				<button class="button btn_full">zoom +</button>
+				<button class="button btn_prev"><<<</button>
+				<button class="button btn_next">>>></button>
+				<button class="button btn_reverse">U</button>
+			</div>
+		</div>
+	
+		<script>
+			$(function() {
+		
+			});
+			var _sq = $('.spritespin').spritespin({
+				source: SpriteSpin.sourceArray('/images/sample/car_360/car_{frame}.jpg', { frame: [1,36], digits: 2 }),
+				width: 640,
+				height: 480,
+				sense: -1,
+				responsive: true,
+				animate: false,
+				onFrame :function($b){
+					//console.log( _sq.spritespin('api')  );
+					//console.log( _sq.spritespin('data')  );
+				}
+			});
+			api = _sq.spritespin("api");
+			
+			var _dragItem = document.getElementsByClassName("spritespin");
+			document.addEventListener("dragstart", dragStartFn);
+			function dragStartFn() {
+				console.log( ">>>>"  );
+			}
+	
+			 
+			/* 버튼 컨트롤러  */
+			$('.around_control .btn_full').click(function(e) {
+				e.preventDefault();
+				$('.spritespin').spritespin('api').requestFullscreen();
+			});
+	
+			$('.around_control .btn_play').click(function(){
+					api.toggleAnimation();
+			});
+	
+			$('.around_control .btn_prev').click(function(){
+				api.stopAnimation();
+				api.prevFrame();
+			});
+	
+			$('.around_control .btn_next').click(function(){
+				api.stopAnimation();
+				api.nextFrame();
+			});
+	
+			$('.around_control .btn_reverse').click(function(){
+				api.data.reverse = !api.data.reverse;
+			});
+	</script>
+	
+ </body>  
+</html>
