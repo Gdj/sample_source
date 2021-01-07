@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jqgrid</title>
+  <script type="text/javascript" src="./js/library/jqgrid/jquery-1.12.1.js"></script>
+  <script type="text/javascript" src="./js/library/jqgrid/jquery-ui-1.12.1.js"></script>
+  <link   rel="stylesheet"       href="./js/library/jqgrid/css/jquery-ui-1.12.1.css" />
+  
+  <script type="text/javascript" src="./js/library/jqgrid/grid.locale-kr.js"></script>  
+  <script type="text/javascript" src="./js/library/jqgrid/jquery.jqGrid.js"></script>  
+  <link rel="stylesheet" href="./js/library/jqgrid/css/ui.jqgrid.css" />
+  <style> 
+    .jqGrid-area .data-empty { padding: 20px; text-align: center;}
+    .jqGrid-area .jqGrid_custom_page { padding: 10px 0; text-align: center; }
+    .jqGrid-area .jqGrid_custom_page .page{ font-size: 14px; color:#333;  text-decoration: none; }
+    .jqGrid-area .jqGrid_custom_page .ui-icon{ padding: 1px; vertical-align: bottom; opacity: 50%}
+    .jqGrid-area .jqGrid_custom_page a .ui-icon{ opacity: 100%}
+  </style>
+</head>
+<body>
+  <div>
+    <ul id="api-list" class="api-list">
+      <li>jqGrid demos: <a href="http://trirand.com/blog/jqgrid/jqgrid.html">jqGrid demos</a> </li>
+      <li>jqGrid examples: <a href="https://free-jqgrid.github.io/examples/index.html">jqGrid examples</a> </li>
+    </ul>
+  </div>
+  
+
+  <div class="jqGrid-area" style="max-width:1200px; width: 100%" >
+    <table id="jqGrid_list0" class="jqGrid_list" ></table>
+    <div id="jqGrid_page0" class="jqGrid_page"></div>
+    <div class="jqGrid_custom_page"></div>
+  </div>
+  
+  <!-- 게시판 리스트 data -->
+  <script>
+    var arrtSetting_0 = function (rowId, val, rawObject, cm) {
+      //console.log(rowId, val, rawObject, cm)
+      var attr = rawObject.attr[cm.name], result;
+      if (attr.rowspan) {
+          result = ' rowspan=' + '"' + attr.rowspan + '"';
+      } else if (attr.display) {
+          result = ' style="display:' + attr.display + '"';
+      }
+      return result;
+    };
+    var list_data_0   = [
+      {'no': '1',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "2"},}
+      },
+      {'no': '2',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {display: "none"},}
+      },
+      {'no': '3',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '4',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '5',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '6',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '7',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '8',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',          
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',       
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '9',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '10',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '11',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '12',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '13',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '14',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '15',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '16',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+   
+    ];
+        //list_data_0 = [];
+    var jqgrid_0      = "#jqGrid_list0";
+  </script>
+   
+  <!-- 공통 커스텀 그리드 페이징 함수 -->
+  <script>
+    // 커스텀 그리드 페이징
+    /*
+    * jqGrid_pageSetting    : jqGrid 커스텀 페이징
+    * @param  gridId		: 그리드 아이디
+    * @param  totalSize		: 데이터 겟수 row
+    * @param  currentPage	: 현제 페이지 
+    */
+    function initPage(gridId, totalSize, currentPage){
+      var gridIdSelector = $(gridId);
+      
+      // 변수로 그리드아이디, 총 데이터 수, 현재 페이지를 받는다
+      if(currentPage==""){
+          var currentPage = gridIdSelector.getGridParam('page');
+      }
+      // 한 페이지에 보여줄 페이지 수 (ex:1 2 3 4 5) ( 2 : <<|<|1|2|>|>> )
+      var pageCount = 10;
+
+      // 그리드 데이터 전체의 페이지 수
+      var totalPage = Math.ceil(totalSize/gridIdSelector.getGridParam('rowNum'));
+
+      // 전체 페이지 수를 한화면에 보여줄 페이지로 나눈다.
+      var totalPageList = Math.ceil(totalPage/pageCount);
+      // 페이지 리스트가 몇번째 리스트인지
+      var pageList= Math.ceil(currentPage/pageCount);
+
+
+      //alert("currentPage="+currentPage+"/ totalPage="+totalSize);
+      //alert("pageCount="+pageCount+"/ pageList="+pageList);
+
+      // 페이지 리스트가 1보다 작으면 1로 초기화
+      if(pageList<1) pageList=1;
+      // 페이지 리스트가 총 페이지 리스트보다 커지면 총 페이지 리스트로 설정
+      if(pageList>totalPageList) pageList = totalPageList;
+      // 시작 페이지
+      var startPageList=((pageList-1)*pageCount)+1;
+      // 끝 페이지
+      var endPageList=startPageList+pageCount-1;
+
+      //alert("startPageList="+startPageList+"/ endPageList="+endPageList);
+
+      // 시작 페이지와 끝페이지가 1보다 작으면 1로 설정
+      // 끝 페이지가 마지막 페이지보다 클 경우 마지막 페이지값으로 설정
+      if(startPageList<1) startPageList=1;
+      if(endPageList>totalPage) endPageList=totalPage;
+      if(endPageList<1) endPageList=1;
+
+      // 페이징 DIV에 넣어줄 태그 생성변수
+      var pageInner="";
+
+      // 페이지 리스트가 1이나 데이터가 없을 경우 (링크 빼고 흐린 이미지로 변경)
+      if(pageList<2){
+        pageInner+= '<span class="ui-icon ui-icon-seek-first"> << </span>';
+        pageInner+= '<span class="ui-icon ui-icon-seek-prev"> < </span>';
+      }
+      // 이전 페이지 리스트가 있을 경우 (링크넣고 뚜렷한 이미지로 변경)
+      if(pageList>1){
+        pageInner+='<a class="first" href=\"javascript:firstPage( \''+ String(gridId) +'\' )\"><span class=\"ui-icon ui-icon-seek-first\"> << </span></a>';
+        pageInner+='<a class="pre"   href=\"javascript:prePage( \''+ String(gridId) +'\', '+totalSize+','+pageCount+')\"><span class=\"ui-icon ui-icon-seek-prev\"> < </span></a>';
+      }
+      // 페이지 숫자를 찍으며 태그생성 (현재페이지는 강조태그)
+      for(var i=startPageList; i<=endPageList; i++){
+        if(i==currentPage){
+          pageInner = pageInner +'<a class="page" href=\"javascript:goPage( \''+ String(gridId) +'\', ' +(i)+' )\" id=\"'+(i)+'\"> <strong>'+(i)+'</strong> </a>';
+        }else{
+          pageInner = pageInner +'<a class="page" href=\"javascript:goPage( \''+ String(gridId) +'\', ' +(i)+' )\" id=\"'+(i)+'\"> '+(i)+' </a>';
+        }
+      }
+      //alert("총페이지 갯수"+totalPageList);
+      //alert("현재페이지리스트 번호"+pageList);
+
+      // 다음 페이지 리스트가 있을 경우
+      if(totalPageList>pageList){
+        pageInner+='<a class=\"next\" href=\"javascript:nextPage( \''+ String(gridId) +'\', '+totalSize+','+pageCount+')\"><span class=\"ui-icon ui-icon-seek-next\"> > </span></a>';
+        pageInner+='<a class=\"last\" href=\"javascript:lastPage( \''+ String(gridId) +'\', '+totalPage+')\"><span class=\"ui-icon ui-icon-seek-end\"> >> </span></a>';
+      }
+      // 현재 페이지리스트가 마지막 페이지 리스트일 경우
+      if(totalPageList==pageList){
+        pageInner+= '<span class="ui-icon ui-icon-seek-next"> > </span>';
+        pageInner+= '<span class="ui-icon ui-icon-seek-end"> >> </span>';
+      }  
+      // 페이징할 DIV태그에 우선 내용을 비우고 페이징 태그삽입
+      $(gridId).closest(".jqGrid-area").find(".jqGrid_custom_page").html("");
+      $(gridId).closest(".jqGrid-area").find(".jqGrid_custom_page").append(pageInner);
+      //$(".jqGrid_custom_page").html("");
+      //$(".jqGrid_custom_page").append(pageInner);
+    }
+    
+
+    // 그리드 첫페이지로 이동
+    function firstPage(gridId){
+      $(gridId).jqGrid('setGridParam', {
+        page:1
+      }).trigger("reloadGrid");
+    }
+    // 그리드 이전페이지 이동
+    function prePage(gridId, totalSize, pageCount){
+      var currentPage = $(gridId).getGridParam('page');
+
+      currentPage-=pageCount;
+      pageList=Math.ceil(currentPage/pageCount);
+      currentPage=(pageList-1)*pageCount+pageCount;
+
+      initPage( gridId, totalSize, currentPage);
+
+      $(gridId).jqGrid('setGridParam', {
+        page:currentPage
+      }).trigger("reloadGrid");
+
+    }
+    // 그리드 다음페이지 이동    
+    function nextPage(gridId, totalSize, pageCount){
+      var currentPage = $(gridId).getGridParam('page');
+      currentPage+=pageCount;
+      pageList=Math.ceil(currentPage/pageCount);
+      currentPage=(pageList-1)*pageCount+1;
+
+      initPage(gridId, totalSize, currentPage);
+
+      $(gridId).jqGrid('setGridParam', {
+        page:currentPage
+      }).trigger("reloadGrid");
+    }
+    // 그리드 마지막페이지 이동
+    function lastPage(gridId, totalSize){
+      $(gridId).jqGrid('setGridParam', {
+        page:totalSize
+      }).trigger("reloadGrid");
+    }
+    // 그리드 페이지 이동
+    function goPage(gridId, num){
+      $(gridId).jqGrid('setGridParam', {
+        page:num
+      }).trigger("reloadGrid");
+    }
+    
+    
+  </script>
+  
+  <!-- jqGrid -->
+  <script> 
+    jQuery(jqgrid_0).jqGrid({ 
+      datatype: "local",
+      data: list_data_0,
+      //url:'/resources/js/@jqgrid_data.json',
+      //datatype: "json",
+      width: '100%',
+      autowidth:true,
+      height: 'auto',
+        colNames:['No', '일자', '문의자', '서비스명', '문의 내용', '상태', '처리자', '처리내용'],
+        colModel:[
+          {name:'no',index:'no', width:60, },
+          {name:'date',index:'date', width:120,  sorttype:"date" },
+          {name:'questionName',index:'questionName', width:80,  },
+          {name:'serviceName',index:'serviceName', width:150, cellattr: arrtSetting_0 },
+          {name:'questionContents',index:'questionContents', width:320, formatter: 'tag', cellattr: function () { return " class='a_link'" }  },		
+          {name:'state',index:'state', width:70,   },
+          {name:'managerNmae',index:'managerNmae', width:80,   },
+          {name:'managerContents',index:'managerContents', width:320,   },
+        ],
+        pager: "#jqGrid_page0", // 페이징
+      
+        viewrecords: false,    //  형재보이는수 / 총겟수  
+        rowNum: 5,            //  페이지에 보여질 겟수
+
+        //gridview:true, 
+        sortname: 'id',
+        sortorder: 'desc',
+
+        //multiselect: true,
+        loadonce: true,
+        loadComplete:function(data){
+          //console.log(data);
+          var total_records = data.records; // 데이터수 or  $(jqgrid_0).jqGrid("getGridParam", "records"); 
+          // 데이터 라인 수 , 
+          if(total_records==0){
+            $(jqgrid_0).closest(".ui-jqgrid-bdiv").after('<div class="data-empty"> <p class="txt_empty">데이터가 없습니다.</p> </div>')
+          }else{ 
+            // 커스텀 페이징
+            // 커스텀 페이징(그리드아이디, 총데이터수, 현재 페이지) 처음 currentPage는 널값으로 세팅 (=1)
+            initPage(jqgrid_0, total_records, "");
+          }
+          
+          
+        },
+        //shrinkToFit: false,   // 가로크기 고정일때
+      });
+
+    /* theder */
+    jQuery(jqgrid_0).jqGrid('setGroupHeaders', {
+      useColSpanStyle: true,
+      groupHeaders: [{
+          startColumnName: 'questionName',
+          numberOfColumns: 4,
+          titleText: '<strong>문의</strong>'
+        },
+        {
+          startColumnName: 'managerNmae',
+          numberOfColumns: 2,
+          titleText: '<strong>처리</strong>'
+        }
+      ]
+    });
+
+    /* 리싸이징 */
+    $(window).on("resize.jqGrid", function() { 
+      var _width = $(jqgrid_0).closest(".jqGrid-area").width();
+      console.log( "googoog: "+ _width);
+      
+      $(jqgrid_0).setGridWidth( _width, true);     // shrinkToFit: true 유동, flase, 고정
+      //$(jqgrid_0).jqGrid("setGridWidth", _width );
+    });
+
+    //$(jqgrid_0).jqGrid("setGridWidth", 1060);                      // 테이블 크기변경 
+    //$(jqgrid_0).jqGrid('setColWidth', 'inquiryTitle', 300);        // 컬럼 크기변경 
+    //$(jqgrid_0).setGridParam( {rowNum:16} );                       // 보여지는 라인 변경
+    //console.log(">>>> : "+  $("#jqGrid_list0").getGridParam("rowNum") );  // 보여지는 라인 가져오기
+    //$("#jqGrid_list0").trigger("reloadGrid");                             // 데이터 리로드 
+  
+    
+  </script>
+ 
+</body>
+</html>
