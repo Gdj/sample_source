@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>imagesLoaded-v1.2.2</title>
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/library/loadImage/jquery-image-loader.js"></script>
+  <style>
+    .example { display:none; }
+    .lazy-img { width:200px;}
+  </style>
+</head>
+<body>
+  <h1>imagesLoaded-v1.2.2</h1>
+  <h2><a href="https://github.com/mrhenry/jquery-image-loader">github</a></h2>
+
+  <div class="example">
+    <img class="lazy-img" data-src="http://cfile1.uf.tistory.com/image/19272E2F4C67E49AB98D32" />
+    <img class="lazy-img" data-src="http://cfs14.tistory.com/image/10/tistory/2009/07/24/13/25/4a6937bc5c3c2" />
+    <img class="lazy-img" data-src="http://datools.kr/zeroboard/data/photo/lala1217_88.jpg" />
+  </div>
+  <script>
+    $('.example').loadImages({
+      imgLoadedClb: function($index){ console.log("각각 이미지 로드 : ", $index) },
+      allLoadedClb: function(){ console.log("이미지 로드완료!") 
+        $(".example").fadeIn();
+      },
+      imgErrorClb:  function($index){ console.log("이미지 에러", $index) },
+      noImgClb:     function(){ console.log("data-src= 선언안됨. 이미지가 1개일대만 동작") },
+      dataAttr:     'src'     /* 기본 값 "src == data-src" */
+    });
+  </script>
+
+</body>
+</html>

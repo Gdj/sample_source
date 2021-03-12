@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>imagesloaded-v4</title>
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/library/imagesloaded/imagesloaded.pkgd.js"></script>
+  <!-- <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script> -->
+  <style>
+    .example { display:none; }
+    .lazy-img { width:200px;}
+  </style>
+</head>
+<body>
+  <h1>imagesLoaded@4</h1>
+  <h2><a href="https://imagesloaded.desandro.com/">API</a></h2>
+
+  <div class="example">
+    <img class="lazy-img" src="http://cfile1.uf.tistory.com/image/19272E2F4C67E49AB98D32" />
+    <img class="lazy-img" src="http://cfs14.tistory.com/image/10/tistory/2009/07/24/13/25/4a6937bc5c3c2" />
+    <img class="lazy-img" src="http://datools.kr/zeroboard/data/photo/lala1217_88.jpg" />
+  </div>
+  <script>
+    $('.example').imagesLoaded()
+    .always( function( instance ) {
+      console.log('all images loaded');
+    })
+    .done( function( instance ) {
+      /* 이미지로드 완료! */
+      console.log('all images successfully loaded');
+      $(".example").fadeIn();
+    })
+    .fail( function() {
+      console.log('all images loaded, at least one is broken');
+    })
+    .progress( function( instance, image ) {
+      /* 이미지 각각 */
+      var result = image.isLoaded ? 'loaded' : 'broken';
+      console.log( 'image is ' + result + ' for ' + image.img.src );
+    });
+  </script>
+
+</body>
+</html>
