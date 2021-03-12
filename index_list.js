@@ -236,6 +236,18 @@ __CONSTANT_LIST = [
       etc: '레이아웃정열',
     }, {
       dep1: '',
+      dep2: 'imagesloaded@4',
+      url: './sample_imagesloaded.html',
+      pubUpdate: '2019-0000',
+      etc: '이미지 로더',
+    }, {
+      dep1: '',
+      dep2: 'loadImagesV1.2.2',
+      url: './sample_loadImages.html',
+      pubUpdate: '2019-0000',
+      etc: '이미지 로더',
+    },     {
+      dep1: '',
       dep2: 'CustomScrollbar',
       url: './sample_mCustomScrollbar.html',
       pubUpdate: '2019-0000',
