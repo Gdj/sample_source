@@ -246,7 +246,13 @@ __CONSTANT_LIST = [
       url: './sample_loadImages.html',
       pubUpdate: '2019-0000',
       etc: '이미지 로더',
-    },     {
+    }, {
+      dep1: '',
+      dep2: 'DOPImageLoader',
+      url: './sample_imageLoader.html',
+      pubUpdate: '2019-0000',
+      etc: '이미지 로더 (대체이미지)',
+    },  {
       dep1: '',
       dep2: 'CustomScrollbar',
       url: './sample_mCustomScrollbar.html',
@@ -324,6 +330,12 @@ __CONSTANT_LIST = [
       url: './sample_responsiveImgMap.html',
       pubUpdate: '2019-0000',
       etc: '반응형 이미지 맵',
+    }, {
+      dep1: '',
+      dep2: 'seamscroll',
+      url: './sample_seamscroll.html',
+      pubUpdate: '2019-0000',
+      etc: 'news 흐름',
     }, {
       dep1: '',
       dep2: 'highcharts',

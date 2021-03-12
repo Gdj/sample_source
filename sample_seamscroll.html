@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>seamscroll</title>
+  <script type="text/javascript" src="./js/library/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="./js/library/seamscroll/seamscroll.js"></script>
+  <style>
+    .demo2 { width: 600px; height: 100px; position: relative; overflow: hidden; margin-top: 100px; }
+    .list2 { list-style: none;}
+    .list2 li {
+      float: left; width: 100px; height: 100px;
+      margin-right: 20px;
+      text-align: center;
+      font-size: 20px;
+      color: #fff;
+      line-height:100px;
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>seamscroll</h1>
+  <h2><a href="https://chenxuan0000.github.io/seamless-scroll/">DEMO</a></h2>
+  <h2><a href="https://github.com/chenxuan0000/seamless-scroll/blob/master/README.md">API</a></h2>
+  <h3>CDN : https://cdn.jsdelivr.net/npm/seamscroll@0.0.12/build/seamscroll.min.js</h3>
+            
+  <ul class="list2 clearfix" id="demo2" >
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+  </ul>
+
+  <script>
+    seamscroll.init({
+     dom: document.getElementById('demo2'),
+     direction: 2
+    })
+  </script>
+
+</body>
+</html>
