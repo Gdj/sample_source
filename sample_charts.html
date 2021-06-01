@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>charts</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.1.min.js" ></script>
+  <script>
+    
+    /* 
+      trpArrTper : 배열의 최대값으로 각가의 퍼센트 계산
+    */
+    /* var aa = [345,5674,243,876,45,678]; */
+    function trpArrTper($arr){
+      var _max = $arr.reduce( function (previous, current) { 
+       return previous > current ? previous:current;
+       // min : return previous > current ? current:previous;
+     });
+     var _reArr = [];
+     for( var i=1 ; i <= $arr.length ; i++ ){
+       _reArr.push( Math.floor($arr[i-1]/_max * 10000)/100 ); 
+     }
+     return _reArr;
+    }
+
+
+    /* 
+      trpMaxTper 최대 값으로 비교해 각가의 퍼센티지계산
+     */
+    function trpMaxTper($arr, $max){
+      var _reArr = [];
+     for( var i=1 ; i <= $arr.length ; i++ ){
+       _reArr.push( Math.floor($arr[i-1]/$max * 10000)/100 ); 
+     }
+     return _reArr;
+    }
+
+    /* 
+      trpArrMax : 배열중 최대값
+     */
+    function trpArrMax($arr){
+      var _max = $arr.reduce( function (previous, current) { 
+        return previous > current ? previous:current;
+        // min : return previous > current ? current:previous;
+      });
+      return _max;
+    }
+
+    /* 
+      trpArrMaxIndex : 배열중 최대값의 index;
+     */
+    function trpArrMaxIndex($arr){
+      if ($arr.length === 0) { return -1; }
+
+      var max = $arr[0];
+      var maxIndex = 0;
+      for (var i = 1; i < $arr.length; i++) {
+        if ($arr[i] > max) {
+          maxIndex = i;
+          max = $arr[i];
+        }
+      }
+      return maxIndex;
+    }
+
+
+    /* 
+      trpArrMax : 배열 평균값
+     */
+    function trpArrAve($arr){
+      var _total = 0;
+      for (var i = 0; i <= $arr.length - 1 ; i++){
+        _total += $arr[i];
+      }
+      //console.log( "_total : "+ _total )
+      //console.log( "_Ave : "+ (_total / $arr.length) )
+      return (_total / $arr.length);
+    }
+
+
+    /* 
+      trpArrSum : 배열값 합산
+    */
+    function trpArrSum($arr){
+      var _total=0; 
+      for( var i=0 ; i <= $arr.length-1 ; i++ ){
+        _total += $arr[i];
+      }
+      return _total;
+    }
+
+
+    /*
+      trpNumCommas : 콤마 넣기 
+    */
+    function trpNumCommas($x) {
+      return $x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+  </script>
+  <style>
+    section { max-width: 1000px; margin: 50px auto; }
+    /* ========================== layout */
+    .col1::after, .col2::after, .col3::after, .col4::after, .col5::after, .col6::after, .col7::after, .col8::after { content: ''; display: block; clear: both }
+    .col1>a, .col1>li , .col1>.colitem { float:left; box-sizing:border-box; width: 100%; }
+    .col2>a, .col2>li , .col2>.colitem { float:left; box-sizing:border-box; width: 50%; }
+    .col3>a, .col3>li , .col3>.colitem { float:left; box-sizing:border-box; width: 33.3333%; }
+    .col4>a, .col4>li , .col4>.colitem { float:left; box-sizing:border-box; width: 25%; }
+    .col5>a, .col5>li , .col5>.colitem { float:left; box-sizing:border-box; width: 20%; }
+    .col6>a, .col6>li , .col6>.colitem { float:left; box-sizing:border-box; width: 16.6666%; }
+    .col7>a, .col7>li , .col7>.colitem { float:left; box-sizing:border-box; width: 14.2857%; }
+    .col8>a, .col8>li , .col8>.colitem { float:left; box-sizing:border-box; width: 10%; }
+
+    
+    /* ===================================== chart ============== */
+    .chart-panel {position: relative;}
+    .chart-header { position: relative; z-index: 2;
+      border: 1px solid #aaaaaa;  border-radius: 25px;  background-color: #fff;
+      width: 85%; min-height: 50px; margin: 0 auto; padding: 12px; box-sizing: border-box;}
+    .chart-header .title { font-size: 18px; font-weight: bold; color:#111; text-align: center; letter-spacing: -1px; }
+    .chart-body { position: relative; margin-top: -25px; border: 1px solid #e5e5e5;  z-index: 1;}
+    .chart-body .legend{ position: absolute; top:50px; right: 20px;font-size: 12px; color:#555555; }
+    .chart-body .total-box{ display: block;  margin-top: 45px; text-align: center; } 
+    .chart-body .total-box .legend { position: absolute; top:50px; right: 20px; margin-top: 25px;}
+    .chart-body .total-box .count { display: inline-block; width: 60%; padding-bottom: 5px; 
+      border-bottom:2px solid #555555; letter-spacing: -1.5px; 
+    }
+    .chart-body .total-box span { font-size: 18px; font-weight: bold; color:#333;  vertical-align: middle; margin-left: 4px; } 
+    .chart-body .total-box em   { font-size: 24px; font-weight: bold; color:#e86805; vertical-align: middle;  }
+    .chart-body ul, .chart-body li, .chart-body ol { margin: 0; padding: 0; list-style:none;  }
+    
+    
+    /* Y bar chart */
+    .chart-body .chart_bar { position: relative; margin-top:80px; padding: 20px 20px 40px; }
+    .chart-body .chart_bar .chart-list { height: 170px; border-bottom: 1px solid #cfcfcf;}
+    .chart-body .chart_bar .chart-list li { position: relative; padding: 0 2%; height: 100%; text-align: center;}
+    .chart-body .chart_bar .chart-list li .bar{ position: absolute; bottom: 0; left: 50%; margin-left: -12px; transition: height .37s ease-in-out;
+      width: 24px; height: 0%;  border-radius:3px 3px 0 0; background-color: #4e79a7; }
+    .chart-body .chart_bar .chart-list li .unit { position: absolute; top:-24px;   left: -50%;
+      display: block; width: 200%;font-size: 11px; color:#111; font-weight: bold; white-space:nowrap;
+    }
+    .chart-body .chart_bar .labels-list { padding-top: 10px; }
+    .chart-body .chart_bar .labels-list li { text-align: center;}
+    .chart-body .chart_bar .labels-list li span { font-size: 12px; color:#555; line-height: 1; letter-spacing: -0.5px;}
+          
+    
+    
+    /* 중앙 X char */
+    .chart-body .chart_do_xbar { margin-top: 30px;}
+    .chart-body .chart_do_xbar .chart-inner { padding:20px 40px;}
+    .chart-body .chart_do_xbar .chart-inner:after { content:""; display:block; clear:both;}
+    .chart-body .chart_do_xbar .chart-inner > div {float: left;position: relative;}
+    .chart-body .chart_do_xbar .chart-inner .col1 { width: calc(50% - 30px)}
+    .chart-body .chart_do_xbar .chart-inner .col2 { width: 60px;}
+    .chart-body .chart_do_xbar .chart-inner .col3 { width: calc(50% - 30px)}
+    .chart-body .chart_do_xbar .chart-inner .col1 .bar { right:0; border-radius: 3px 0 0 3px; background-color: #0051a3;}
+    .chart-body .chart_do_xbar .chart-inner .col1 .unit { left: -35px; text-align: right; }
+    .chart-body .chart_do_xbar .chart-inner .col2 .xbar { border-left: 1px solid #cfcfcf; border-right: 1px solid #cfcfcf;}
+    .chart-body .chart_do_xbar .chart-inner .col3 .bar  { left: 0; border-radius: 0 3px 3px 0; background-color: #f64971;}
+    .chart-body .chart_do_xbar .chart-inner .col3 .unit { right: -35px; text-align: left; }
+    .chart-body .chart_do_xbar .chart-inner .xbar li { position: relative; margin: 10px 0; height: 30px;}
+    .chart-body .chart_do_xbar .chart-inner .xbar .name { display: block; height: 30px;
+      font-size: 12px; color:#555555; text-align: center;  line-height: 30px; box-sizing: border-box;
+    } 
+    .chart-body .chart_do_xbar .chart-inner .xbar .bar { position: absolute; width: 0; height: 30px; 
+      background-color: #ccc; transition: width .37s ease-in-out;
+    }
+    .chart-body .chart_do_xbar .chart-inner .xbar .unit { display: inline-block;  position: absolute; top: 10px; width: 30px;
+      font-size: 11px; color: #111; font-weight: bold; white-space: nowrap; 
+    }
+    
+    
+    /*  heatmap chart */
+    .chart-body .chart_weektable {margin-top: 45px; padding:0 20px 30px 15px;}
+    .chart-body .chart_weektable table { border-collapse:collapse; border-spacing:0; width: 100% }
+    .chart-body .chart_weektable table th { font-size: 13px; color:#333333; font-weight: 300; padding: 10px 5px;}
+    .chart-body .chart_weektable table th.first_th { width: 45px; padding: 10px 5px;}
+    .chart-body .chart_weektable table td {  width: 37px; height: 37px; padding: 10px;
+      border: 1px solid #eeeeee; background-color: #123fac; opacity: 0; 
+    } 
+    
+  </style>
+</head>
+<body>
+ 
+ 
+    <!-- Y bar chart -->
+    <section class="section-wrap">
+      <div class="section-inner">
+
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div class="title">Y bar chart</div>
+          </div>
+          <div class="chart-body">
+            <div class="legend">(단위 : 만원)</div>
+
+            <div class="chart_bar">
+              <ul class="chart-list col6 js-chart_bar1">
+                <li class="p">
+                  <div class="bar"><span class="unit"></span></div>
+                </li>
+                <li>
+                  <div class="bar"><span class="unit"></span></div>
+                </li>
+                <li>
+                  <div class="bar"><span class="unit"></span></div>
+                </li>
+                <li>
+                  <div class="bar"><span class="unit"></span></div>
+                </li>
+                <li>
+                  <div class="bar"><span class="unit"></span></div>
+                </li>
+                <li>
+                  <div class="bar"><span class="unit"></span></div>
+                </li>
+              </ul>
+              <ul class="labels-list col6">
+                <li><span>해당STN</span></li>
+                <li><span>TOP1</span></li>
+                <li><span>TOP2</span></li>
+                <li><span>TOP3</span></li>
+                <li><span>TOP4</span></li>
+                <li><span>TOP5</span></li>
+              </ul>
+            </div>
+            <!-- [2020-1218] 막대그래프 컬러 변경 셈플 -->
+            <script>
+              var data1_color = ['#00aa00', '#ffd50e', '#123fac', '#02c6ff', '#5d9cec', '#f28e2b']; // 컬러변경
+              var data1_array = [1304, 1325, 1434, 1482, 1299, 1300];
+              var data1_perArr = trpArrTper(data1_array);
+              setTimeout(function() {
+                for (var i = 0; i <= data1_perArr.length - 1; i++) {
+                  $(".js-chart_bar1 li").eq(i).find(".bar").css({
+                    height: data1_perArr[i] + "%",
+                    "background-color": data1_color[i]
+                  }); // 컬러변경
+                  $(".js-chart_bar1 li").eq(i).find(".unit").text(trpNumCommas(data1_array[i]));
+                }
+              }, 500);
+            </script>
+            <!-- //[2020-1218] 막대그래프 컬러 변경 셈플 -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+ 
+    <!-- 중앙 X chart -->
+    <section class="section-wrap">
+      <div class="section-inner">
+        <div class="chart-panel  mt30">
+          <div class="chart-header ">
+            <div class="title">
+              중앙 X chart
+            </div>
+          </div>
+          <div class="chart-body">
+            <div class="chart_do_xbar js-chart_xbar5">
+              <div class="chart-inner">
+                <div class="col1">
+                  <ul class="xbar">
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                  </ul>
+                </div>
+                <div class="col2">
+                  <ul class="xbar">
+                    <li><span class="name">70대</span></li>
+                    <li><span class="name">60대</span></li>
+                    <li><span class="name">50대</span></li>
+                    <li><span class="name">40대</span></li>
+                    <li><span class="name">30대</span></li>
+                    <li><span class="name">20대</span></li>
+                  </ul>
+                </div>
+                <div class="col3">
+                  <ul class="xbar">
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                    <li><div class="bar"><span class="unit"></span></div></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <script>
+              var data5_color = ['#00aa00', '#ffd50e']; // 컬러변경
+              var data5_l_array = [3, 15, 28, 32, 14, 2];
+              var data5_r_array = [1, 5, 10, 12, 6, 1];
+              var data5_max = trpArrMax(data5_l_array.concat(data5_r_array));
+              var data5_l_perArr = trpMaxTper(data5_l_array, data5_max);
+              var data5_r_perArr = trpMaxTper(data5_r_array, data5_max);
+              setTimeout(function() {
+                for (var i = 0; i <= data5_l_array.length - 1; i++) {
+                  $(".js-chart_xbar5 .col1 li").eq(i).find(".bar").css({
+                    width: data5_l_perArr[i] + "%"
+                  });
+                  $(".js-chart_xbar5 .col1 li").eq(i).find(".unit").text(trpNumCommas(data5_l_array[i]));
+                  $(".js-chart_xbar5 .col3 li").eq(i).find(".bar").css({
+                    width: data5_r_perArr[i] + "%"
+                  });
+                  $(".js-chart_xbar5 .col3 li").eq(i).find(".unit").text(trpNumCommas(data5_r_array[i]));
+                }
+              }, 500);
+              $(".js-chart_xbar5 .col1 li .bar").css({
+                "background-color": data5_color[0]
+              })
+              $(".js-chart_xbar5 .col3 li .bar").css({
+                "background-color": data5_color[1]
+              })
+            </script>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  
+    <!-- heatmap chart -->
+    <section class="section-wrap">
+      <div class="section-inner">
+
+        <div class="chart-panel ">
+          <div class="chart-header">
+            <div class="title">heatmap chart</div>
+          </div>
+          <div class="chart-body ">
+            <div class="chart_weektable">
+              <table class="js-week_table">
+                <thead>
+                  <tr>
+                    <th class="first_th"></th>
+                    <th class="">월</th>
+                    <th class="">화</th>
+                    <th class="">수</th>
+                    <th class="">목</th>
+                    <th class="">금</th>
+                    <th class="">토</th>
+                    <th class="">일</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="first_th">오전</th>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                  </tr>
+                  <tr>
+                    <th class="first_th">아침</th>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                  </tr>
+                  <tr>
+                    <th class="first_th">오후</th>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                  </tr>
+                  <tr>
+                    <th class="first_th">새벽</th>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                  </tr>
+                  <tr>
+                    <th class="first_th">심야</th>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                  </tr>
+                  <tr>
+                    <th class="first_th">저녁</th>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                    <td class="col"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <script>
+            var week_data_color = "#00aa00"; // 컬러변경
+            var week_data = [
+              34, 94, 32, 23, 43, 23, 43,
+              4, 5, 15, 32, 43, 9, 43,
+              4, 5, 15, 32, 43, 9, 43,
+              23, 5, 65, 78, 98, 9, 4,
+              4, 5, 15, 15, 16, 9, 37,
+              4, 36, 15, 62, 37, 9, 90,
+            ];
+            var week_per = trpArrTper(week_data);
+            for (var i = 0; i < week_data.length - 1; i++) {
+              $(".js-week_table tr .col").eq(i).css({
+                opacity: (week_per[i] / 100)
+              });
+            }
+            $(".js-week_table tr .col").css({
+              "background-color": week_data_color
+            }); // 컬러변경
+          </script>
+        </div>
+
+      </div>
+    </section>
+  
+</body>
+</html>

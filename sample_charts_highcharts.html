@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>highcharts</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.1.min.js" ></script>
+  <script>
+    
+    /* 
+      trpArrTper : 배열의 최대값으로 각가의 퍼센트 계산
+    */
+    /* var aa = [345,5674,243,876,45,678]; */
+    function trpArrTper($arr){
+      var _max = $arr.reduce( function (previous, current) { 
+       return previous > current ? previous:current;
+       // min : return previous > current ? current:previous;
+     });
+     var _reArr = [];
+     for( var i=1 ; i <= $arr.length ; i++ ){
+       _reArr.push( Math.floor($arr[i-1]/_max * 10000)/100 ); 
+     }
+     return _reArr;
+    }
+
+
+    /* 
+      trpMaxTper 최대 값으로 비교해 각가의 퍼센티지계산
+     */
+    function trpMaxTper($arr, $max){
+      var _reArr = [];
+     for( var i=1 ; i <= $arr.length ; i++ ){
+       _reArr.push( Math.floor($arr[i-1]/$max * 10000)/100 ); 
+     }
+     return _reArr;
+    }
+
+    /* 
+      trpArrMax : 배열중 최대값
+     */
+    function trpArrMax($arr){
+      var _max = $arr.reduce( function (previous, current) { 
+        return previous > current ? previous:current;
+        // min : return previous > current ? current:previous;
+      });
+      return _max;
+    }
+
+    /* 
+      trpArrMaxIndex : 배열중 최대값의 index;
+     */
+    function trpArrMaxIndex($arr){
+      if ($arr.length === 0) { return -1; }
+
+      var max = $arr[0];
+      var maxIndex = 0;
+      for (var i = 1; i < $arr.length; i++) {
+        if ($arr[i] > max) {
+          maxIndex = i;
+          max = $arr[i];
+        }
+      }
+      return maxIndex;
+    }
+
+
+    /* 
+      trpArrMax : 배열 평균값
+     */
+    function trpArrAve($arr){
+      var _total = 0;
+      for (var i = 0; i <= $arr.length - 1 ; i++){
+        _total += $arr[i];
+      }
+      //console.log( "_total : "+ _total )
+      //console.log( "_Ave : "+ (_total / $arr.length) )
+      return (_total / $arr.length);
+    }
+
+
+    /* 
+      trpArrSum : 배열값 합산
+    */
+    function trpArrSum($arr){
+      var _total=0; 
+      for( var i=0 ; i <= $arr.length-1 ; i++ ){
+        _total += $arr[i];
+      }
+      return _total;
+    }
+
+
+    /*
+      trpNumCommas : 콤마 넣기 
+    */
+    function trpNumCommas($x) {
+      return $x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+  </script>
+  <style>
+    section { width: 1000px; margin: 50px auto; }
+  </style>
+</head>
+<body>
+ 
+  <!-- 차트
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+   -->
+  <!-- 차트 타임라잌 그래프일때 highcharts.js 포함한 형태-->
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <!--  
+  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+  <script src="//code.highcharts.com/themes/dark-unica.js"></script>
+  -->
+  
+  
+  <!-- 도넛 그래프 -->
+  <section>
+    <h2>도넛 그래프 </h2>
+    <div class="chart-panel ">
+      <div class="chart-header">
+          <div class="title">연령대별 현황</div>
+      </div>
+      <div class="chart-body">
+
+        <div class="chart_donut js-chart_donut3">
+            <div id="chart_donut_s3"></div>
+            <div class="total_view">
+                <div class="name">XX대</div>
+                <div class="unit"><em>0</em><span>명</span></div>
+            </div>
+        </div>
+        <script>
+            /*  그래프 옵션 변경 */
+            Highcharts.setOptions({
+                colors: ['#00aa00','#ffd50e', '#123fac', '#02c6ff', '#5d9cec', '#f28e2b' ] // 컬러변경
+            });
+            var _data3total;
+            var _key3Arr = [];
+            var _val3Arr = [];
+
+            var charts3 = Highcharts.chart('chart_donut_s3', {
+              chart: {
+                  marginTop: -50,
+                  spacingTop: 0,
+                  plotBackgroundColor: null,
+                  plotBorderWidth: null,
+                  plotShadow: false,
+                  type: 'pie',
+                  width:500,
+              },
+              title: {text: ''},
+              tooltip: false, // 툴팁
+              plotOptions: {
+                  pie: {
+                      innerSize: 110, // 구멍
+                      cursor: 'pointer',
+                      inside: true,
+                      dataLabels: {
+                          enabled: true,
+                          formatter:function(){
+                              var _unit = Math.round(this.percentage) + "%";
+                              var _name = this.key; 
+                              //console.log(this)
+                              _key3Arr.push(this.key);
+                              _val3Arr.push(this.y);
+                              _data3total = this.total;
+                              return '<span class="chart_name" >'+ _name +'</span><br><span class="chart_txt">('+ _unit +')</span>';
+                          },
+                          filter: { // 표기 허용치
+                              property: 'percentage',
+                              operator: '>',
+                              value: 5
+                          },
+                          overflow:"justify",
+                          connectorWidth:0,           // 라인
+                          connectorPadding:-20,       // 라인
+                          style: {
+                              color: "#555",
+                              fontSize: "14px",
+                              fontWeight :"bold"
+                          },
+                      },
+                      size:"60%",
+                      showInLegend: true,
+                      borderWidth : 0
+                  }
+              },
+              series: [{
+                name: '연령대별 현황', colorByPoint: true,
+                showInLegend: false,
+                data: [{
+                        name: '70대',y: 7
+                }, {
+                        name: '60대',y: 36
+                },{
+                        name: '50대',y: 38
+                },{
+                        name: '40대',y: 15
+                },{
+                        name: '20대',y: 1
+                },{
+                        name: '기타',y: 7
+                }]
+              }]
+            });
+            /* 최대값 표기 */
+            var topIndex3 = trpArrMaxIndex(_val3Arr);
+            $(".js-chart_donut3 .total_view .name").text(_key3Arr[topIndex3]);
+            $(".js-chart_donut3 .total_view .unit em").text(_val3Arr[topIndex3]);
+
+        </script>
+
+      </div>
+    </div>
+  </section>
+  
+  <br><hr><br>
+  
+  <!-- 막대 -->
+  <section>
+    <h2>막대 그래프 </h2>
+    <div id="bar_graph1" ></div>
+    <script>
+        Highcharts.setOptions({
+          colors: ['#5bafe6', '#5bafe6', '#5bafe6','#5bafe6', '#5bafe6', '#5bafe6','#f33050']
+        });
+        var chart = Highcharts.chart('bar_graph1', {
+          title: { text: '' },
+          yAxis: { title: {text: ''}},
+          legend: {enabled: false},
+          xAxis: {
+              labels: {
+                style: {color: '#878c96'}
+              },
+              categories: ['04/15', '04/16', '04/17', '04/18', '04/19', '04/20', '04/21']
+          },
+          series: [{
+              type: 'column',
+              pointWidth:20,
+              colorByPoint: true,
+              keys: [ 'y', 'sliced', 'selected'],
+                  data: [
+                      [ 144.0],
+                      [ 176.0],
+                      [ 135.6],
+                      [ 200  ],
+                      [ 135.6],
+                      [ 200.6],
+                      [ 216.0, true, true]
+                        ],
+                  showInLegend: false
+              }],
+              plotOptions: {
+                  series: {
+                      borderWidth: 0,
+                      dataLabels: {
+                          enabled: true,
+                          format: '{point.y:.1f}'
+                      }
+                  }
+              }
+        });
+
+      </script>
+  </section>
+  
+  <br><hr><br>
+  
+  <!-- 라인-->
+  <section>
+    <h2>라인 그래프 </h2>
+    <div id="bar_graph_n2" class="line_graph_blue"></div>
+    <script>
+    Highcharts.chart('bar_graph_n2', {
+      chart: {type: 'area'},
+      title: {text: ''},
+      legend: { enabled: false},
+      yAxis:  { title: {text: ''}  },
+      xAxis: {
+        showInLegend: false,
+        categories: ['04/15', '04/16', '04/18', '04/19', '04/20', '04/21'],
+        gridLineColor:"#e6e6e6",
+        gridLineDashStyle:"Solid",
+        gridLineWidth:0,
+        gridZIndex:1,
+      },
+      // 면도츠 색
+      plotOptions: {
+        area: {
+          color: '#5aafe6',
+          fillColor: undefined,
+          fillOpacity: 0.15,
+          stacking: 'normal',
+          lineColor: '#5aafe6',
+          lineWidth: 3,
+          marker: {
+            lineWidth: 1,
+            lineColor: '#5aafe6'
+          }
+        }
+      },
+      tooltip: {
+        formatter:function(){
+        var _str = String( this.point.y );
+        _str = _str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        return '<span style="font-size: 30px; line-height:1; padding:0px 20px; font-family:Arial; font-weight:bold;" >'+ _str +'</span>';
+      },
+      useHTML: true,
+      headerFormat:'',
+      footerFormat: "",
+      maxHeight:10,
+      padding:0,
+      backgroundColor: '#2a323f',
+      borderColor: '#2a323f',
+      borderRadius: 20,
+      borderWidth: 0,
+      style:{
+        color:"#fff",
+        cursor:"default",
+        fontSize:"30px",
+        pointerEvents:"none",
+        whiteSpace:"nowrap"
+        }
+      },
+      series: [{
+        name: '영상수',
+        data: [43934, 52503, 57177, 69658, 97031, 116531],
+      }]
+    });
+
+    </script>
+  </section>
+  
+  <br><hr><br>
+  
+  <!--타임라인, 라인그래프-->
+  <section>
+    <h2>타임라인 그래프 </h2>
+    <div id="js-chart1"  style="height:600px"></div>
+    <script>
+      var _legendBig2 = {
+        enabled: true,    
+        align: 'left',
+        width: 195,
+        padding: 10,
+        verticalAlign: 'top',
+        borderWidth : 1,  
+        symbolWidth: 0,
+        itemMarginTop: 5,
+        itemMarginBottom: 5,													
+        useHTML: true,
+        labelFormatter: function() {
+          var name = this.name; 														
+          var label = '<span class="txt" style="color:'+ this.color +'">'+ this.name +'</span>';
+          var img = '<img src = "/rsc/images/common/chart/legend_check.png" width = "14px" height = "14px">';
+          return img + '	' + label;
+        },
+        itemStyle: { fontSize : 11, fontWeight : 300, fontFamily: 'Nanum Gothic' },
+        navigation: {
+          activeColor: '#43536a',
+          inactiveColor: '#a1badf',
+          animation: true,
+          arrowSize: 10,
+          style: {
+            verticalAlign:'top',
+            fontWeight: 'bold',
+            color: '#e5e5e5',
+            fontSize: '12px',
+            fontFamily: 'Nanum Gothic' 
+          }
+        }
+      };
+      var _plotOptions_d2 = {
+        series: {
+          compare: 'value', // value percent
+          showInNavigator: true,
+          className : "navi_none"
+        },
+        tilemap: { enabled: false,
+          visible:false,
+          opacity:0.5,
+        },
+        timeline : { enabled: false,
+          visible:false,
+          opacity:0.5,
+        }
+      };
+      var _responsive = {
+        rules: [{
+          condition: { maxWidth: 500 },
+          chartOptions: {
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom'
+            }
+          }
+        }]
+      };
+    </script>
+    <script>
+      // Create the chart
+      Highcharts.stockChart('js-chart1', {
+        time: { useUTC: false },
+        exporting: { enabled: false },
+        rangeSelector: {
+          buttons: [
+            { count: 5, type: 'millisecond', text: '5s' }, 
+            { count: 5, type: 'minute', text: '5m' }, 
+            { count: 5, type: 'hour', text: '5h' }, 
+            { type: 'all', text: 'All' }],
+          inputEnabled: false,
+          selected: 3
+        },
+        chart: {
+          marginTop:-24, marginLeft:230,
+          events: {
+            load: function () {
+              var series = this.series[0];
+              var series1 = this.series[1];
+              setInterval(function () {
+                var x = (new Date()).getTime(), // current time
+                    y = Math.round(Math.random() * 50),
+                    y2 = Math.round(Math.random() * 50);
+                series.addPoint([x, y], true, true);
+                series1.addPoint([x, y2], true, true);  
+              }, 2000);
+            }
+          }
+        },
+        title: { text: '' }, subtitle: { text: '' }, 
+        navigator: { enabled: false },
+        scrollbar: { enabled: false },
+        yAxis: { title: { text: '' } , 
+          labels: { align: 'left', x: 0 },
+          showFirstLabel: false
+        },
+        legend: _legendBig2,
+        plotOptions: _plotOptions_d2,
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}',
+          valueDecimals: 2,
+          split: true
+        },
+        series: [{
+          name: 'SKT-BGWPDB1',
+          data: (function () {
+            var data = [], time = (new Date()).getTime(), i;
+            for (i = -9; i <= 0; i += 1) {
+              data.push([
+                time + i * 1000,
+                Math.round(Math.random() * 100)
+              ]);
+            }
+            return data;
+          }())
+        },
+        {
+          name: 'SKT-BGWPDB2',
+          data: (function () {
+            var data = [], time = (new Date()).getTime(), i;
+            for (i = -9; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    Math.round(Math.random() * 100)
+                ]);
+            }
+            return data;
+          }())
+        }],
+        responsive: _responsive,
+
+      });
+
+    </script>
+  </section>
+  
+  <br><hr><br>
+  
+  <!-- 막대 라인 -->
+  <section>
+    <div id="bar-graph"></div>
+     <script>
+      Highcharts.setOptions({
+        colors: ['#7c90d7', '#ff76a2', '#fdb877', '#d482e8', '#2bd2b8', '#4d7da1', '#443da7' ]
+      });
+
+      Highcharts.chart('bar-graph', {
+          title: {text: ''},
+          xAxis: [{
+              categories: ['2017-05-18', '2017-05-19', '2017-05-20', '2017-05-21', '2017-05-22', '2017-05-23', '2017-05-24',],
+              labels: {
+                  style:{  color: '#878c96',fontSize:'8px', 'letter-spacing':'-1px','font-weight':'500'},
+                  autoRotation:0
+              },
+              lineColor:'#b9b9be',
+              tickWidth:0
+          }],
+          yAxis: {
+              min: 0,
+              title: {
+                  text: ''
+              },
+              labels: {
+                  style:{  color: '#878c96',fontSize:'8px', 'letter-spacing':'-1px','font-weight':'500'},
+                  autoRotation:0
+              },
+              tickAmount:10,
+              gridLineColor:'#dcdce0'
+          },
+          credits: {enabled: false},
+          legend: [{enabled: false}],  /*  하단 표시 .. */
+          colors:['#7c90d7', '#ff76a2', '#fdb877', '#d482e8', '#2bd2b8', '#4d7da1', '#443da7' ],
+          tooltip: {
+              headerFormat: '<b>{point.x}</b><br/>',
+              pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+          },
+          plotOptions: {
+              column: {
+                  stacking: 'normal',
+                  dataLabels: {
+                      enabled: true,
+                      color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                  },
+                  pointWidth:16
+              }
+          },
+          series: [{
+              type:'column',
+              name: '좋아요',
+              data: [50, 30, 40, 70, 20, 100, 40],
+              dataLabels: {enabled:false},
+              borderWidth:0,
+              /*enableMouseTracking: false*/
+          }, {
+              type:'column',
+              name: '최고예요',
+              data: [20, 20, 30, 20, 10, 20, 60],
+              dataLabels: {enabled:false},
+              borderWidth:0,
+              /*enableMouseTracking: false*/
+          }, {
+              type:'column',
+              name: '웃겨요',
+              data: [30, 40, 40, 20, 50, 60, 30],
+              dataLabels: {enabled:false},
+              borderWidth:0,
+              /*enableMouseTracking: false*/
+          },{
+              type:'column',
+              name: '멋져요',
+              data: [50, 30, 40, 70, 20, 100, 40],
+              dataLabels: {enabled:false},
+              borderWidth:0,
+              /*enableMouseTracking: false*/
+          }, {
+              type:'column',
+              name: '슬퍼요',
+              data: [20, 20, 30, 20, 10, 20, 60],
+              dataLabels: {enabled:false},
+              borderWidth:0,
+              /*enableMouseTracking: false*/
+          }, {
+              type:'column',
+              name: '화나요',
+              data: [30, 40, 40, 20, 50, 60, 30],
+              dataLabels: {enabled:false},
+              borderWidth:0,
+              /*enableMouseTracking: false*/
+          }, {
+              type: 'line',
+              color:'#1c9ef2',
+              name: 'Total',
+              lineWidth:1,
+              data: [200, 180, 220, 220, 160, 360, 260],
+              marker: {
+                  lineWidth: 2,
+                  radius:3,
+                  lineColor: '#1c9ef2',
+                  fillColor: '#1c9ef2'
+              },
+              dataLabels: {enabled:false},
+              enableMouseTracking: false
+          }]
+          ,navigation: {
+              buttonOptions: {
+                  enabled: false
+              }
+          }
+      });
+  </script>
+  </section>
+  
+  <br><hr><br>
+    
+  <!-- heatmap chart -->
+  <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+  <section>
+    <div class="chart-panel mt30">
+      <div class="chart-header">
+          <div class="title">heatmap chart</div>
+      </div>
+      <div class="chart-body ">
+          <div class="chart_weektable highchart_heatmap">
+              <div id="week_heatmap"></div>
+          </div>
+      </div>
+      <script>
+          function getPointCategoryName(point, dimension) {
+              var series = point.series,
+                  isY = dimension === 'y',
+                  axis = series[isY ? 'yAxis' : 'xAxis'];
+              return axis.categories[point[isY ? 'y' : 'x']];
+          }
+
+          Highcharts.chart('week_heatmap', {
+              chart: {
+                  type: 'heatmap',
+                  marginTop: 40,
+                  marginBottom: 80,										
+                  plotBorderWidth: 0,
+                  plotBorderColor: '#eeeeee', 
+
+              },
+              title: { text: '' },
+              xAxis: {
+                  opposite:true,
+                  categories: ['월', '화', '수', '목', '금', '토', '일']
+              },
+              yAxis: {
+                  categories: ['오전', '아침', '오후', '새벽', '심야', '저녁'],
+                  title: null,
+                  height: 230,
+                  labels: { x: -10, },
+                  reversed: true
+              },
+              exporting : null, // 메뉴
+              colorAxis: {
+                  min: 0,
+                  minColor: '#FFFFFF',
+                  maxColor: '#123fac'
+              },
+              legend: false,
+              tooltip: false,
+              series: [{
+                  name: '고객 이용 현황',
+                  borderWidth: 1,
+                  data: [
+                      [0, 0, 10], [0, 1, 19],  [0, 2, 8],   [0, 3, 24],   [0, 4, 67],   [0, 5, 24], 
+                      [1, 0, 92], [1, 1, 58],  [1, 2, 78],  [1, 3, 117],  [1, 4, 48],   [1, 5, 76], 
+                      [2, 0, 35], [2, 1, 15],  [2, 2, 123], [2, 3, 64],   [2, 4, 52],   [2, 5, 54],
+                      [3, 0, 72], [3, 1, 132], [3, 2, 114], [3, 3, 19],   [3, 4, 16],   [3, 5, 38], 
+                      [4, 0, 38], [4, 1, 5],   [4, 2, 8],   [4, 3, 117],  [4, 4, 115],  [4, 5, 12],
+                      [5, 0, 88], [5, 1, 32],  [5, 2, 12],  [5, 3, 6],    [5, 4, 120],  [5, 5, 70], 
+                      [6, 0, 13], [6, 1, 44],  [6, 2, 88],  [6, 3, 98],   [6, 4, 96],   [6, 5, 36] 
+                  ],
+                  dataLabels: {
+                      enabled: true,
+                      color: '#000000'
+                  }
+              }],
+              responsive: {
+                  rules: [{
+                      condition: {
+                          maxWidth: 320
+                      },
+                      chartOptions: {
+                          yAxis: {
+                              labels: {
+                                  formatter: function () {
+                                      return this.value//.charAt(0);
+                                  }
+                              }
+                          }
+                      }
+                  }]
+              }
+          });
+
+      </script>
+  </div>
+  </section>
+  
+  
+  
+</body>
+</html>
