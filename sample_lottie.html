@@ -27,7 +27,8 @@
  
   
  
-  <script src="./js/lottie_data.js"></script>
+  <!-- <script src="./js/lottie_data.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.9/lottie.min.js"></script>
   <script>
     var anim = bodymovin.loadAnimation({
       container:document.getElementById("movin"),
@@ -81,6 +82,21 @@
   <br><br><br><br>
   
   <div>
+    <h1>옵션</h1>
+    <h2>animation options:</h2>
+    <ul>
+      <li>animationData:  내 보낸 애니메이션 데이터가있는 개체.</li>
+      <li>path: 애니메이션 개체의 상대 경로</li>
+      <li>loop: true / false / number</li>
+      <li>autoplay: true / false </li>
+      <li>name: 나중에 참조 할 애니메이션 이름</li>
+      <li>renderer: 'svg' / 'canvas' / 'html' </li>
+      <li>container: 애니메이션을 렌더링 할 dom 요소</li>
+    </ul>
+    
+    <br><br> 
+
+
     <h1>메서드</h1>
     <h2>animation instances have these main methods:</h2>
     <ul>
