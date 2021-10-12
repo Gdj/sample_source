@@ -1,8 +1,11 @@
 {
 	"folders": [
 		{
+			"name": "Sample_source",
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.tabSize": 2
+	}
 }
