@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Panzoom for jQuery</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<style type="text/css">
+		body {background: #f5fcff;color: #333666;}
+		section {text-align: center;margin: 50px 0;}
+		.panzoom-parent {border: 2px solid #333;}
+		.panzoom-parent .panzoom {border: 2px dashed #666;}
+		.buttons {margin: 40px 0 0;}
+	</style>
+
+	<script src="js/library/jquery-1.10.2.min.js"></script>
+	<script src="js/library/jquery.mousewheel.js"></script>
+	<script src="js/library/panzoom/jquery.panzoom.v3.2.2.js"></script>
+	
+</head>
+
+<body>
+	<section>
+		<h1> Panning and zooming with css3 </h1>
+		<div class="parent">
+			<div class="panzoom">
+				<img src="./images/sample/video/poster.png" alt="">
+			</div>
+		</div>
+		<div class="buttons">
+			<button class="zoom-in">Zoom In</button>
+			<button class="zoom-out">Zoom Out</button>
+			<input type="range" class="zoom-range">
+			<button class="reset">Reset</button>
+		</div>
+		
+		<script>
+			(function(){
+				var $section = $('section').first();
+				$section.find('.panzoom').panzoom({
+					$zoomIn: $section.find(".zoom-in"),
+					$zoomOut: $section.find(".zoom-out"),
+					$zoomRange: $section.find(".zoom-range"),
+					$reset: $section.find(".reset")
+				});
+			})();
+		</script>
+	</section>
+</body>
+
+</html>

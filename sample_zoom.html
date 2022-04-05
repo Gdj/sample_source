@@ -15,13 +15,14 @@
 
 	<script src="js/library/jquery-1.10.2.min.js"></script>
 	<script src="js/library/jquery.mousewheel.js"></script>
-	<script src="js/library/panzoom/jquery.panzoom.js"></script>
+	<script src="js/library/panzoom/panzoom.js"></script>
 	
 </head>
 
 <body>
 	<section>
 		<h1> Panning and zooming with css3 </h1>
+		<a href="https://github.com/timmywil/panzoom" target="_blank">https://github.com/timmywil/panzoom</a>
 		<div class="parent">
 			<div class="panzoom">
 				<img src="./images/sample/video/poster.png" alt="">
@@ -30,20 +31,101 @@
 		<div class="buttons">
 			<button class="zoom-in">Zoom In</button>
 			<button class="zoom-out">Zoom Out</button>
+			<button class="zoom-reset">Reset</button>
 			<input type="range" class="zoom-range">
-			<button class="reset">Reset</button>
 		</div>
 		
 		<script>
+			/** 
+			 * trpRangeRatio			:  참고값을 비레해 타겟값을 추출
+			 *			                   $rMin 값과 $rMax 값의 $ref 위치를 비율을    
+																		$tMin 값과 $tMax 값의 에서 같은 비율로 찾아줍니다.
+			* 			
+			* @param	$rMin			: Refer 참고 최소 값		
+			* @param	$rMax			: Refer 참고 최대 값	
+			* @param	$ref			: Refer 참고 변화 값
+			* @param	$tMin			: target타겟 최소값
+			* @param	$tMax			: target타겟 최대값 
+			* @return					: 참고값을 비레해 타겟값을 추출; 
+			*/
+			function trpRangeRatio($rMin, $rMax, $ref, $tMin, $tMax ){
+
+			var rMin 	= 0;					// Refer 참고 최소 값		
+			var rMax	= $rMax - $rMin;		// Refer 참고 최대 값	
+			var ref 	= $ref  - $rMin;		// Refer 참고 변화 값
+			var rPer;							// Refer 참고 변화 퍼센트
+			var tMin 	= 0;					// target타겟 최소값
+			var tMax	= $tMax - $tMin;		// target타겟 최대값 
+
+			//rPer = Math.abs(rTar) / rMax  // 퍼센테지	== 100% => 1.0
+			rPer = ref / rMax				// 퍼센테지	== 100% => 1.0
+						
+			return (tMax * rPer)+ $tMin;	// 참고 비례 타겟값
+		}
+		</script>
+		<script>
+
+
+
+
 			(function(){
-				var $section = $('section').first();
-				$section.find('.panzoom').panzoom({
-					$zoomIn: $section.find(".zoom-in"),
-					$zoomOut: $section.find(".zoom-out"),
-					$zoomRange: $section.find(".zoom-range"),
-					$reset: $section.find(".reset")
-				});
+
+				var elem = document.querySelector('.panzoom');
+				var zoom_range = document.querySelector('.zoom-range');
+				var box = document.querySelector('.parent');
+
+				var panzoom = Panzoom(elem, {
+					maxScale: 4 ,    // (Default: 4)
+					minScale: 0.125  // (Default: 0.125)
+				})
+				//panzoom.pan(10, 10);
+				panzoom.zoom(1, { animate: true })
+
+				/* 
+					zoomInButton.addEventListener('click', panzoom.zoomIn)
+					zoomOutButton.addEventListener('click', panzoom.zoomOut)
+				*/
+				$(".zoom-in").on("click", function(){
+					panzoom.zoomIn();
+					zoom_rangeFN(panzoom.getScale())
+				})
+				$(".zoom-out").on("click", function(){
+					panzoom.zoomOut();
+					zoom_rangeFN(panzoom.getScale())
+				})
+				$(".zoom-reset").on("click", function(){
+					panzoom.reset();
+					zoom_rangeFN(panzoom.getScale())
+				})
+
+				function zoom_rangeFN($per){
+					var _zoom = trpRangeRatio(0.125, 4, $per, 0, 100 );
+					console.log("$per : " + _zoom);
+					$(".zoom-range").val(_zoom);
+				}
+				$(".zoom-range").on("mousemove click", function($e){
+					var _zoom = trpRangeRatio(0, 100, event.target.valueAsNumber, 0.125, 4 )
+					console.log(_zoom)
+					panzoom.zoom(_zoom);
+				})
+				/* 
+				zoom_range.addEventListener('input', ($e) => {
+					var _zoom = trpRangeRatio(0, 100, event.target.valueAsNumber, 0.125, 4 )
+					console.log(_zoom);
+					panzoom.zoom(_zoom);
+				})
+ 				 */
+
+
+				box.addEventListener('wheel', function($e) {
+					$e.preventDefault();
+					//if (!event.shiftKey) return
+					panzoom.zoomWithWheel(event)
+				})
+				
 			})();
+
+
 		</script>
 	</section>
 </body>

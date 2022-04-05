@@ -324,7 +324,22 @@ __CONSTANT_LIST = [
       url: './sample_zoom.html',
       pubUpdate: '2019-0000',
       etc: '줌',
-    }, {
+    }, 
+    {
+      dep1: '',
+      dep2: '',
+      url: './sample_zoom-v3.2.2.html',
+      pubUpdate: '2019-0000',
+      etc: '줌',
+    }, 
+    {
+      dep1: '',
+      dep2: 'zoom2',
+      url: './sample_zoom2.html',
+      pubUpdate: '2019-0000',
+      etc: '줌 zoom-by-ironex.min.js , imgViewer2.min.js',
+    }, 
+    {
       dep1: '',
       dep2: 'jQuery-rwdImageMaps',
       url: './sample_responsiveImgMap.html',

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Panzoom for jQuery</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<style type="text/css">
+		body {background: #f5fcff;color: #333666;}
+		section {text-align: center;margin: 50px 0;}
+    .zoom { border: 1px solid #ccc; overflow: hidden;}
+	</style>
+
+	<script src="js/library/jquery-1.10.2.min.js"></script>
+	<script src="js/library/jquery-ui-1.10.2.custom.min.js"></script>
+	
+</head>
+
+<body>
+	
+  <section>
+		<h1>zoom1</h1>
+	  <div class="zoom js-zoom1">
+      <img src="./images/sample/video/poster.png" alt="">
+    </div>
+    <script src="/js/library/zoom/zoom-by-ironex.min.js"></script>	
+    <script>
+			(function(){
+        zoom(["js-zoom1"]); 
+			})();
+		</script>
+	</section>
+
+
+	<section style="margin-top: 50px;">
+		<h1>zoom2</h1>
+	  <div class="zoom js-zoom2">
+      <img src="./images/sample/video/poster.png" alt="">
+    </div>
+    <link rel="stylesheet" href="/js/library/zoom/leaflet.css" />
+    <script src="/js/library/zoom/leaflet.js"></script>	
+    <script src="/js/library/zoom/imgViewer2.min.js"></script>	
+    <script>
+      $(window).on("load", function() {
+        
+        var $img = $(".js-zoom2 img").imgViewer2({
+          zoomMax : 3,
+        });
+
+      });
+		</script>
+	</section>
+
+</body>
+
+</html>
