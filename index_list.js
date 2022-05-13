@@ -172,6 +172,13 @@ __CONSTANT_LIST = [
       pubUpdate: '2019-0000',
       etc: 'charts',
     }, 
+    {
+      dep1: '',
+      dep2: '플립카운터',
+      url: './sample_filpCounter0.html',
+      pubUpdate: '2019-0000',
+      etc: '0~2 / other(https://github.com/objectivehtml/FlipClock / https://url.kr/beul21) ',
+    }, 
 
 
     {
