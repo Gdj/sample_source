@@ -13,28 +13,34 @@
 		.buttons {margin: 40px 0 0;}
 	</style>
 
-	<script src="js/library/jquery-1.10.2.min.js"></script>
+	<script src="js/library/jquery-1.12.1.min.js"></script>
 	<script src="js/library/jquery.mousewheel.js"></script>
-	<script src="js/library/panzoom/panzoom.js"></script>
+	
+	<script src="https://unpkg.com/@panzoom/panzoom@4.5.0/dist/panzoom.min.js"></script>
+	
 	
 </head>
 
 <body>
+
+	<div>panzoom : <a href="https://timmywil.com/panzoom/demo/">demo</a></div>
+	<div>panzoom : <a href="https://github.com/timmywil/panzoom">api</a></div>
+
 	<section>
 		<h1> Panning and zooming with css3 </h1>
-		<a href="https://github.com/timmywil/panzoom" target="_blank">https://github.com/timmywil/panzoom</a>
 		<div class="parent">
-			<div class="panzoom">
+			<div id="js-panzoom" class="js-panzoom">
 				<img src="./images/sample/video/poster.png" alt="">
 			</div>
 		</div>
 		<div class="buttons">
 			<button class="zoom-in">Zoom In</button>
 			<button class="zoom-out">Zoom Out</button>
-			<button class="zoom-reset">Reset</button>
 			<input type="range" class="zoom-range">
+			<button class="zoom-reset">Reset</button>
 		</div>
 		
+
 		<script>
 			/** 
 			 * trpRangeRatio			:  참고값을 비레해 타겟값을 추출
@@ -63,39 +69,36 @@
 			return (tMax * rPer)+ $tMin;	// 참고 비례 타겟값
 		}
 		</script>
+
 		<script>
-
-
-
 			(function(){
 
-				var elem = document.querySelector('.panzoom');
-				var zoom_range = document.querySelector('.zoom-range');
-				var box = document.querySelector('.parent');
 
+				//var elem = $('.js-panzoom').first();
+				var elem = document.getElementById('js-panzoom');
 				var panzoom = Panzoom(elem, {
-					maxScale: 4 ,    // (Default: 4)
-					minScale: 0.125  // (Default: 0.125)
+					maxScale: 5
 				})
-				//panzoom.pan(10, 10);
 				panzoom.zoom(1, { animate: true })
+				panzoom.pan(100, 100)
 
-				/* 
-					zoomInButton.addEventListener('click', panzoom.zoomIn)
-					zoomOutButton.addEventListener('click', panzoom.zoomOut)
-				*/
-				$(".zoom-in").on("click", function(){
-					panzoom.zoomIn();
-					zoom_rangeFN(panzoom.getScale())
+				// Panning and pinch zooming are bound automatically (unless disablePan is true).
+				// There are several available methods for zooming
+				// that can be bound on button clicks or mousewheel.
+				
+
+				document.querySelector('.zoom-in').addEventListener('click', panzoom.zoomIn);
+				document.querySelector('.zoom-out').addEventListener('click', panzoom.zoomOut);
+				//document.querySelector('.zoom-reset').addEventListener('click', panzoom.reset);
+				$('.zoom-reset').on("click", function($e){ panzoom.reset(); })
+
+				//elem.parentElement.addEventListener('wheel', panzoom.zoomWithWheel)
+				$('.js-panzoom').on("mousewheel", function($e,$delta){ 
+					$e.preventDefault();
+					console.log($delta)
+					panzoom.zoomWithWheel($e)
 				})
-				$(".zoom-out").on("click", function(){
-					panzoom.zoomOut();
-					zoom_rangeFN(panzoom.getScale())
-				})
-				$(".zoom-reset").on("click", function(){
-					panzoom.reset();
-					zoom_rangeFN(panzoom.getScale())
-				})
+
 
 				function zoom_rangeFN($per){
 					var _zoom = trpRangeRatio(0.125, 4, $per, 0, 100 );
@@ -104,26 +107,12 @@
 				}
 				$(".zoom-range").on("mousemove click", function($e){
 					var _zoom = trpRangeRatio(0, 100, event.target.valueAsNumber, 0.125, 4 )
-					console.log(_zoom)
+					//console.log(_zoom)
 					panzoom.zoom(_zoom);
 				})
-				/* 
-				zoom_range.addEventListener('input', ($e) => {
-					var _zoom = trpRangeRatio(0, 100, event.target.valueAsNumber, 0.125, 4 )
-					console.log(_zoom);
-					panzoom.zoom(_zoom);
-				})
- 				 */
 
 
-				box.addEventListener('wheel', function($e) {
-					$e.preventDefault();
-					//if (!event.shiftKey) return
-					panzoom.zoomWithWheel(event)
-				})
-				
 			})();
-
 
 		</script>
 	</section>
