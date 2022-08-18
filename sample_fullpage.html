@@ -9,8 +9,8 @@
 	<meta name="keywords"  content="fullpage,jquery,demo,screen,fullscreen,normal scroll,autoscrolling, scroll" />
 	<meta name="Resource-type" content="Document" />
 
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.css" />
-<!-- 	<link rel="stylesheet" type="text/css" href="examples.css" /> -->
+	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.css" /> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.css" />
 	<style>
 
 		/* Style for our header texts
@@ -20,6 +20,7 @@
 		/* Centered texts in each section
 		* --------------------------------------- */
 		.section{text-align:center;}
+		.footer_style { background-color: #333; color:#ccc; height: 50px;}
 
 		/* Bottom menu
 		* --------------------------------------- */
@@ -54,7 +55,8 @@
 
 	<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 	<script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.js"></script>
+	<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.fullpage/2.5.9/jquery.fullPage.min.js"></script> -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -62,7 +64,9 @@
 				menu: '#menu',
 				anchors: ['firstPage', 'secondPage', '3rdPage'],
 				sectionsColor: ['#C63D0F', '#1BBC9B', '#7E8F7C'],
-				autoScrolling: false
+				//autoScrolling: false,
+				navigation: true,
+      	navigationPosition: 'left',
 			});
 		});
 	</script>
@@ -106,6 +110,12 @@
 			<p>autoScrolling:false</p>
 		</div>
 	</div>
+	<div class="section fp-auto-height footer_style" id="section3">
+		<div class="">
+			<p>copyright ⓒ TR. </p>
+		</div>
+	</div>
+
 </div>
 
 </body>
