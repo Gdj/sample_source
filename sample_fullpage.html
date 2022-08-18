@@ -67,6 +67,12 @@
 				//autoScrolling: false,
 				navigation: true,
       	navigationPosition: 'left',
+				// ** 페이지를 불러온 후
+				afterLoad : function(anchorLink, page){},
+				// ** 페이지를 떠날때
+				onLeave : function( prev, page, updwon){},
+				// ** 세컨 슬라이드 떠날때
+				onSlideLeave: function(anchors, $num, sub_page, left_right){}
 			});
 		});
 	</script>
