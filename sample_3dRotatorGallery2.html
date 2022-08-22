@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>css3D</title>
+	<script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  /*
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  */
+    height: 100vh;
+    background: #0f2027;
+    background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+    overflow: hidden;
+  }
+  .scope { top:200px; margin: 0 auto;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+    transition: all .3s ease-out;
+
+    /* animation: slid 30s linear infinite; */
+  }
+
+  .scope span {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transform: rotateY(calc(var(--i) * 45deg)) translateZ(350px);
+  }
+  .scope span img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+
+  .scope .c_item { 
+    height: 300%; top : -100%;
+    transform-style: preserve-3d;
+    transform:  rotateY(0) ;
+    transition: all .3s ease-out;
+  }
+
+
+
+  .scope span:hover img {
+    /* transform: translateY(-50px) scale(1.7); */
+  }
+  @keyframes slid {
+    0% {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+    100% {
+      transform: perspective(1000px) rotateY(360deg);
+    }
+  }
+
+  </style>
+</head>
+<body>
+  
+  <h2>3D Rotator Gallery</h2>
+  <!--<div style="display: block;">출처 : <a href="https://codepen.io/Bilal1909/pen/KKVRbeQ?editors=1100">출처</a></div>-->
+
+  <div class="btn_set">
+    <button class="js-prev"> &lt; prev </button>
+    <button class="js-next"> next &gt; </button>
+    <button class="js-reset"> ||  </button>
+  </div>
+
+  <div class="scope js-scope" >
+    <span style="--i:1;"><a href="#"><img src="https://i.postimg.cc/BQcRL38F/pexels-photo-761963.jpg" alt="not found"></a></span>
+    <span style="--i:2;"><a href="#"><img src="https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg" alt="not found"></a></span>
+    <span style="--i:3;"><a href="#"><img src="https://i.postimg.cc/CMfHRKfP/woman-2003647-960-720.jpg" alt="not found"></a></span>
+    <span style="--i:4;"><a href="#"><img src="https://i.postimg.cc/T1rDCpVT/beautiful-1274056-960-720.jpg" alt="not found"></a></span>
+    <span style="--i:5;"><a href="#"><img src="https://i.postimg.cc/SNf99YQr/woman-1807533-960-720.jpg" alt="not found"></a></span>
+    <span style="--i:6;"><a href="#"><img src="https://i.postimg.cc/2SHBcpZL/pexels-photo-4664520.jpg" alt="not found"></a></span>
+    <span style="--i:7;"><a href="#"><img src="https://i.postimg.cc/CxBzNcjw/Opera-Snapshot-2020-07-03-162022-www-freepik-com.png" alt="not found"></a></span>
+    <span style="--i:8;"><a href="#"><img src="https://i.postimg.cc/0QckxSpt/Opera-Snapshot-2020-07-03-161422-www-freepik-com.png" alt="not found"></a></span>
+  </div>
+
+    
+
+  <script>
+    var root_deg   = 0;
+    var root_degRe = 0;
+    
+   $(".js-prev").on("click", function($e){
+     root_deg += 45;
+     $(".js-scope").css({"transform" :  "perspective(1000px)" + "rotateY("+root_deg+"deg)"});
+   });
+   $(".js-next").on("click", function($e){
+     root_deg -= 45;
+     $(".js-scope").css({"transform" :  "perspective(1000px)" + "rotateY("+root_deg+"deg)"});
+   });  
+   $(".js-reset").on("click", function($e){
+     root_deg = 0;
+     $(".js-scope").css({"transform" :  "perspective(1000px)" + "rotateY("+root_deg+"deg)"});
+   });
+    
+    $(window).on('wheel', function(event){
+      if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+        // scroll up
+        root_deg -= 10; 
+        root_degRe += 10;
+        /* if( root_deg <= 0){ root_deg = 360 }  */
+        console.log("스크롤 위로 : " + root_deg );
+      }
+      else {
+        // scroll down
+        root_deg += 10; 
+        root_degRe -= 10;
+        /* if( root_deg >= 360){ root_deg = 0 }  */
+        console.log("스크롤 아래로 : " + root_deg);
+      }
+      $(".js-scope").css({"transform" :  "perspective(1000px)" + "rotateY("+root_deg+"deg)"});
+      $(".js-scope .c_item").css({"transform" :  "perspective(1000px)" + "rotateY("+root_degRe+"deg)"});
+    });
+
+  </script>
+
+</body>
+</html>

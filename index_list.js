@@ -200,6 +200,14 @@ __CONSTANT_LIST = [
       pubUpdate: '2022-0000',
       etc: '0~2 / other(https://github.com/objectivehtml/FlipClock / https://url.kr/beul21) ',
     }, 
+    {
+      dep1: '',
+      dep2: '3D rotator',
+      dep3: '', 
+      url: './sample_3dRotatorGallery.html',
+      pubUpdate: '2022-0000',
+      etc: '',
+    }, 
 
 
     {
@@ -213,7 +221,7 @@ __CONSTANT_LIST = [
       dep1: '',
       dep2: 'swiper',
       dep3: '', 
-      url: './sample_swiper(solid).html',
+      url: './sample_swiper.html',
       pubUpdate: '2022-0000',
       etc: '입채',
     }, 

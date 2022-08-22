@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sample_pageScroll</title>
+	<link 	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.css">
+	<script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" ></script>  
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.js" ></script>
+  
+	<style>
+    .swiper-wrap  {position: absolute; left: 0; right: 0; top: 50%; opacity: 1; margin-top: -150px; height: 350px;;}
+    .swiper-container {   width: 100%; height: 300px; }
+    .swiper-container .swiper-slide { width: 300px; height:  300px; background-position: center; background-size: cover; }
+		.swiper-container .swiper-slide.swiper-slide-prev   { }
+		.swiper-container .swiper-slide.swiper-slide-next   { }
+		.swiper-container .swiper-slide.swiper-slide-active {}
+
+    .swiper-wrap .swiper-pagination {width: 100%;}
+    .swiper-wrap .swiper-pagination .swiper-pagination-bullet  { display: inline-block; margin: 0 5px; background-color: #000000;}
+    .swiper-wrap .swiper-pagination .swiper-pagination-bullet-active   { background-color: #0000ff;}
+    .swiper-wrap .swiper-pagination-bullet { width: 10px; height: 10px; background: #fff; opacity: 0.2; }
+    .swiper-wrap .swiper-pagination-bullet-active { opacity: 1; background: #fff;}
+
+
+
+	</style>
+</head>
+<body>
+  <!-- 메인 키비주얼 -->
+  <div class="swiper-wrap">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+
+	    <div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+	    <div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+			<div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+			<div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+			<div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+			<div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+			<div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+			<div class="swiper-slide"><img src="https://via.placeholder.com/500x300" width="300" height="300" alt=""></div>
+
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+<style>
+
+.swiper-container { padding-bottom: 30px; }
+.swiper-slide { width: 20%; margin-right: 10px; height: 200px; box-shadow: 0 2px 10px 0px #848484; }
+</style>
+<script>
+	var option1 = {
+		loop: true,
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		slideToClickedSlide: true,
+		effect: 'coverflow',
+		coverflowEffect: {
+			rotate: 30,
+			slideShadows: false,
+ 	  }
+	};
+	var option2 = {
+		loop: true,
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		slideToClickedSlide: true,
+		effect: 'coverflow',
+		coverflowEffect: {
+			rotate: 0,
+			slideShadows: false,
+		}
+	};
+	var option3 = {
+		loop: true,
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		slideToClickedSlide: true,
+		effect: 'coverflow',
+		coverflowEffect: {
+			rotate: 0,
+			stretch: 70,
+			slideShadows: false,
+		}
+	};
+
+	var optionX = {
+		loop: true,
+		centeredSlides: true,
+		slidesPerView: 'auto',
+		slideToClickedSlide: true,
+		effect: 'coverflow',
+		coverflowEffect: {
+			rotate: -45,   // 각도
+			stretch:  -10, // 간격
+			slideShadows: false,
+		}
+	};
+
+	var swiper = new Swiper('.swiper-container', optionX);
+</script>
+
+	
+</body>
+</html>
