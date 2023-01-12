@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>charts</title>
+  <script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <style>
+    section { max-width: 1000px; margin: 50px auto; }
+    /* ========================== layout */
+    .col1::after, .col2::after, .col3::after, .col4::after, .col5::after, .col6::after, .col7::after, .col8::after { content: ''; display: block; clear: both }
+    .col1>a, .col1>li , .col1>.colitem { float:left; box-sizing:border-box; width: 100%; }
+    .col2>a, .col2>li , .col2>.colitem { float:left; box-sizing:border-box; width: 50%; }
+    .col3>a, .col3>li , .col3>.colitem { float:left; box-sizing:border-box; width: 33.3333%; }
+    .col4>a, .col4>li , .col4>.colitem { float:left; box-sizing:border-box; width: 25%; }
+    .col5>a, .col5>li , .col5>.colitem { float:left; box-sizing:border-box; width: 20%; }
+    .col6>a, .col6>li , .col6>.colitem { float:left; box-sizing:border-box; width: 16.6666%; }
+    .col7>a, .col7>li , .col7>.colitem { float:left; box-sizing:border-box; width: 14.2857%; }
+    .col8>a, .col8>li , .col8>.colitem { float:left; box-sizing:border-box; width: 10%; }
+
+    
+    /* ===================================== chart ============== */
+    .chart-panel + .chart-panel { margin-top: 50px;}
+    .chart-panel {position: relative;}
+    .chart-header { position: relative; z-index: 2;
+      border: 1px solid #aaaaaa;  border-radius: 25px;  background-color: #fff;
+      width: 85%; min-height: 50px; margin: 0 auto; padding: 12px; box-sizing: border-box;}
+    .chart-header .title { font-size: 18px; font-weight: bold; color:#111; text-align: center; letter-spacing: -1px; }
+    .chart-body { position: relative; margin-top: -25px; padding-top: 30px; border: 1px solid #e5e5e5;  z-index: 1;}
+    .chart-body .legend{ position: absolute; top:50px; right: 20px;font-size: 12px; color:#555555; }
+    .chart-body .total-box{ display: block;  margin-top: 45px; text-align: center; } 
+    .chart-body .total-box .legend { position: absolute; top:50px; right: 20px; margin-top: 25px;}
+    .chart-body .total-box .count { display: inline-block; width: 60%; padding-bottom: 5px; 
+      border-bottom:2px solid #555555; letter-spacing: -1.5px; 
+    }
+    .chart-body .total-box span { font-size: 18px; font-weight: bold; color:#333;  vertical-align: middle; margin-left: 4px; } 
+    .chart-body .total-box em   { font-size: 24px; font-weight: bold; color:#e86805; vertical-align: middle;  }
+    .chart-body ul, .chart-body li, .chart-body ol { margin: 0; padding: 0; list-style:none;  }
+    
+  </style>
+</head>
+<body>
+ 
+  <h1><a href="https://www.chartjs.org/">https://www.chartjs.org/</a></h1>
+    <!-- Y bar chart -->
+    <section class="section-wrap">
+      <div class="section-inner">
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 최신버젼 -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div class="title">Y bar chart (v3.9.1)</div>
+          </div>
+          <div class="chart-body">
+              <div class="chart-box">
+                <canvas id="chart_state_bar"></canvas>
+              </div>
+              <script>    
+                var labels = [
+                '2018',
+                '2019',
+                '2020',
+                '2021',
+                '2022',
+              ];
+              var data = {
+                labels: labels,
+                datasets: [
+                {
+                  label: "자산총계",
+                  backgroundColor: "#314d3b",
+                  data: [358534,395345,384982,495574,545397]
+                },
+                {
+                  label: "자본총액",
+                  backgroundColor: "#7bb240",
+                  data: [191743,182132,154585, 196332, 205934]
+                },
+                {
+                  label: "부채총계 ",
+                  backgroundColor: "#aed76f",
+                  data: [166791,213213,230397,299242,339463]
+                },
+              ]
+              };
+
+              var config = {
+                type: 'bar',
+                data: data,
+                options: {
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'bottom',
+                      display: false,
+                      // labels:{
+                      //   boxWidth: 40,
+                      //   padding: 20,
+                      // }          
+                    },
+                    title: {
+                      display: false,
+                      text: '재무상태표'
+                    }
+                  }
+                }
+              };
+
+              var ctx = document.getElementById('chart_state_bar'); 
+              var myChart = new Chart( ctx, config );
+              </script>
+          </div>
+        </div>
+
+
+      
+        <!-- https://github.com/chartjs/Chart.js/blob/master/docs/samples/legend/html.md -->
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div class="title">Y bar doughnut (v3.9.1)</div>
+          </div>
+          <div class="chart-body">
+              <div class="chart-box" style="width: 500px">
+                <canvas id="chart_state_doughnut"></canvas>
+                <div id="js-chart_state_doughnut-legend">
+                </div>
+              </div>
+              <script>
+                var chartData = {
+                  labels: ['최대주주', '외국인', '기관', '개인', '자사주'],
+                  datasets: [{
+                    label: 'My First Dataset',
+                    data: [33.4,22.5,17.4,16.3,10.5],
+                    backgroundColor: [
+                      'rgb(255, 99, 132)',
+                      'rgb(54, 162, 235)',
+                      'rgb(255, 205, 86)',
+                      '#b3cf0a','#aed76f'
+                    ],
+                    hoverOffset: 4
+                  }]
+                };
+                var chartOptions = {
+                  plugins: {
+                    legend: { display: false },
+                    layout: {
+                      padding: { left: 50, right: 50, top: 40, bottom: 50 }
+                    },
+                  }
+                };
+                var getOrCreateLegendList = (chart, id) => {
+                  var legendContainer = document.getElementById(id);
+                  var listContainer = ""//legendContainer.querySelector('ul');
+
+                  if (!listContainer) {
+                    listContainer = document.createElement('ul');
+                    listContainer.className = 'js-legend-list';
+                    listContainer.style.display = 'flex';
+                    listContainer.style.flexDirection = 'row';
+                    listContainer.style.margin = 0;
+                    listContainer.style.padding = 0;
+
+                    legendContainer.appendChild(listContainer);
+                  }
+                  return listContainer;
+                };
+                var chartPlugin = [{
+                    id: 'js-chart_state_doughnut-legend',
+                    afterUpdate(chart, args, options) {
+                      
+                    //var ul = getOrCreateLegendList(chart, options.containerID);
+                    var ul = getOrCreateLegendList(chart, "js-chart_state_doughnut-legend");
+                    // Remove old legend items
+                    while (ul.firstChild) {
+                      ul.firstChild.remove();
+                    }
+
+                    // Reuse the built-in legendItems generator
+                    const items = chart.options.plugins.legend.labels.generateLabels(chart);
+
+                    items.forEach(function(item) {
+                      const li = document.createElement('li');
+                      li.style.alignItems = 'center';
+                      li.style.cursor = 'pointer';
+                      li.style.display = 'flex';
+                      li.style.flexDirection = 'row';
+                      li.style.marginLeft = '10px';
+
+                      li.onclick = () => {
+                        const {type} = chart.config;
+                        if (type === 'pie' || type === 'doughnut') {
+                          // Pie and doughnut charts only have a single dataset and visibility is per item
+                          chart.toggleDataVisibility(item.index);
+                        } else {
+                          chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+                        }
+                        chart.update();
+                      };
+
+                      // Color box
+                      const boxSpan = document.createElement('span');
+                      boxSpan.style.background = item.fillStyle;
+                      boxSpan.style.borderColor = item.strokeStyle;
+                      boxSpan.style.borderWidth = item.lineWidth + 'px';
+                      boxSpan.style.display = 'inline-block';
+                      boxSpan.style.height = '20px';
+                      boxSpan.style.marginRight = '10px';
+                      boxSpan.style.width = '20px';
+
+                      // Text
+                      const textContainer = document.createElement('p');
+                      textContainer.style.color = item.fontColor;
+                      textContainer.style.margin = 0;
+                      textContainer.style.padding = 0;
+                      textContainer.style.textDecoration = item.hidden ? 'line-through' : '';
+
+                      const text = document.createTextNode(item.text);
+                      textContainer.appendChild(text);
+
+                      li.appendChild(boxSpan);
+                      li.appendChild(textContainer);
+                      ul.appendChild(li);
+                    });
+                  }
+                  }];
+                var chartPlugin2 = [{
+                    beforeInit: function (chart, args, options) {
+                      // Make sure we're applying the legend to the right chart
+                      if (chart.canvas.id === "chart_state_doughnut") {
+                        var ul = document.createElement('ul');
+
+                        var ds = chart.data.datasets[0];
+                        var sum = ds.data.reduce(function add(a, b) {
+                          return a + b;
+                        }, 0);
+
+                        chart.data.labels.forEach((label, i) => {
+                          var perc = Math.round(100 * ds.data[i] / sum, 0);
+                          ul.innerHTML += `
+                        <li>
+                          <span style="display:inline-block; width:30px;height:10px; background-color: ${chart.data.datasets[0].backgroundColor[i]}"></span>
+                          <span> ${chart.data.datasets[0].data[i]}</span>
+                          <span> | `+ perc + `%</span>
+                          <span> | ${label} </span>
+                        </li>
+                      `;
+                        });
+                        return document.getElementById("js-chart_state_doughnut-legend").appendChild(ul);
+                      }
+
+                      return;
+                    }
+                  }]
+
+                var context = document.querySelector("#chart_state_doughnut");
+                var chart = new Chart(context, {
+                  type: "doughnut",
+                  data: chartData,
+                  options : chartOptions, 
+                  plugins : chartPlugin
+                });
+
+              /*   $("#js-chart_state_doughnut-legend").on("click", "li", function (event) {
+                  event = event || window.event;
+
+                  var target = event.target || event.srcElement;
+                  while (target.nodeName !== 'LI') {
+                    target = target.parentElement;
+                  }
+                  var parent = target;  // 클릭타켓
+                  var chart = Chart.instances[0];                  
+                  var index = $(this).index(); //Array.prototype.slice.call(parent.children).indexOf(target);
+                  console.log("index", index)
+                  var meta = chart.getDatasetMeta(0);
+                  //var item = meta.data[index]; // 그래프 아이템
+                  var item = chart.options.plugins.legend.labels.generateLabels(chart);; // 그래프 아이템
+                  
+                  
+                  console.log("item",  item)
+                  if (item.hidden === null || item.hidden === undefined) {
+                    item.hidden = true;
+                    target.classList.add('hidden');
+                  } else {
+                    target.classList.remove('hidden');
+                    item.hidden = null;
+                  }
+                  chart.update();
+                })
+
+ */
+              </script>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+ 
+
+  
+</body>
+</html>

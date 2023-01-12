@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>charts</title>
+  <script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <style>
+    section { max-width: 1000px; margin: 50px auto; }
+    /* ========================== layout */
+    .col1::after, .col2::after, .col3::after, .col4::after, .col5::after, .col6::after, .col7::after, .col8::after { content: ''; display: block; clear: both }
+    .col1>a, .col1>li , .col1>.colitem { float:left; box-sizing:border-box; width: 100%; }
+    .col2>a, .col2>li , .col2>.colitem { float:left; box-sizing:border-box; width: 50%; }
+    .col3>a, .col3>li , .col3>.colitem { float:left; box-sizing:border-box; width: 33.3333%; }
+    .col4>a, .col4>li , .col4>.colitem { float:left; box-sizing:border-box; width: 25%; }
+    .col5>a, .col5>li , .col5>.colitem { float:left; box-sizing:border-box; width: 20%; }
+    .col6>a, .col6>li , .col6>.colitem { float:left; box-sizing:border-box; width: 16.6666%; }
+    .col7>a, .col7>li , .col7>.colitem { float:left; box-sizing:border-box; width: 14.2857%; }
+    .col8>a, .col8>li , .col8>.colitem { float:left; box-sizing:border-box; width: 10%; }
+
+    
+    /* ===================================== chart ============== */
+    .chart-panel {position: relative;}
+    .chart-header { position: relative; z-index: 2;
+      border: 1px solid #aaaaaa;  border-radius: 25px;  background-color: #fff;
+      width: 85%; min-height: 50px; margin: 0 auto; padding: 12px; box-sizing: border-box;}
+    .chart-header .title { font-size: 18px; font-weight: bold; color:#111; text-align: center; letter-spacing: -1px; }
+    .chart-body { position: relative; margin-top: -25px; padding-top: 30px; border: 1px solid #e5e5e5;  z-index: 1;}
+    .chart-body .legend{ position: absolute; top:50px; right: 20px;font-size: 12px; color:#555555; }
+    .chart-body .total-box{ display: block;  margin-top: 45px; text-align: center; } 
+    .chart-body .total-box .legend { position: absolute; top:50px; right: 20px; margin-top: 25px;}
+    .chart-body .total-box .count { display: inline-block; width: 60%; padding-bottom: 5px; 
+      border-bottom:2px solid #555555; letter-spacing: -1.5px; 
+    }
+    .chart-body .total-box span { font-size: 18px; font-weight: bold; color:#333;  vertical-align: middle; margin-left: 4px; } 
+    .chart-body .total-box em   { font-size: 24px; font-weight: bold; color:#e86805; vertical-align: middle;  }
+    .chart-body ul, .chart-body li, .chart-body ol { margin: 0; padding: 0; list-style:none;  }
+    
+  </style>
+</head>
+<body>
+ 
+
+    <!-- Y bar chart -->
+    <section class="section-wrap">
+      <div class="section-inner">
+
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div class="title">Y bar chart doughnut (Sample Chart.js/2.8.0)</div>
+          </div>
+          <div class="chart-body">
+
+            <div class="chart-box" style="width: 500px;">
+              <canvas id="chart_state_doughnut"></canvas>
+              <div id="js-chart_state_doughnut-legend"></div>
+            </div>
+            
+              <!------ chart : 재무상태표  ------>             
+              <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+              <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+              <script>
+                var ctx = document.getElementById("chart_state_doughnut").getContext('2d');
+                var chartData = {
+                  labels: ['최대주주', '외국인', '기관', '개인', '자사주'],
+                  datasets: [ {
+                    label: "Dataset",
+                    backgroundColor: ["#314d3b", "#2c9251", "#7bb240", "#b3cf0a","#aed76f"],
+                    data: [33.4,22.5,17.4,16.3,10.5]
+                  } ]
+                };
+                var config = {
+                  type: 'doughnut',
+                  data: chartData,
+                  options: {
+                    responsive: true,
+                    legend: { display: false },
+                    /* 
+                    legendCallback: function(chart) {
+                      var text = [];
+                      text.push('<ul class="0-legend">');
+                      var ds = chart.data.datasets[0];
+                      var sum = ds.data.reduce(function add(a, b) {
+                        return a + b;
+                      }, 0);
+                      for (var i = 0; i < ds.data.length; i++) {
+                        text.push('<li>');
+                        var perc = Math.round(100 * ds.data[i] / sum, 0);
+                        text.push('<span style="display:inline-block; width:30px;height:10px; background-color:' + ds.backgroundColor[i] + '">' + '</span>' + '<span style="font-size:13px;" >' + chart.data.labels[i] + ' (' + ds.data[i] + ') (' + perc + '%)' + '</span>');
+                        text.push('</li>');
+                      }
+                      text.push('</ul>');
+                      return text.join("");
+                    },
+                     */
+                    layout: {
+                      padding: { left: 50, right: 50, top: 40, bottom: 50 }
+                    },
+                    plugins: {
+                      legend: { display:false, }, 
+                      title: {
+                        display: false,
+                        text: '주식/주주현황 주주구성'
+                      },
+                      datalabels: {
+                        color: '#000',
+                        align: 'end',
+                        anchor: 'end',
+                        font: {
+                          size: 16,
+                          style: 'bold',
+                        },
+                        formatter: function(value) {
+                          return value + "%";
+                        }
+                      },
+                      tooltip: { // 기존 툴팁 사용 안 함
+                        enabled: false
+                      },
+                      animation: { // 차트 애니메이션 사용 안 함 (옵션)
+                        duration: 0,
+                      },
+                    },
+
+                  },
+
+                  /* 커스텀 범례 */
+                  plugins:[{
+                    beforeInit: function(chart, args, options) {
+                      // Make sure we're applying the legend to the right chart
+                      if (chart.canvas.id === "chart_state_doughnut") {
+                        
+                        var ul = document.createElement('ul');
+                        var ds = chart.data.datasets[0];
+                        var sum = ds.data.reduce(function add(a, b) {
+                          return a + b;
+                        }, 0);
+                        chart.data.labels.forEach((label, i) => {
+                          
+                          var perc = Math.round(100 * ds.data[i] / sum, 0);
+                          ul.innerHTML += `
+                            <li>
+                              <span style="display:inline-block; width:30px;height:10px; background-color: ${ chart.data.datasets[0].backgroundColor[i] }"></span>
+                              <span style="font-size:14px"> ${ chart.data.datasets[0].data[i] }</span>
+                              <span style="font-size:14px"> | `+ perc +`%</span>
+                              <span style="font-size:14px"> | ${ label } </span>
+                            </li>
+                          `;
+                        });
+                        return document.getElementById("js-chart_state_doughnut-legend").appendChild(ul);
+                      }
+                      return;
+                    },
+                  }]
+                }
+                var chart = new Chart(ctx, config);
+                
+                /* var myLegendContainer = document.getElementById("js-chart_state_doughnut-legend");
+                // generate HTML legend
+                myLegendContainer.innerHTML = chart.generateLegend();
+                // bind onClick event to all LI-tags of the legend
+                var legendItems = myLegendContainer.getElementsByTagName('li');
+                for (var i = 0; i < legendItems.length; i += 1) {
+                  legendItems[i].addEventListener("click", legendClickCallback, false);
+                }
+                function legendClickCallback(event) {
+                  event = event || window.event;
+    
+                  var target = event.target || event.srcElement;
+                  while (target.nodeName !== 'LI') {
+                    target = target.parentElement;
+                  }
+                  var parent = target.parentElement;
+                  var chartId = parseInt(parent.classList[0].split("-")[0], 10);
+                  console.log("chartId" , chartId)
+                  var chart = Chart.instances[chartId];
+                  var index = Array.prototype.slice.call(parent.children).indexOf(target);
+                  var meta = chart.getDatasetMeta(0);
+                  console.log(index);
+                  var item = meta.data[index];
+    
+                  if (item.hidden === null || item.hidden === false) {
+                    item.hidden = true;
+                    target.classList.add('hidden');
+                  } else {
+                    target.classList.remove('hidden');
+                    item.hidden = null;
+                  }
+                  chart.update();
+                }
+                */
+  
+                $("#js-chart_state_doughnut-legend").on("click", "li", function(event){
+                  event = event || window.event;
+                  
+                  var target = event.target || event.srcElement;
+                  while (target.nodeName !== 'LI') {
+                    target = target.parentElement;
+                  }
+                  var parent = target;
+                  var chart = Chart.instances[0];
+                  var index = $(this).index(); //Array.prototype.slice.call(parent.children).indexOf(target);
+                  var meta = chart.getDatasetMeta(0);
+                  var item = meta.data[index];
+                  console.log("item",  item);
+                  if (item.hidden === null || item.hidden === false || item.hidden === undefined) {
+                    item.hidden = true;
+                    target.classList.add('hidden');
+                  } else {
+                    target.classList.remove('hidden');
+                    item.hidden = null;
+                  }
+                  chart.update();
+                })
+
+              </script>
+    
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+ 
+
+  
+</body>
+</html>
