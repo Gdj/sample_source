@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>trpSelectedItem</title>
+  <script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <script type="text/javascript" src="./js/library/library-trpSelectedItem.js"></script>
+  <link   rel="stylesheet"      href="./css/library-trpSelectedItem.css">
+</head>
+<body>
+  
+<div id="layout-wrapper">
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <div class="selected_item-area js-selected_item-area" data-wrap_id = "select_id" style="width: 50%;">
+    <div class="selected_item_complete js-selected_item_complete">
+      <div class="complete-inner">
+
+        <!-- 
+          <div class="complete-item">기획데이터팀 1<button type="button" class="complete-btn js-complete_item-del">Remove item</button></div> 
+        -->
+
+      </div>
+    </div>
+    <div class="selected_item_target js-selected_item_target" data-trp-focusid="js-user_support">
+      <div class="target-inner scroll-type">
+        <ul class="org">
+        </ul>
+        <p class="data-empty">No choices to choose from</p>
+      </div>
+    </div>
+  </div>  
+
+  <br>
+  <div class="selected_item-area js-selected_item-area"  data-wrap_id = "select_id" style="width: 50%;">
+    <div class="selected_item_complete js-selected_item_complete">
+      <div class="complete-inner">
+
+        <!-- 
+          <div class="complete-item">기획데이터팀 1<button type="button" class="complete-btn js-complete_item-del">Remove item</button></div> 
+        -->
+
+      </div>
+    </div>
+    <div class="selected_item_target js-selected_item_target" data-trp-focusid="js-user_support">
+      <div class="search-box">
+        <input class="form-control js-selected_item_search" type="text" placeholder="광고계정 ID 또는 광고계정명 입력">
+      </div>
+      <div class="target-inner scroll-type">
+        <ul class="org">
+        </ul>
+        <p class="data-empty">No choices to choose from</p>
+      </div>
+    </div>
+  </div>  
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>
+
+  <script>
+    var obj = [
+      { "id": "1", "name":"디엠씨미디어"},
+      { "id": "2", "name":"캐러트코리아"},
+      { "id": "3", "name":"대행사A"},
+      { "id": "4", "name":"대행사B"},
+      { "id": "5", "name":"대행사C"},
+      { "id": "6", "name":"대행사D"},
+      { "id": "7", "name":"대행사E"},
+      { "id": "8", "name":"더블유컴즈"},
+      { "id": "9", "name":"대행사F"}
+    ]
+    function tagListSetFN($append, $obj){
+      var _arr = []
+      $obj.forEach(function($item, $index){
+        _arr.push('<li data-id="'+ $item.id +'" data-mix=" i_' + $item.id +'" ><span>'+ $item.name +'</span></li>')
+      });
+      $($append).append(_arr);
+    }
+    tagListSetFN(".js-selected_item-area .js-selected_item_target ul.org", obj);
+
+
+
+    /* trpSelectedItem( $fn );
+    *  @param	$fn($arr : array , $selectArr : array)  : function      | (선택ID :array, 선택 li 선택자 : array)
+    *  @method setListActive(array)	 : none                           | (활성ID :array) 선택 ID 값
+    *  @method setListReset()	       : none                           | 선택 해제
+    *  @method getIdArr()	           : Array                          | 선택ID 
+    *  @method getItemArr()	         : Array                          | 선택Item
+    */
+    var selected_item1 = $(".js-selected_item-area").trpSelectedItem(function($arr, $selectArr){ 
+      console.log("select_id", $arr);
+
+      $selectArr.forEach(function($item){
+        console.log("select_id.data-mix",  $($item).attr("data-mix"));
+      })
+
+      console.log("IdArr",   selected_item1.getIdArr()   );
+      console.log("ItemArr", selected_item1.getItemArr() );
+      
+    });
+
+  </script>
+
+</body>
+</html>

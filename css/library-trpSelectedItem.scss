@@ -1,0 +1,104 @@
+body { padding: 0; margin: 0;}
+#layout-wrapper {  padding: 20px; box-sizing: border-box; min-height: 100vh;}
+/* =============== selected_item-area =============== */
+.selected_item-area { position: relative; 
+  .selected_item_complete { position: relative;
+    &.data_over { 
+      .complete-item { display: none;}
+    }
+    &.disabled {
+      .complete-inner { background-color: #aaa; }
+    }
+
+    .dataover_msg { position: absolute; top:.5rem; left: .5rem;}
+    .complete-inner{ box-sizing: border-box;
+/*       &.data_none{ 
+        &::before {content: ""; display: block; padding:5px 0;
+          color:#878a99; 
+        }
+        &.msg-1{ &::before {content: "권한 그룹을 선택해 주세요.";} }
+      } */
+
+      cursor: text; padding-right: 0.9rem;
+      display: inline-block; vertical-align: middle; width: 100%;
+      background-color: #FFF;
+      padding: 0.25rem 0.5rem 0.1rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem!important;
+      font-size: .75rem;
+      min-height: 35px;
+      overflow: hidden;
+    }
+    .complete-item { cursor: pointer;
+      display: inline-block; vertical-align: initial;
+      margin-right: 3.75px; margin-bottom: 3.75px; margin-top: 2px; padding: 2px 7px;
+      word-break: break-all;
+      font-size: 11px; font-weight: 400; color: #fff;
+      background-color: #405189; border: 1px solid #405189; border-radius: 7px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      &.hide { display: none;}
+      &.over { display: none;}
+    }
+    .complete-btn { position: relative; display: inline-block;
+      cursor: pointer;
+      text-indent: -9999px; appearance: none; border: 0;
+      background-color: transparent; background-repeat: no-repeat; background-position: center;
+
+      margin-top: 0; margin-right: -4px; margin-bottom: 0; margin-left: 8px;
+      width: 8px; padding-left: 16px;
+      border-left: 1px solid rgba(255,255,255,.5); border-right: 0;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==);
+      background-size: 8px; border-radius: 0; line-height: 1;
+      opacity: .75;
+    }
+  }
+}
+.selected_item_target   { visibility: hidden; z-index: 1070; 
+  position: fixed; /* absolute; fixed; top: 100%; width: 100%; */
+  display: none;
+  &.open { visibility: visible; display: block; } 
+  background-color: #fff;
+  -webkit-transform: translateY(1px);
+  transform: translateY(1px);
+  border: 1px solid #ccc;
+  -webkit-box-shadow: 0 5px 10px rgba(30,32,37,.12);
+  box-shadow: 0 5px 10px rgba(30,32,37,.12);
+  .search-box {  padding: 0.35rem .5rem; 
+    .form-control { display: block; width: 100%; padding: 0.5rem 0.9rem;
+      font-size: .75rem; font-weight: 400; line-height: 1.5; box-sizing: border-box;
+      color: #212529; 
+      background-color: #FFF;
+      background-clip: padding-box;
+      border: 1px solid #ced4da; 
+      appearance: none;
+      border-radius: 0.25rem;
+    }
+  }
+  .target-inner {  margin-top: 0; padding: 10px 10px 10px 10px;
+    background-color: #fff;
+    border-bottom-left-radius: 2.5px;
+    border-bottom-right-radius: 2.5px;
+    overflow: hidden;
+    word-break: break-all;
+    will-change: visibility;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    height: 130px; overflow-y: auto;
+    p.data-empty, p.search-empty{ margin: 0; display: none; 
+      &.on{ display: block;}
+    }
+  }
+  ul {list-style: none; margin: 0; padding: 0; }
+  li { position: relative; font-size: .75rem; 
+    padding: 5px .5rem; line-height: 20px; cursor: pointer;
+    &.active { display: none;}
+    &.hide   { display: none;}
+    &:hover, &.hover { background-color: #eee }
+  }
+
+}
