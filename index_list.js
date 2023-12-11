@@ -242,6 +242,15 @@ __CONSTANT_LIST = [
       pubUpdate: '2023-1207',
       etc: '멀티셀렉터 item',
     }, 
+    {
+      stateLine : "",  
+      dep1: '',
+      dep2: 'trpRegEx',
+      dep3: '', 
+      url: './sample_trpRegEx.html',
+      pubUpdate: '2023-1211',
+      etc: 'real time RexEx',
+    }, 
 
 
     {

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RegEx</title>
+  <script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <script type="text/javascript" src="./js/library/library-trpRegEx.js"></script>
+  <style>
+    h3 { margin-bottom: 0;}
+    input { padding: 5px 10px; font-size: 15px;}
+  </style>
+</head>
+<body>
+
+  <h3>- 숫자 : js-input_num</h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_num" placeholder="1234567890" >
+    <script>
+      $(".js-input_num").on('input', function (event) {
+        var _result = trpInputType( event.target.value, "rx-number");
+        event.target.value  = _result
+       // console.log(_result);
+      });
+    </script>
+  </div>
+
+
+  <h3>- 숫자, 음수 : js-input_negative</h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_negative" placeholder="-1234567890" >
+    <script>
+      $(".js-input_negative").on('input', function (event) {
+        var _result = trpInputType( event.target.value, "rx-negative");
+        event.target.value = _result
+       // console.log(_result);
+      });
+    </script>
+  </div>
+
+
+  <h3>- 숫자 .소수(2) : js-input_decimal</h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_decimal" placeholder="12345678.90" >
+    <script>
+      $(".js-input_decimal").on('input', function (event) {
+        var _result = trpInputType( event.target.value, "rx-number.");
+        event.target.value  = _result;
+      //console.log("_trpRegExp_number_decimal_2 : ", _result);
+      });
+    </script>
+  </div>
+
+
+  <h3>- 숫자 & 콤마 : js-input_comma</h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_comma" placeholder="1,234,567,890" >
+    <script>
+      $(".js-input_omma").on('input', function (event) {
+        _result = trpInputType(event.target.value, "rx-number,");
+        event.target.value = _result
+        // console.log(_result);
+      });
+    </script>
+  </div>
+
+
+  <h3>- 숫자 & 콤마 .소수(2) : js-input_comma_decimal </h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_comma_decimal" placeholder="12,345,678.90" >
+    <script>
+      $(".js-input_comma_decimal").on('input', function (event) {
+        _result = trpInputType(event.target.value, "rx-number,.");
+        event.target.value = _result;
+        // console.log(_result);
+      });
+    </script>
+  </div>
+
+
+
+  <h3>- 전화번호 : js-input_tel </h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_tel" placeholder="02-3333-3333" maxlength="13" >
+    <script>
+      $(".js-input_tel").on('input', function (event) {
+        _result = trpInputType(event.target.value, "rx-tel");
+        event.target.value = _result;
+        // console.log(_result);
+      });
+    </script>
+  </div>
+
+
+
+
+
+  
+</body>
+</html>
