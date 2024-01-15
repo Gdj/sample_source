@@ -129,21 +129,6 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
       $("li", _targetItems).attr("idx","")
       $("li", _targetItems).addClass("hide").removeClass("search");
       
-/*       var k = $(this).val().toLowerCase();   // 소문자
-      var kK = $(this).val().toUpperCase();  // 대문자 
-      console.log("Key ?: ", k)
-      var temp  = $("li:contains('" + k +  "')", _targetItems); // 소문자 보여질애들
-      var tempK = $("li:contains('" + kK + "')", _targetItems); // 대문자 보여질애들
-      var UpLoTemp = $.extend(temp, tempK);
-      $(temp).removeClass("hide").addClass("search");
-      $(temp).each(function($idx, $item){
-        $($item).attr("idx", $idx);
-      });
-      $(tempK).removeClass("hide").addClass("search");
-      $(tempK).each(function($idx, $item){
-        $($item).attr("idx", $idx);
-      }); 
-      */
       /* 소문자로 변경하여 비교 */
       var k = $(this).val().toLowerCase();                    // 소문자
       $("li", _targetItems).each(function($idx, $item){
