@@ -126,15 +126,38 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
     /* 검색 임풋 입력 */
     $(".js-selected_item_search", _targetItems).off("keyup");
     $(".js-selected_item_search", _targetItems).on("keyup", function($e) {
-      var k = $(this).val();
-      console.log("Key ?: ", k)
       $("li", _targetItems).attr("idx","")
       $("li", _targetItems).addClass("hide").removeClass("search");
-      var temp = $("li:contains('" + k + "')", _targetItems); // 보여질애들
-      $(temp).removeClass("hide").addClass("search");;
+      
+/*       var k = $(this).val().toLowerCase();   // 소문자
+      var kK = $(this).val().toUpperCase();  // 대문자 
+      console.log("Key ?: ", k)
+      var temp  = $("li:contains('" + k +  "')", _targetItems); // 소문자 보여질애들
+      var tempK = $("li:contains('" + kK + "')", _targetItems); // 대문자 보여질애들
+      var UpLoTemp = $.extend(temp, tempK);
+      $(temp).removeClass("hide").addClass("search");
       $(temp).each(function($idx, $item){
         $($item).attr("idx", $idx);
-      })
+      });
+      $(tempK).removeClass("hide").addClass("search");
+      $(tempK).each(function($idx, $item){
+        $($item).attr("idx", $idx);
+      }); 
+      */
+      /* 소문자로 변경하여 비교 */
+      var k = $(this).val().toLowerCase();                    // 소문자
+      $("li", _targetItems).each(function($idx, $item){
+        var tempStr = $("span", $item).text().toLowerCase();  // 소문자
+        if( tempStr.indexOf(k) != -1){
+          $($item).removeClass("hide").addClass("search");
+        }
+      });
+      $("li.search", _targetItems).each(function($idx, $item){
+        $($item).attr("idx", $idx);
+      });
+      /*  // 소문자로 변경하여 비교 */
+
+
 
       /* 메시지노출 */
       var _searchCount = 0;
@@ -300,7 +323,7 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
   function targetlistRenewalFn(){ 
     var scroll_top    = document.scrollingElement.scrollTop;
     var com_offset    = $(_completeWrap).offset();
-    var com_width     = $(_completeWrap).outerWidth();
+    var com_width     = $(_completeWrap).innerWidth();
     var com_height    = $(_completeWrap).height();
     var tar_height    = $(_targetItems).height();
     var doc_H         = $( document ).innerHeight(); 
@@ -310,6 +333,7 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
       _top = com_offset.top - ( tar_height + 5 );
     } 
 
+    console.log(":com_width:  ", com_width)
     $(_targetItems).css({ "top":_top+"px", "left":com_offset.left+"px", "width":com_width+"px" })
   }
 
