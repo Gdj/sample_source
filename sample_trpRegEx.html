@@ -56,10 +56,10 @@
   <div class="input-box">
     <input type="text" class="form-control js-input_comma" placeholder="1,234,567,890" >
     <script>
-      $(".js-input_omma").on('input', function (event) {
+      $(".js-input_comma").on('input', function (event) {
         _result = trpInputType(event.target.value, "rx-number,");
         event.target.value = _result
-        // console.log(_result);
+         console.log(_result);
       });
     </script>
   </div>
@@ -87,6 +87,19 @@
         _result = trpInputType(event.target.value, "rx-tel");
         event.target.value = _result;
         // console.log(_result);
+      });
+    </script>
+  </div>
+
+
+  <h3>- 특수문자 : js-input_special_characters </h3>
+  <div class="input-box">
+    <input type="text" class="form-control js-input_special_characters" placeholder="\?.,;:|*~`!^-_+<>@#%&'= ..." >
+    <script>
+      $(".js-input_special_characters").on('input', function (event) {
+        _result = trpInputType(event.target.value, "rx-special_characters");
+        event.target.value = _result;
+        console.log("_result: ",  event.target.value);
       });
     </script>
   </div>
