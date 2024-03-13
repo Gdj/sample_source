@@ -245,6 +245,15 @@ __CONSTANT_LIST = [
     {
       stateLine : "",  
       dep1: '',
+      dep2: 'trpAutoComplete',
+      dep3: '', 
+      url: './sample_trpAutoComplete.html',
+      pubUpdate: '2024-0313',
+      etc: '데이터 기반 자동완성',
+    }, 
+    {
+      stateLine : "",  
+      dep1: '',
       dep2: 'trpRegEx',
       dep3: '', 
       url: './sample_trpRegEx.html',

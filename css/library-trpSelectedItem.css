@@ -101,10 +101,10 @@ body {
 }
 
 .selected_item_target {
-  visibility: hidden; 
+  visibility: hidden;
   z-index: 1070;
   position: fixed; /* absolute; fixed; top: 100%; width: 100%; */
-  display: none;     box-sizing: border-box;
+  display: none;
   background-color: #fff;
   transform: translateY(1px);
   border: 1px solid #ccc;
@@ -112,7 +112,7 @@ body {
 }
 .selected_item_target.open {
   visibility: visible;
-  display: block; 
+  display: block;
 }
 .selected_item_target .search-box {
   padding: 0.35rem 0.5rem;
@@ -175,4 +175,4 @@ body {
 }
 .selected_item_target li:hover, .selected_item_target li.hover {
   background-color: #eee;
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=library-trpSelectedItem.css.map */

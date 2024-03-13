@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>trpAutoComplete</title>
+  <script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <script type="text/javascript" src="./js/library/library-trpAutoComplete.js"></script>
+  <link   rel="stylesheet"      href="./css/library-trpAutoComplete.css">
+  
+</head>
+<body>
+  <div id="layout-wrapper">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div class="trp-autocomplete">
+      <input  class="autocomplete-input validated-danger js-autoComplete1" type="text" placeholder="trp Auto Complete">
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  </div>
+  <!-- trp Auto Complete  -->
+  <script>
+    var autoComplete1_data= ["Chevrolet", "Fiat", "Ford", "Honda", "Hyundai", "Hyundai", "Kia", "Mahindra", "Maruti", "Mitsubishi", "MG", "Nissan", "Renault", "Skoda", "Tata", "Toyato", "Volkswagen" ]
+    trpAutocomplete(document.querySelectorAll(".js-autoComplete1"), autoComplete1_data);
+  </script>
+  
+
+</body>
+</html>
