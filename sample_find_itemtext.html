@@ -7,17 +7,17 @@
   <script type="text/javascript" src="./js/library/trpUtility.js" ></script>
   <style>
     /* 
-      js-search_typo      : 검색어 input
-      js-search_btn       : 검색버튼
-      js-match            : 검색대상
-      focus_tar           : 포커스 이동대상
-      focus-xx            : 포커스 이동번호
-      focus_on            : 포커스 활성화 
-      match               : 검색된 글자
+      js-search_typo            : 검색어 input
+      js-searchcancel_btn       : 검색 초기화
+      js-match                  : 검색대상
+      focus_tar                 : 포커스 이동대상
+      focus-xx                  : 포커스 이동번호
+      focus_on                  : 포커스 활성화 
+      match                     : 검색된 글자
     */
     .search-wrap { position: fixed; top:10px; right:30px; }
     .search-btn::after { content: "검색"; display: inline;}
-    .search-btn.active::after { content: "취소"; display: inline;}
+    .search-btn.active::after { content: "초기화"; display: inline;}
     
     ul { list-style: none; }
     .focus_tar          .match {color: #fff;background-color: #d96701;}
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="search-box">
-        <button class="search-btn js-search_btn"></button>
+        <button class="search-btn js-searchcancel_btn"></button>
       </div>
     </div>
   </div>
@@ -114,7 +114,7 @@
   <script>
   /* 
     js-search_typo      : 검색어 input
-    js-search_btn       : 검색버튼
+    js-searchcancel_btn       : 검색버튼
     js-match            : 검색대상
     focus_tar           : 포커스 이동대상
     focus-xx            : 포커스 이동번호
@@ -123,14 +123,14 @@
     
     /* js-match (init)*/
     $(".js-match").each(function(){ 
-      $(this).attr("title", $(this).text() ).attr("tabindex", "0"); 
+      $(this).attr("title", $(this).text() ).attr("tabindex", "0");       // 텍스트 > title 삽입 , 인덱스 넣기
     })
 
-    /* js-match (event) */
+    /* js-match (event) - 키입력(엔터) & 검색 초기화 */
     $(".js-search_typo").on("keyup", function ($e) {
       if ($e.keyCode == 13) { searchFn(); }
     });
-    $(".js-search_btn").on("click", function () { 
+    $(".js-searchcancel_btn").on("click", function () { 
       if( !$(this).hasClass("active") ){
         searchFn(); 
       }else{
@@ -143,21 +143,21 @@
     var match_total = 0;
     var focus_index = -1; 
     function searchFn(){ 
-      var t = $(".js-search_typo").val();   // 입력 글자 
-      var o = $(".js-match");               // 대상 객체
-      $(".js-search_btn").addClass("active");
+      var inputText = $(".js-search_typo").val();   // 입력 글자 
+      var findAare  = $(".js-match");               // 대상 객체
+      $(".js-searchcancel_btn").addClass("active");
 
-      o.each(function($index){
-          var str = $(this).attr("title");
-          $(this).text(str);
-          $(this).removeClass('focus_tar');
-          $(this).trpRemoveClassPrefix('focus-');
+      findAare.each(function($index){
+        var str = $(this).attr("title");
+        $(this).text(str);
+        $(this).removeClass('focus_tar');
+        $(this).trpRemoveClassPrefix('focus-');
 
-          if( str.match(t) ){                      
-            var re  = str.replace(t, '<em class="match">'+t+'</em>' );
-            $(this).html(re);
-            $(".match").closest(".js-match").addClass('focus_tar');
-          }
+        if( str.match(inputText) ){                      
+          var re  = str.replace(inputText, '<em class="match">'+inputText+'</em>' );
+          $(this).html(re);
+          $(".match").closest(".js-match").addClass('focus_tar');
+        }
       });
 
       match_total = Number($(".focus_tar").length);
@@ -169,10 +169,10 @@
     }
     /* js-match (검색 취소) */
     function searchCancelFn(){
-      var t = $(".js-search_typo").val("");   // 입력 글자 
-      var o = $(".js-match");                 // 대상 객체
-      $(".js-search_btn").removeClass("active");
-      o.each(function($index){
+      $(".js-search_typo").val("");                  // 입력 글자 삭제
+      var findAare = $(".js-match");                 // 대상 객체
+      $(".js-searchcancel_btn").removeClass("active");
+      findAare.each(function($index){
         var str = $(this).attr("title");
           $(this).text(str);
           $(this).removeClass('focus_tar');
