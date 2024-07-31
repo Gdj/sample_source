@@ -175,11 +175,19 @@ __CONSTANT_LIST = [
     }, {
       stateLine : "",  
       dep1: '',
-      dep2: '글자 검색',
+      dep2: '글자 찾기',
       dep3: '', 
-      url: './sample_search_text.html',
+      url: './sample_find_text.html',
       pubUpdate: '2022-0000',
-      etc: '',
+      etc: '검색',
+    }, {
+      stateLine : "",  
+      dep1: '',
+      dep2: '글자 아템별 찾기',
+      dep3: '', 
+      url: './sample_find_itemtext.html',
+      pubUpdate: '2022-0000',
+      etc: '검색',
     }, {
       stateLine : "",  
       dep1: '',

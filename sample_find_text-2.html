@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>eveningHighlightFind - Using JavaScript to Find For and Highlight Text on a Web Page</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js" ></script>
+    <style>
+      .find-box       { display: none; align-items: center; position: fixed; top:0; background-color:rgba(200,200,200, .5);}
+      .find-box.show  { display: flex; }
+      .scroll-box  { height: 200px; overflow-y: auto;}
+      .count-box   { margin: 0 10px;}
+      .find_matched {
+        color: #eee;
+        background-color: #39f;
+      }
+      .find_matched:focus, .find_matched.focusOn {
+        color: #eee;
+        background-color: #f9f;
+      }
+      
+
+      .matched2 {
+        color: #300;
+        background-color: #cdf;
+      }
+
+      .matched3 {
+        color: #000;
+        background-color: #ccc;
+      }
+
+      .matched4 {
+        color: #444;
+        background-color: #96e;
+      }
+
+      .matched {}
+    </style>
+
+</head>
+
+<body>
+    <center>
+      <br><br>
+    <h2>자바스크립트 ctrl+F기능</h2>
+    <div>
+      <!-- 이부분은 찾기하지 않게"pl&lt;highlightStartTag&gt;ant&lt;highlightEndTag&gt;")&\/';"-->
+      <p>
+        <h3>하이라이트 찾기기능</h3>
+      </p>
+    </div>
+    </center>
+
+    <div class="find-box js-text_find_ui-area">
+      <input type="txt" id=""           class="js-findKey"  >
+      <input type="button" value="찾기" class="js-find-btn" >
+      <span class="count-box"><em>0</em>/<b>0</b></span>
+      <button class="js-btn_prev">▲</button>
+      <button class="js-btn_next">▼</button>
+      <button class="js-find_area-close">X</button>
+      <!-- <input type="button" value="원상복귀" onclick="saveOriginSource_restoration('.js-find_textdata');"> -->
+    </div>
+
+    
+      <br>
+      <h2>찾기 영역 js-find_textdata</h2>
+      <div class="js-find_textdata scroll-box">
+        <ul class="">
+          <li> 안녕 오늘도 같은 자리 버스 창가에
+            기대 앉은 네게 인사를 해 Hi
+            역시 넌 받아 주지를 않네
+            인기 많고 잘생긴 넌 내게만
+            그렇게 쌀쌀하게 굴더라</li>
+      
+          <li>근데 Last Night 기억나?
+            넌 내가 좋다고 했어
+            그 예쁜 가로등 아래서
+            넌 내가 좋다고 말했어
+            다음부턴 모른 척 아닌 척해도
+            You Have To Know That
+            확신을 해야 돼 넌
+            그 날 넌 내가 좋다고 했어 Yeah</li>
+      
+          <li>If You Like Me Or Love Me
+            Just Say Yes Yes Yes
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘</li>
+      
+          <li>몰래 오늘도 도서관 맨 앞자리에
+            기대 앉은 네게 인사를 해 Oh Boy
+            역시 넌 받아 주지를 않네
+            인기 많고 잘생긴 넌 내게만
+            그렇게 쌀쌀하게 굴더라
+          </li>
+          <li>
+            근데 Last Night 기억나?
+            넌 내가 좋다고 했어
+            그 예쁜 가로등 아래서
+            넌 내가 좋다고 말했어
+            다음부턴 모른 척 아닌 척해도
+            You Have To Know That
+            확신을 해야 돼 넌
+            그 날 넌 내가 좋다고 했어 Yeah
+          </li>
+      
+          <li>
+            If You Like Me Or Love Me
+            Just Say Yes Yes Yes
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘 Oh
+          </li>
+      
+          <li>
+            널 참 많이 좋아하는 난데
+            우린 이어질 수 없는 걸까
+            내 긴 교복 치마가 부끄러워 초라해 Yeah
+            네 곁엔 항상 키 크고
+            예쁜 애들이 넘치는데 Woo
+          </li>
+      
+          <li>
+            If ou Like Me If You Love Me Yeah
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘
+            If You Like Me Or Love Me
+            Just Say Yes Yes Yes
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘
+          </li>
+        </ul>
+        <ul class="">
+          <li> 안녕 오늘도 같은 자리 버스 창가에
+            기대 앉은 네게 인사를 해 Hi
+            역시 넌 받아 주지를 않네
+            인기 많고 잘생긴 넌 내게만
+            그렇게 쌀쌀하게 굴더라</li>
+      
+          <li>근데 Last Night 기억나?
+            넌 내가 좋다고 했어
+            그 예쁜 가로등 아래서
+            넌 내가 좋다고 말했어
+            다음부턴 모른 척 아닌 척해도
+            You Have To Know That
+            확신을 해야 돼 넌
+            그 날 넌 내가 좋다고 했어 Yeah</li>
+      
+          <li>If You Like Me Or Love Me
+            Just Say Yes Yes Yes
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘</li>
+      
+          <li>몰래 오늘도 도서관 맨 앞자리에
+            기대 앉은 네게 인사를 해 Oh Boy
+            역시 넌 받아 주지를 않네
+            인기 많고 잘생긴 넌 내게만
+            그렇게 쌀쌀하게 굴더라
+          </li>
+          <li>
+            근데 Last Night 기억나?
+            넌 내가 좋다고 했어
+            그 예쁜 가로등 아래서
+            넌 내가 좋다고 말했어
+            다음부턴 모른 척 아닌 척해도
+            You Have To Know That
+            확신을 해야 돼 넌
+            그 날 넌 내가 좋다고 했어 Yeah
+          </li>
+      
+          <li>
+            If You Like Me Or Love Me
+            Just Say Yes Yes Yes
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘 Oh
+          </li>
+      
+          <li>
+            널 참 많이 좋아하는 난데
+            우린 이어질 수 없는 걸까
+            내 긴 교복 치마가 부끄러워 초라해 Yeah
+            네 곁엔 항상 키 크고
+            예쁜 애들이 넘치는데 Woo
+          </li>
+      
+          <li>
+            If ou Like Me If You Love Me Yeah
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘
+            If You Like Me Or Love Me
+            Just Say Yes Yes Yes
+            And Then I'm Your Girlfriend
+            And You're My Boyfriend
+            어서 내게 좋다고 말해줘
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+
+
+
+    <script>
+      /** 
+      * trpFindTextMove($find_area, $find_input)                : (찾기영역, 찾기 인풋)
+      * @method  saveOriginSource()                             : 시작(찾기영역 선택자)
+      * @method  saveOriginSourceRestoration()                  : 원복(찾기영역 선택자)
+      * @method  startFind()                             		    : 찾기 
+      * @method  keyEvent($e)                              		  : 찾기창 이벤트 
+      * @method  resetFind()                                    : 찾기 초기화 
+      */
+      function trpFindTextMove($find_area, $find_input){
+        let _this = this;
+
+        let findWord;                         // 찾기 키워드
+        let originSource;                     // 원본 저장
+        let _findareaEL   = $find_area;       // 찾기 영역 선택자 
+        let _findinputEL  = $find_input;      // 찾기 input 선택자 
+        /* 원본 저장 & 복원 */
+        _this.saveOriginSource = function() {
+          //originSource = document.body.innerHTML;
+          //document.body.innerHTML = originSource;
+          originSource = document.querySelector(_findareaEL).innerHTML;
+        }
+        _this.saveOriginSourceRestoration = function() {
+          document.querySelector(_findareaEL).innerHTML = originSource;
+        }
+
+        /* 찾기 시작 */
+        _this.startFind = function() {
+          if (document.querySelector(_findinputEL).value && document.querySelector(_findinputEL).value.length > 1) {
+            _this.resetFind();
+            findWord = document.querySelector(_findinputEL).value;
+            ///repeater(document.body);
+            repeater(document.querySelector(_findareaEL));
+          }
+        }
+     
+
+        /* 찾기영역에서 - 재귀 선택 */
+        function repeater(ele) {
+          analyzeElement(ele);
+
+          var cloneArray = [];
+          if (ele.childNodes.length > 0) {
+            for (var i = 0; i < ele.childNodes.length; i++) { // childNodes 목록이 remove 또는 append에 의해 동적으로 변경되었기 때문입니다.
+              cloneArray.push(ele.childNodes[i]);
+            }
+            for (var i = 0; i < cloneArray.length; i++) {
+              repeater(cloneArray[i]);
+            }
+          }
+        }
+        
+        /* 찾기영역에서 - 텍스트 찾기 및 find_matched */
+        function analyzeElement(ele) {
+          // 1:태그, 2:속성, 3:text
+          if (ele.nodeType == 3) {
+            if (ele.parentNode) {
+              var highlightElement = document.createElement("span");
+              highlightElement.setAttribute("class", "matched");
+
+              var matchedValue = matchLevel_1(ele.textContent, findWord, "find_matched");
+              if (matchedValue) {
+                highlightElement.innerHTML = matchedValue;
+
+                ele.parentNode.insertBefore(highlightElement, ele);
+                ele.parentNode.removeChild(ele);
+              } 
+            }
+          }
+        }
+        ////////////////////////////////////////////////Match Logic Level - START////////////////////////////////////////////
+        function matchLevel_1(sourceText, findText, styleName) {
+          var css = styleName;
+          var newSource = false;
+
+          function attachEffect(matched) {
+            return "<span class='" + css + "'>" + matched + "</span>";
+          }
+          findText = preFilter(findText);
+          findText = new RegExp(findText,
+          "gi"); // Valid [Web Page][web Page][web page][WEb PaGe] etc : This is a Web Page for ...
+          if (findText.test(sourceText))
+            newSource = sourceText.replace(findText, attachEffect);
+          return newSource;
+        }
+
+        function attachEffect(matched, effectCSS) {
+          return "<span class=" + effectCSS + ">" + matched + "</span>";
+        }
+
+        function preFilter(txt) {
+          //return txt.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+          return txt.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+        }
+        ////////////////////////////////////////////////Match Logic Level - END////////////////////////////////////////////
+
+        /*
+        * Reset Logic - START
+        */
+        _this.resetFind = function() {
+          //repeatResetFunction(document.body);
+          repeatResetFunction(document.querySelector(_findareaEL));
+        }
+
+        /* >1 하위 자직 찾기 */
+        function repeatResetFunction(ele) {
+          analyzeResetElement(ele);
+
+          var cloneArray = [];
+          if (ele.childNodes.length > 0) {
+            for (var i = 0; i < ele.childNodes.length; i++) {
+              repeatResetFunction(ele.childNodes[i]);
+            }
+          }
+        }
+        /* >2 span.matched 찾기 */
+        function analyzeResetElement(ele) {
+          if (ele.nodeType == 1 && ele.nodeName.toLowerCase() == "span") {
+            if (ele.getAttribute("class")) {
+              if (ele.getAttribute("class") == "matched" && ele.hasChildNodes()) {
+                replaceResetElement(ele);
+              }
+            }
+          }
+        }
+        /* >3 span.matched 새로운노드 삽입, 기존노드 삭제 */
+        function replaceResetElement(ele) {
+          var sourceTxt = ele.textContent;
+          var parent = ele.parentNode;
+          var newTxtNode = document.createTextNode(sourceTxt);
+
+          parent.insertBefore(newTxtNode, ele); // 기존 노드 앞에 삽입
+          parent.removeChild(ele);              // 기존 노드 삭제
+        }
+
+
+        /* 시작 */
+        _this.saveOriginSource();
+ 
+      }
+      window.findUI = new trpFindTextMove(".js-find_textdata", ".js-findKey");
+    </script>
+
+
+    <!-- =========== find UI ========  -->
+    <script>
+      /* --- 찾기 열고, 닫기 : ctrl + f 키  (Event)--- */
+      var ctrlB = false;
+      $("body").on("keydown", function($e){
+        if($e.keyCode == 17){
+          ctrlB = true;
+        }
+        if($e.keyCode == 70 && ctrlB == true){
+          $e.preventDefault();
+          console.log("=== 실행 : ctrl + f ===")
+          openFind();
+        }
+      })   
+      $(".js-find_area-close").on("click", function(){
+        $(".js-findKey").val("");   // 검색창초기화
+        window.findUI.resetFind();  // 검색리셋
+        closeFind();                // 닫기
+      })
+      /* 찾기 열기 (function) */
+      function openFind(){
+        $(".js-text_find_ui-area").addClass("show")
+        setTimeout(function(){ $(".js-text_find_ui-area input[type='txt']").focus() },10);
+      }
+      /* 찾기 닫기 (function)*/
+      function closeFind(){
+        ctrlB = false;
+        $(".js-text_find_ui-area").removeClass("show");
+      }
+      
+      /* --- 찾기 시작 (엔터) --- */
+      $(".js-findKey").on("keypress", function($e){
+        if ($e.keyCode == 13) window.findUI.startFind();
+        setFous();
+      })
+      /* --- 찾기 시작 (버튼) --- */
+      $(".js-find-btn").on("click", function($e){
+        window.findUI.startFind();
+        setFous();
+      })
+
+      
+      /* --- 포커스 이동 --- */
+      var _focusIdx = -1;
+      var _focusTotal = 0;
+      function setFous(){
+        console.log("초기화")
+        _focusIdx = -1;
+        _focusTotal = $(".find_matched").length;
+        $(".find_matched").each(function($idx, $item){
+          $($item).attr("tabindex", 0);
+        });
+
+        // 카운트 
+        $(".count-box em").text(_focusIdx + 1);
+        $(".count-box b").text(_focusTotal);
+      }
+
+      $(".js-btn_prev").on("click", function($e){
+        _focusIdx -= 1;
+        _focusTotal  = $(".find_matched").length;
+
+        if (_focusIdx < 0) { _focusIdx = _focusTotal - 1 }
+        focusMove(_focusIdx, _focusTotal);
+      })
+      $(".js-btn_next").on("click", function($e){
+        _focusIdx += 1;
+        _focusTotal  = $(".find_matched").length;
+        
+        if (_focusIdx >= _focusTotal) { _focusIdx = 0 }
+        focusMove(_focusIdx, _focusTotal);
+      })
+      function focusMove($focusIdx, $focusTotal){
+        //console.log( _focusTotal , '_focusIdx : ', _focusIdx)
+        $(".count-box em").text($focusIdx + 1);
+        $(".count-box b").text($focusTotal);
+        $(".find_matched").removeClass("focusOn");
+        $(".find_matched").eq($focusIdx).addClass("focusOn").focus(); 
+      }
+    </script>
+
+   
+</body>
+</html>
