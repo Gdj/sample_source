@@ -179,7 +179,15 @@ __CONSTANT_LIST = [
       dep3: '', 
       url: './sample_find_text.html',
       pubUpdate: '2022-0000',
-      etc: '검색',
+      etc: '[검색] 검색영역안에서 단어찾기',
+    }, {
+      stateLine : "",  
+      dep1: '',
+      dep2: '글자 아템별 찾기',
+      dep3: '', 
+      url: './sample_find_item_text.html',
+      pubUpdate: '2022-0000',
+      etc: '[검색] 반복되는 아이템 영역 안에 단어찾기',
     }, {
       stateLine : "",  
       dep1: '',
@@ -187,7 +195,7 @@ __CONSTANT_LIST = [
       dep3: '', 
       url: './sample_find_itemtext.html',
       pubUpdate: '2022-0000',
-      etc: '검색',
+      etc: '[검색]',
     }, {
       stateLine : "",  
       dep1: '',

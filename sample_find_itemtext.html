@@ -7,40 +7,46 @@
   <script type="text/javascript" src="./js/library/trpUtility.js" ></script>
   <style>
     /* 
-      js-search_typo            : 검색어 input
-      js-searchcancel_btn       : 검색 초기화
-      js-match                  : 검색대상
-      focus_tar                 : 포커스 이동대상
-      focus-xx                  : 포커스 이동번호
-      focus_on                  : 포커스 활성화 
-      match                     : 검색된 글자
+      js-search_typo      : 검색어 input
+      js-search-btn       : 검색 btn
+      js-reset-btn        : 초기화 btn
+      js-match            : 검색대상
+      focus_tar           : 포커스 이동대상
+      focus-xx            : 포커스 이동번호
+      focus_on            : 포커스 활성화
+      match               : 검색된 글자
     */
     .search-wrap { position: fixed; top:10px; right:30px; }
     .search-btn::after { content: "검색"; display: inline;}
-    .search-btn.active::after { content: "초기화"; display: inline;}
+    .reset-btn::after { content: "초기화"; display: inline;}
     
     ul { list-style: none; }
-    .focus_tar          .match {color: #fff;background-color: #d96701;}
-    .focus_tar.focus_on .match {color: #fff;background-color: #E0002A;}
+    .focus_tar .match {color: #fff;background-color: #d96701;}
+    .focus_tar .match.focus_on {color: #fff;background-color: #E0002A;}
   </style>
   
 </head>
 <body>
 
-  <h2>아이템에 첫번째 검색어 찾기</h2>
+  <h2>아이템에 첫번째 검색어 찾기 (HTML)</h2>
   
   <div class="search-wrap js-sitemap_search">
     <div class="search-inner">
-      <div class="input-box">
+      <div class="search-box">
         <input type="text" name="" id="" class="js-search_typo">
+        <button class="search-btn js-search-btn"></button>
+      </div>
+      <div class="count-box">
+        <div class="count js-find_count">
+          <em>0</em> / 
+          <strong>0</strong>
+        </div>
         <div class="navi_btns">
           <button class="prev_btn js-focus_prev">prev</button>
           <button class="next_btn js-focus_next">next</button>
         </div>
       </div>
-      <div class="search-box">
-        <button class="search-btn js-searchcancel_btn"></button>
-      </div>
+      <button class="reset-btn js-reset-btn"></button>
     </div>
   </div>
   
@@ -109,83 +115,166 @@
       <li><span class="js-match">An And You're My Boyfriend</span></li>
       <li><span class="js-match">어서 내게 좋다고 말해줘</span></li>
     </ul>
+    <ul class="js-match">
+      <li><span class="">안녕,</span></li>
+      <li><span class="">오늘도 같은 자리 버스 창가에</span></li>
+      <li><span class="">기대 앉은 네게 인사를 해, Hi</span></li>
+      <li><span class="">역시 넌 받아 주지를 않네</span></li>
+      <li><span class="">인기 많고 잘생긴 넌 내게만</span></li>
+      <li><span class="">그렇게 쌀쌀하게 굴더라</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">근데 Last Night 기억나?</span></li>
+      <li><span class="">넌 내가 좋다고 했어</span></li>
+      <li><span class="">그 예쁜 가로등 아래서</span></li>
+      <li><span class="">넌 내가 좋다고 말했어</span></li>
+      <li><span class="">다음부턴 모른 척, 아닌 척해도</span></li>
+      <li><span class="">You Have To Know That</span></li>
+      <li><span class="">확신을 해야 돼 넌,</span></li>
+      <li><span class="">그 날 넌 내가 좋다고 했어 Yeah</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">If You Like Me Or Love Me,</span></li>
+      <li><span class="">Just Say Yes Yes Yes</span></li>
+      <li><span class="">And Then I'm Your Girlfriend</span></li>
+      <li><span class="">An And You're My Boyfriend</span></li>
+      <li><span class="">어서 내게 좋다고 말해줘</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">몰래 오늘도 도서관 맨 앞자리에</span></li>
+      <li><span class="">기대 앉은 네게 인사를 해 Oh Boy~</span></li>
+      <li><span class="">역시 넌 받아 주지를 않네</span></li>
+      <li><span class="">인기 많고 잘생긴 넌 내게만</span></li>
+      <li><span class="">그렇게 쌀쌀하게 굴더라</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">근데 Last Night 기억나?</span></li>
+      <li><span class="">넌 내가 좋다고 했어</span></li>
+      <li><span class="">그 예쁜 가로등 아래서</span></li>
+      <li><span class="">넌 내가 좋다고 말했어</span></li>
+      <li><span class="">다음부턴 모른 척, 아닌 척해도</span></li>
+      <li><span class="">You Have To Know That</span></li>
+      <li><span class="">확신을 해야 돼 넌,</span></li>
+      <li><span class="">그 날 넌 내가 좋다고 했어 Yeah</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">If You Like Me Or Love Me,</span></li>
+      <li><span class="">Just Say Yes Yes Yes</span></li>
+      <li><span class="">And Then I'm Your Girlfriend</span></li>
+      <li><span class="">An And You're My Boyfriend</span></li>
+      <li><span class="">어서 내게 좋다고 말해줘 Oh~</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">널 참 많이 좋아하는 난데</span></li>
+      <li><span class="">우린 이어질 수 없는 걸까</span></li>
+      <li><span class="">내 긴 교복 치마가</span></li>
+      <li><span class="">부끄러워 초라해 Yeah</span></li>
+      <li><span class="">네 곁엔 항상 키 크고</span></li>
+      <li><span class="">예쁜 애들이 넘치는데 Woo~</span></li>
+      <li><span class=""></span></li>
+      <li><span class="">If You Like Me,</span></li>
+      <li><span class="">If You Love Me Yeah~</span></li>
+      <li><span class="">And Then I'm Your Girlfriend</span></li>
+      <li><span class="">An And You're My Boyfriend</span></li>
+      <li><span class="">어서 내게 좋다고 말해줘</span></li>
+      <li><span class="">If You Like Me Or Love Me,</span></li>
+      <li><span class="">Just Say Yes Yes Yes</span></li>
+      <li><span class="">And Then I'm Your Girlfriend</span></li>
+      <li><span class="">An And You're My Boyfriend</span></li>
+      <li><span class="">어서 내게 좋다고 말해줘</span></li>
+    </ul>
   </div>
   
   <script>
-  /* 
-    js-search_typo      : 검색어 input
-    js-searchcancel_btn       : 검색버튼
-    js-match            : 검색대상
-    focus_tar           : 포커스 이동대상
-    focus-xx            : 포커스 이동번호
-    focus_on            : 포커스 활성화 
-  */
+    /* 
+      js-match            : 검색영역
+      js-search_typo      : 검색어 input
+      js-search-btn       : 검색 btn
+      js-reset-btn        : 초기화 btn
+      focus_tar           : 포커스 이동대상
+      focus-xx            : 포커스 이동번호
+      focus_on            : 포커스 활성화 
+    */
+
+    /** 
+     * trpFindTextItemMove
+     * @option $find_area         : 검색영역
+     * @option $find_input        : 검색어
+     * @method getSearchFn        : 검색어 찾기
+     * @method getSearchCancelFn  : 검색 초기화
+     */
+    function trpFindTextItemMove($find_area, $find_input){
+      let find_area  = $find_area;  // 검색영역
+      let find_input = $find_input; // 검색어
+      /* (init) */
+      $(find_area).each(function(){ 
+        $(this).data("title", $(this).text() );       // 텍스트 > title 삽입 
+      })
+
+      return {
+        /* 검색어 찾기 */
+        getSearchFn(){ 
+          var inputText = $(find_input).val();          // 검색어
+          var regex     = new RegExp(inputText, 'gi');   // 입력 글자 정규식
+          var findAare  = $(find_area);                 // 검색영역
+
+          findAare.each(function($index){
+            var str = $(this).data("title");
+            $(this).text(str);
+            $(this).removeClass('focus_tar');
+            $(this).trpRemoveClassPrefix('focus-');
+
+            var _strLC    = str.toLowerCase();        // 대상글자- 소문자
+            var _inputLC  = inputText.toLowerCase();  // 검색글자- 소문자
+            if( _strLC.match(_inputLC) ){                      
+              //var re  = str.replaceAll(regex, '<em class="match" tabindex="0">'+inputText+'</em>' );
+              var re  = _strLC.replaceAll(regex, '<em class="match" tabindex="0">'+inputText+'</em>' );
+              $(this).html(re);
+              $(".match").closest(find_area).addClass('focus_tar');
+            }
+          });
+
     
-    /* js-match (init)*/
-    $(".js-match").each(function(){ 
-      $(this).attr("title", $(this).text() ).attr("tabindex", "0");       // 텍스트 > title 삽입 , 인덱스 넣기
-    })
-
-    /* js-match (event) - 키입력(엔터) & 검색 초기화 */
-    $(".js-search_typo").on("keyup", function ($e) {
-      if ($e.keyCode == 13) { searchFn(); }
-    });
-    $(".js-searchcancel_btn").on("click", function () { 
-      if( !$(this).hasClass("active") ){
-        searchFn(); 
-      }else{
-        searchCancelFn(); 
-      }
-    });
-
-
-    /* js-match (검색) */
-    var match_total = 0;
-    var focus_index = -1; 
-    function searchFn(){ 
-      var inputText = $(".js-search_typo").val();   // 입력 글자 
-      var findAare  = $(".js-match");               // 대상 객체
-      $(".js-searchcancel_btn").addClass("active");
-
-      findAare.each(function($index){
-        var str = $(this).attr("title");
-        $(this).text(str);
-        $(this).removeClass('focus_tar');
-        $(this).trpRemoveClassPrefix('focus-');
-
-        if( str.match(inputText) ){                      
-          var re  = str.replace(inputText, '<em class="match">'+inputText+'</em>' );
-          $(this).html(re);
-          $(".match").closest(".js-match").addClass('focus_tar');
+          //console.log('match_total', match_total);
+          $(".match").each(function($index){
+            $(this).addClass('focus-'+$index);
+          })
+        },
+        /* 검색 초기화 */
+        getSearchCancelFn(){
+          $(find_input).val("");                        // 검색어
+          var findAare = $(find_area);                  // 검색영역
+          findAare.each(function($index){
+            var str = $(this).data("title");
+              $(this).text(str);
+              $(this).removeClass('focus_tar');
+              $(this).trpRemoveClassPrefix('focus-');
+          })
         }
-      });
+      }
+    }  
+    var findSet = new trpFindTextItemMove(".js-match", ".js-search_typo");
+    
 
-      match_total = Number($(".focus_tar").length);
-      //console.log('match_total', match_total);
-      $(".focus_tar").each(function($index){
-        $(this).addClass('focus-'+$index);
-      })
-      focusFn(true);
+    /* ======================== function ======================== */
+    /* 카운트 (F) */
+    var match_total = 0;      // 찾은 겟수
+    var focus_index = -1;     // 현제 포커스인덱스
+    /* findCount(true) 카운트 초기화 */
+    function findCount($resetB){
+      //console.log("카운트----------------- ")
+      match_total = Number($(".match").length);
+      if ($resetB){
+        match_total = 0;
+        focus_index = -1;
+      }
+      $(".js-find_count em").text(focus_index + 1);
+      $(".js-find_count strong").text(match_total);
     }
-    /* js-match (검색 취소) */
-    function searchCancelFn(){
-      $(".js-search_typo").val("");                  // 입력 글자 삭제
-      var findAare = $(".js-match");                 // 대상 객체
-      $(".js-searchcancel_btn").removeClass("active");
-      findAare.each(function($index){
-        var str = $(this).attr("title");
-          $(this).text(str);
-          $(this).removeClass('focus_tar');
-          $(this).trpRemoveClassPrefix('focus-');
-      })
+
+    /* 검색, 카운트 초기화 (F) */
+    function resetSearchFn(){
+      findSet.getSearchCancelFn();   // 검색 초기화
+      findCount(true);               // 카운트 reset
     }
-
-
-    /* 포커스 이벤트&이동  */
-    $(".js-focus_prev").on("click", function(){ focusFn(false) })
-    $(".js-focus_next").on("click", function(){ focusFn(true) })
+    
+    /* 포커스 이벤트&이동 (F) */
     function focusFn($b){
-      $(".focus_tar").removeClass("focus_on");
+      $(".match").removeClass("focus_on");
       if($b){
         focus_index += 1; 
         if(match_total <= focus_index){ focus_index = 0}
@@ -197,10 +286,35 @@
       var move = ".focus-"+focus_index;
       //console.log('move', move);
       $(move).addClass("focus_on").focus();
+      findCount();
     }
 
+
+    /* ======================== event ======================== */
+    /* js-match (event) - 키입력(엔터) & 검색 초기화 */
+    $(".js-search_typo").on("keyup", function ($e) {
+      if ($e.keyCode == 13) { 
+        findCount(true);        // 검색 카운트 초기화
+        findSet.getSearchFn();  // 검색
+        findCount();            // 카운트 set
+      }
+    });
+    /* 검색 */
+    $(".js-search-btn").on("click", function () { 
+      findCount(true);          // 검색 카운트 초기화
+      findSet.getSearchFn();    // 검색
+      findCount();              // 카운트 set
+    });
+    /* 검색 초기화 */
+    $(".js-reset-btn").on("click", function () { 
+      resetSearchFn();
+    });
+
+
+    /* 포커스 이벤트&이동  */
+    $(".js-focus_prev").on("click", function(){ focusFn(false) });
+    $(".js-focus_next").on("click", function(){ focusFn(true) });
   </script>
-  
   
 </body>
 </html>

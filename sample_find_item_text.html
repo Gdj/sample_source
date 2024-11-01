@@ -1,48 +1,23 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <title>eveningHighlightFind - Using JavaScript to Find For and Highlight Text on a Web Page</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.1/jquery.min.js" ></script>
-    <style>
-      .find-box       { display: none; align-items: center; position: fixed; top:0; background-color:rgba(200,200,200, .5);}
-      .find-box.show  { display: flex; }
-      .scroll-box  { height: 200px; overflow-y: auto;}
-      .count-box   { margin: 0 10px;}
-      .find_matched {
-        color: #eee;
-        background-color: #39f;
-      }
-      .find_matched:focus, .find_matched.focusOn {
-        color: #eee;
-        background-color: #f9f;
-      }
-      
+  <meta charset="UTF-8">
+  <title>sample_find_item_text</title>
+  <script type="text/javascript" src="./js/library/jquery-1.12.1.min.js"></script>
+  <style>
+    .find-box       { display: none; align-items: center; position: fixed; top:0; background-color:rgba(200,200,200, .5);}
+    .find-box.show  { display: flex; }
+    .scroll-box  { height: 200px; overflow-y: auto;}
+    .count-box   { margin: 0 10px;}
 
-      .matched2 {
-        color: #300;
-        background-color: #cdf;
-      }
+    .find_matched { color: #eee; background-color: #39f; }
+    .find_matched:focus, .find_matched.focusOn { color: #eee; background-color: #f9f; }
+  </style>
 
-      .matched3 {
-        color: #000;
-        background-color: #ccc;
-      }
-
-      .matched4 {
-        color: #444;
-        background-color: #96e;
-      }
-
-      .matched {}
-    </style>
-
-</head>
-
-<body>
+  <body>
     <center>
       <br><br>
-    <h2>자바스크립트 ctrl+F기능</h2>
+    <h2>ctrl+F기능</h2>
     <div>
       <!-- 이부분은 찾기하지 않게"pl&lt;highlightStartTag&gt;ant&lt;highlightEndTag&gt;")&\/';"-->
       <p>
@@ -63,7 +38,7 @@
 
     
       <br>
-      <h2>찾기 영역 js-find_textdata</h2>
+      <h2>찾기 영역 복수 :  js-find_textdata li</h2>
       <div class="js-find_textdata scroll-box">
         <ul class="">
           <li> 안녕 오늘도 같은 자리 버스 창가에
@@ -206,147 +181,93 @@
 
 
 
+
     <script>
-      /** 
-      * trpFindTextMove($find_area, $find_input)                : (찾기영역, 찾기 인풋)
-      * @method  saveOriginSource()                             : 시작(찾기영역 선택자)
-      * @method  saveOriginSourceRestoration()                  : 원복(찾기영역 선택자)
-      * @method  startFind()                             		    : 찾기 
-      * @method  keyEvent($e)                              		  : 찾기창 이벤트 
-      * @method  resetFind()                                    : 찾기 초기화 
+      /*
+      * trpRemoveClassPrefix   : 특정문자열로 시작되는 클래스 삭제
+      * @param	$prefix			    : 특정문자열
       */
-      function trpFindTextMove($find_area, $find_input){
-        let _this = this;
+      jQuery.fn.trpRemoveClassPrefix = function($prefix) {
+        this.each(function(i, el) {
+          var classes = el.className.split(" ").filter(function(c) {
+            return c.lastIndexOf($prefix, 0) !== 0;
+          });
+          el.className = $.trim(classes.join(" "));
+        });
+        return this;
+      };
+      
 
-        let findWord;                         // 찾기 키워드
-        let originSource;                     // 원본 저장
-        let _findareaEL   = $find_area;       // 찾기 영역 선택자 
-        let _findinputEL  = $find_input;      // 찾기 input 선택자 
-        /* 원본 저장 & 복원 */
-        _this.saveOriginSource = function() {
-          //originSource = document.body.innerHTML;
-          //document.body.innerHTML = originSource;
-          originSource = document.querySelector(_findareaEL).innerHTML;
-        }
-        _this.saveOriginSourceRestoration = function() {
-          document.querySelector(_findareaEL).innerHTML = originSource;
-        }
+      /** 
+       * trpFindTextItemMove
+       * @option $find_area         : 검색영역
+       * @option $find_input        : 검색어
+       * @method getSearchFn        : 검색어 찾기
+       * @method getSearchCancelFn  : 검색 초기화
+       */
+      function trpFindTextItemMove($find_area, $find_input){
+        let find_area  = $find_area;  // 검색영역
+        let find_input = $find_input; // 검색어
+        /* (init) */
+        $(find_area).each(function(){ 
+          $(this).data("title", $(this).text() );       // 텍스트 > title 삽입 
+        })
 
-        /* 찾기 시작 */
-        _this.startFind = function() {
-          if (document.querySelector(_findinputEL).value && document.querySelector(_findinputEL).value.length > 1) {
-            _this.resetFind();
-            findWord = document.querySelector(_findinputEL).value;
-            ///repeater(document.body);
-            repeater(document.querySelector(_findareaEL));
-          }
-        }
-     
+        return {
+          /* 검색어 찾기 */
+          getSearchFn(){ 
+            var inputText = $(find_input).val();          // 검색어
+            var regex     = new RegExp(inputText, 'gi');  // 입력 글자 정규식
+            var findAare  = $(find_area);                 // 검색영역
+            console.log("검색어  : ", inputText);
+            findAare.each(function($index){
+              var str = $(this).data("title");
+              $(this).text(str);
+              $(this).removeClass('focus_tar');
+              $(this).trpRemoveClassPrefix('focus-');
 
-        /* 찾기영역에서 - 재귀 선택 */
-        function repeater(ele) {
-          analyzeElement(ele);
+              /// var _strLC    = str.toLowerCase();        // 대상글자- 소문자
+              /// var _inputLC  = inputText.toLowerCase();  // 검색글자- 소문자
+              /// if( _strLC.match(_inputLC) ){                      
+              ///   //var re  = str.replaceAll(regex, '<em class="match" tabindex="0">'+inputText+'</em>' );
+              ///   var re  = _strLC.replaceAll(regex, '<em class="match" tabindex="0">'+inputText+'</em>' );
+              ///   $(this).html(re);
+              ///   $(".match").closest(find_area).addClass('focus_tar');
+              /// }
 
-          var cloneArray = [];
-          if (ele.childNodes.length > 0) {
-            for (var i = 0; i < ele.childNodes.length; i++) { // childNodes 목록이 remove 또는 append에 의해 동적으로 변경되었기 때문입니다.
-              cloneArray.push(ele.childNodes[i]);
-            }
-            for (var i = 0; i < cloneArray.length; i++) {
-              repeater(cloneArray[i]);
-            }
-          }
-        }
-        
-        /* 찾기영역에서 - 텍스트 찾기 및 find_matched */
-        function analyzeElement(ele) {
-          // 1:태그, 2:속성, 3:text
-          if (ele.nodeType == 3) {
-            if (ele.parentNode) {
-              var highlightElement = document.createElement("span");
-              highlightElement.setAttribute("class", "matched");
-
-              var matchedValue = matchLevel_1(ele.textContent, findWord, "find_matched");
-              if (matchedValue) {
-                highlightElement.innerHTML = matchedValue;
-
-                ele.parentNode.insertBefore(highlightElement, ele);
-                ele.parentNode.removeChild(ele);
-              } 
-            }
-          }
-        }
-        ////////////////////////////////////////////////Match Logic Level - START////////////////////////////////////////////
-        function matchLevel_1(sourceText, findText, styleName) {
-          var css = styleName;
-          var newSource = false;
-
-          function attachEffect(matched) {
-            return "<span class='" + css + "'>" + matched + "</span>";
-          }
-          findText = preFilter(findText);
-          findText = new RegExp(findText,
-          "gi"); // Valid [Web Page][web Page][web page][WEb PaGe] etc : This is a Web Page for ...
-          if (findText.test(sourceText))
-            newSource = sourceText.replace(findText, attachEffect);
-          return newSource;
-        }
-
-        function attachEffect(matched, effectCSS) {
-          return "<span class=" + effectCSS + ">" + matched + "</span>";
-        }
-
-        function preFilter(txt) {
-          //return txt.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-          return txt.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-        }
-        ////////////////////////////////////////////////Match Logic Level - END////////////////////////////////////////////
-
-        /*
-        * Reset Logic - START
-        */
-        _this.resetFind = function() {
-          //repeatResetFunction(document.body);
-          repeatResetFunction(document.querySelector(_findareaEL));
-        }
-
-        /* >1 하위 자직 찾기 */
-        function repeatResetFunction(ele) {
-          analyzeResetElement(ele);
-
-          var cloneArray = [];
-          if (ele.childNodes.length > 0) {
-            for (var i = 0; i < ele.childNodes.length; i++) {
-              repeatResetFunction(ele.childNodes[i]);
-            }
-          }
-        }
-        /* >2 span.matched 찾기 */
-        function analyzeResetElement(ele) {
-          if (ele.nodeType == 1 && ele.nodeName.toLowerCase() == "span") {
-            if (ele.getAttribute("class")) {
-              if (ele.getAttribute("class") == "matched" && ele.hasChildNodes()) {
-                replaceResetElement(ele);
+              const matches = [...str.matchAll(regex)];
+              if(matches.length == 0) return;
+              console.log('matches : ', matches)
+              for( var i = 0; i < matches.length; i++ ){
+                // console.log( "item ::", matches[i] );
+                var re     = str.replace(regex, '<em class="find_matched" tabindex="0">'+matches[0]+'</em>' );
+                $(this).html(re);
+                $(".match").closest(find_area).addClass('focus_tar');
               }
-            }
+
+            });
+
+
+            //console.log('match_total', match_total);
+            $(".match").each(function($index){
+              $(this).addClass('focus-'+$index);
+            })
+          },
+          /* 검색 초기화 */
+          getSearchCancelFn(){
+            $(find_input).val("");                        // 검색어
+            var findAare = $(find_area);                  // 검색영역
+            findAare.each(function($index){
+              var str = $(this).data("title");
+                $(this).text(str);
+                $(this).removeClass('focus_tar');
+                $(this).trpRemoveClassPrefix('focus-');
+            })
           }
         }
-        /* >3 span.matched 새로운노드 삽입, 기존노드 삭제 */
-        function replaceResetElement(ele) {
-          var sourceTxt = ele.textContent;
-          var parent = ele.parentNode;
-          var newTxtNode = document.createTextNode(sourceTxt);
+      }  
 
-          parent.insertBefore(newTxtNode, ele); // 기존 노드 앞에 삽입
-          parent.removeChild(ele);              // 기존 노드 삭제
-        }
-
-
-        /* 시작 */
-        _this.saveOriginSource();
- 
-      }
-      window.findUI = new trpFindTextMove(".js-find_textdata", ".js-findKey");
+      window.findUI = new trpFindTextItemMove(".js-find_textdata li", ".js-findKey");
     </script>
 
 
@@ -365,30 +286,31 @@
         }
       })   
       $(".js-find_area-close").on("click", function(){
-        $(".js-findKey").val("");   // 검색창초기화
-        window.findUI.resetFind();  // 검색리셋
         closeFind();                // 닫기
       })
       /* 찾기 열기 (function) */
       function openFind(){
-        $(".js-text_find_ui-area").addClass("show")
-        setTimeout(function(){ $(".js-text_find_ui-area input[type='txt']").focus() },10);
+        $(".js-text_find_ui-area").addClass("show");                                        // 검색창 열기
+        setTimeout(function(){ $(".js-text_find_ui-area input[type='txt']").focus() },10);  // 검책창 포커스 이동
+        setFous();                    // 포커스 리세팅
       }
       /* 찾기 닫기 (function)*/
       function closeFind(){
         ctrlB = false;
-        $(".js-text_find_ui-area").removeClass("show");
+        $(".js-findKey").val("");     // 검색어 삭제
+        window.findUI.getSearchCancelFn();    // 검색 리셋
+        $(".js-text_find_ui-area").removeClass("show");     // 검색창 닫기
       }
       
       /* --- 찾기 시작 (엔터) --- */
       $(".js-findKey").on("keypress", function($e){
-        if ($e.keyCode == 13) window.findUI.startFind();
-        setFous();
+        if ($e.keyCode == 13) window.findUI.getSearchFn();
+        setFous();          // 포커스 매칭 세팅
       })
       /* --- 찾기 시작 (버튼) --- */
       $(".js-find-btn").on("click", function($e){
-        window.findUI.startFind();
-        setFous();
+        window.findUI.getSearchFn();
+        setFous();         // 포커스 매칭 세팅
       })
 
       
@@ -396,7 +318,7 @@
       var _focusIdx = -1;
       var _focusTotal = 0;
       function setFous(){
-        console.log("초기화")
+        console.log("포커스 초기화")
         _focusIdx = -1;
         _focusTotal = $(".find_matched").length;
         $(".find_matched").each(function($idx, $item){
