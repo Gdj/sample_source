@@ -409,7 +409,17 @@ __CONSTANT_LIST = [
       url: './sample_nanoScroller.html',
       pubUpdate: '2022-0000',
       etc: '스크롤바',
-    }, {
+    },
+    {
+      stateLine : "",  
+      dep1: '',
+      dep2: 'sample_smooth-scrollbar',
+      dep3: '', 
+      url: './sample_smooth-scrollbar.html',
+      pubUpdate: '2022-0000',
+      etc: '아이폰 스크롤바',
+    },
+    {
       stateLine : "",  
       dep1: '',
       dep2: 'multiple file',
