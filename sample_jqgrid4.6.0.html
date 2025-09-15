@@ -63,7 +63,7 @@
         <li>height: 그리드 높이</li>
         <li>autowidth: 자동 너비 조정</li>
         <li>multiselect: 다중 선택 가능</li>
-        <li>rownumbers: 행 번호 표시<li>
+        <li>rownumbers: 행 번호 표시</li>
       </ul>
     </div>
 
@@ -287,29 +287,31 @@
             data: sampleData,
             colNames: ['no', '일자', '이름', '서비스', '내용', '상태', '메니져', '처리내용'],
             colModel: [
-                {name: 'no',                      index: 'no', width: 60, key: true},
-                {name: 'date',                    index: 'date', width: 100},
-                {name: 'questionName',            index: 'questionName', width: 100},
-                {name: 'serviceName',             index: 'serviceName', width: 150},
-                {name: 'questionContents',        index: 'questionContents', width: 250},
-                {name: 'state',                   index: 'state', width: 80},
-                {name: 'managerNmae',             index: 'managerNmae', width: 100},
-                {name: 'managerContents',         index: 'managerContents', width: 200},
+              {name: 'no',                      index: 'no', width: 60, key: true},
+              {name: 'date',                    index: 'date', width: 100},
+              {name: 'questionName',            index: 'questionName', width: 100},
+              {name: 'serviceName',             index: 'serviceName', width: 150},
+              {name: 'questionContents',        index: 'questionContents', width: 250},
+              {name: 'state',                   index: 'state', width: 80},
+              {name: 'managerNmae',             index: 'managerNmae', width: 100},
+              {name: 'managerContents',         index: 'managerContents', width: 200},
             ],
             rowNum: 10,
             rowList: [5, 10, 20],
             pager: '#pager1',
-            sortname: 'id',
+            //sortname: 'no',
             viewrecords: true,
             sortorder: "desc",
             height: 250,
-            width: 700
+            autowidth:true,
         });
         
         // 네비게이션 바 추가
         $("#grid1").jqGrid('navGrid', '#pager1', 
           {edit: false, add: false, del: false, search: true, refresh: true}
         );
+
+
       });
     </script>
  
