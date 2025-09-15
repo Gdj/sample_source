@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jqgrid</title>
+
+  <!-- jQuery UI CSS (1.10.4 - jqGrid 4.6.0과 호환) -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/themes/ui-lightness/jquery-ui.min.css"> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- jqGrid 4.6.0 CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/css/ui.jqgrid.css">  
+
+  <!-- jQuery 1.11.1 (jqGrid 4.6.0과 호환) -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
+  <!-- jQuery UI 1.10.4 -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> -->
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
+
+  <!-- jqGrid 4.6.0 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
+  <!-- jqGrid 한국어 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqgrid/4.6.0/js/i18n/grid.locale-kr.js"></script>
+
+
+  <style> 
+    .jqGrid-area .data-empty { padding: 20px; text-align: center;}
+    .jqGrid-area .ui-jqgrid-view .ui-th-ltr, 
+    /* .ui-jqgrid .ui-jqgrid-htable th:last-child { border-right: 0; } */
+    /* .ui-jqgrid tr.ui-row-ltr td:last-child     { border-right: 0; } */
+    .ui-jqgrid .ui-jqgrid-pager { border-top: 0; }
+
+
+    .jqGrid-area .jqGrid_custom_page { padding: 10px 0; text-align: center; }
+    .jqGrid-area .jqGrid_custom_page .page{ font-size: 14px; color:#333;  text-decoration: none; }
+    .jqGrid-area .jqGrid_custom_page .ui-icon{ padding: 1px; vertical-align: bottom; opacity: 50%}
+    .jqGrid-area .jqGrid_custom_page a .ui-icon{ opacity: 100%}
+  </style>
+</head>
+<body>
+  <div>
+    <ul id="api-list" class="api-list">
+      <li>jqGrid demos: <a href="http://trirand.com/blog/jqgrid/jqgrid.html">jqGrid demos</a> </li>
+      <li>jqGrid examples: <a href="https://free-jqgrid.github.io/examples/index.html">jqGrid examples</a> </li>
+    </ul>
+  </div>
+  
+
+    <div class="grid-container">
+      <table id="grid1"></table>
+      <div id="pager1"></div>
+    </div>
+    
+    <div class="">
+      <h2>주요 그리드 옵션</h2>
+      <ul>
+        <li>datatype: 데이터 타입 ('local', 'json', 'xml')</li>
+        <li>url: 서버 데이터 URL</li>
+        <li>rowNum: 페이지당 행 수</li>
+        <li>rowList: 페이지당 행 수 옵션</li>
+        <li>pager: 페이저 요소 ID</li>
+        <li>caption: 그리드 제목</li>
+        <li>height: 그리드 높이</li>
+        <li>autowidth: 자동 너비 조정</li>
+        <li>multiselect: 다중 선택 가능</li>
+        <li>rownumbers: 행 번호 표시<li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>EVENT</h2>
+      <pre>
+        <code>
+        $("#grid").jqGrid({
+          // ... 기본 설정
+          onSelectRow: function(rowid, status, e) {
+            // 행 선택 시 실행
+          },
+          loadComplete: function(data) {
+            // 데이터 로드 완료 시 실행
+          },
+          beforeRequest: function() {
+            // 요청 전 실행
+          }
+        });
+        </code>
+      </pre>
+    </div>
+
+    <div>
+      <h2>메소드</h2>
+      <pre>
+        <code>
+        // 데이터 추가
+        $("#grid").jqGrid('addRowData', rowid, data);
+
+        // 행 편집
+        $("#grid").jqGrid('editRow', rowid, true);
+
+        // 편집 저장
+        $("#grid").jqGrid('saveRow', rowid);
+
+        // 행 삭제
+        $("#grid").jqGrid('delRowData', rowid);
+
+        // 선택된 행 ID 가져오기
+        var selr = $("#grid").jqGrid('getGridParam', 'selrow');
+
+        // 행 데이터 가져오기
+        var data = $("#grid").jqGrid('getRowData', rowid);
+        </code>
+      </pre>
+    </div>
+
+
+    <script>
+      // 샘플 데이터
+      var sampleData = [
+      {'no': '1',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "2"},}
+      },
+      {'no': '2',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {display: "none"},}
+      },
+      {'no': '3',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '4',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '5',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '6',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '7',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '8',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',          
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',       
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '9',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '10',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '11',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '12',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '13',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '14',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      {'no': '15',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      { 'no': '16',
+        'date' : 'YYYY.MM.DD' ,
+        'questionName' : '홍길동' ,
+        'serviceName' : '서비스명이 노출됩니다.',
+        'questionContents' : '문의 내용이 노출됩니다. 문의내용이 노출됩니다.',
+        'state' : '접수' ,
+        'managerNmae' : '홍길북',   
+        'managerContents' : '처리 내용이 노출됩니다. 처리내용이 노출됩니다.',
+        attr: {serviceName: {rowspan: "none"},}
+      },
+      ];
+    </script>
+  
+    <script>
+      $(document).ready(function() {
+        // 1. 기본 그리드 (jqGrid 4.6.0 방식)
+        $("#grid1").jqGrid({
+            datatype: "local",
+            data: sampleData,
+            colNames: ['no', '일자', '이름', '서비스', '내용', '상태', '메니져', '처리내용'],
+            colModel: [
+                {name: 'no',                      index: 'no', width: 60, key: true},
+                {name: 'date',                    index: 'date', width: 100},
+                {name: 'questionName',            index: 'questionName', width: 100},
+                {name: 'serviceName',             index: 'serviceName', width: 150},
+                {name: 'questionContents',        index: 'questionContents', width: 250},
+                {name: 'state',                   index: 'state', width: 80},
+                {name: 'managerNmae',             index: 'managerNmae', width: 100},
+                {name: 'managerContents',         index: 'managerContents', width: 200},
+            ],
+            rowNum: 10,
+            rowList: [5, 10, 20],
+            pager: '#pager1',
+            sortname: 'id',
+            viewrecords: true,
+            sortorder: "desc",
+            height: 250,
+            width: 700
+        });
+        
+        // 네비게이션 바 추가
+        $("#grid1").jqGrid('navGrid', '#pager1', 
+          {edit: false, add: false, del: false, search: true, refresh: true}
+        );
+      });
+    </script>
+ 
+</body>
+</html>

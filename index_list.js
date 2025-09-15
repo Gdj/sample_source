@@ -560,6 +560,14 @@ __CONSTANT_LIST = [
       url: './sample_jqgrid.html',
       pubUpdate: '2022-0000',
       etc: 'grid, 테이블 페이지',
+    }, {
+      stateLine : "",  
+      dep1: '',
+      dep2: 'jqGride 4.6.0',
+      dep3: '', 
+      url: './sample_jqgrid4.6.0.html',
+      pubUpdate: '2022-0000',
+      etc: 'grid, 테이블 페이지',
     }, 
   
     {

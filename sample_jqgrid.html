@@ -6,12 +6,21 @@
   <script type="text/javascript" src="./js/library/jqgrid/jquery-1.12.1.js"></script>
   <script type="text/javascript" src="./js/library/jqgrid/jquery-ui-1.12.1.js"></script>
   <link   rel="stylesheet"       href="./js/library/jqgrid/css/jquery-ui-1.12.1.css" />
+
   
   <script type="text/javascript" src="./js/library/jqgrid/grid.locale-kr.js"></script>  
   <script type="text/javascript" src="./js/library/jqgrid/jquery.jqGrid.js"></script>  
   <link rel="stylesheet" href="./js/library/jqgrid/css/ui.jqgrid.css" />
+ 
+
   <style> 
     .jqGrid-area .data-empty { padding: 20px; text-align: center;}
+    .jqGrid-area .ui-jqgrid-view .ui-th-ltr, 
+    .ui-jqgrid .ui-jqgrid-htable th:last-child { border-right: 0; }
+    .ui-jqgrid tr.ui-row-ltr td:last-child     { border-right: 0; }
+    .ui-jqgrid .ui-jqgrid-pager { border-top: 0; }
+
+
     .jqGrid-area .jqGrid_custom_page { padding: 10px 0; text-align: center; }
     .jqGrid-area .jqGrid_custom_page .page{ font-size: 14px; color:#333;  text-decoration: none; }
     .jqGrid-area .jqGrid_custom_page .ui-icon{ padding: 1px; vertical-align: bottom; opacity: 50%}
