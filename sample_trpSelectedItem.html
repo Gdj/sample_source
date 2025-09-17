@@ -11,9 +11,67 @@
 <body>
   
 <div id="layout-wrapper">
+  <style>
+    table {border: 1px solid #ccc; width: 100%;}
+    table th, table td {padding: 10px; border: 1px solid #ccc;}
+    table th { background-color: #ddd; width: 30%;}
+  </style>
+  
+  <table style="border: 1px solid #ccc;">
+    <tbody>
+      <tr>
+        <th>$($conId).trpSelectedItem($fn())</th>
+        <td>
+          $conId : container id <br>
+          $fn(idArr, $itemArr) <br>
+          $idArr : 선택된 아이템 ID <br>
+          $itemArr : 선택된 아이템 tag
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <table>
+    <tbody>
+      <tr>
+        <th>setListActive($arr, $conId)</th>
+        <td>
+          선택항목 배열넘기면 선택됨 <br>
+          $arr : item id array <br>
+          $conId : container id
+        </td>
+      </tr>
+      <tr>
+        <th>setListReset($conId)</th>
+        <td>
+          선택된 항목 초기화 <br>
+          $conId : container id
+        </td>
+      </tr>
+      <tr>
+        <th>getAllIdArr()</th>
+        <td>모든 항목 ID</td>
+      </tr>
+      <tr>
+        <th>getIdArr()</th>
+        <td>선택항목 항목 ID</td>
+      </tr>
+      <tr>
+        <th>getItemArr()</th>
+        <td>선택항목 항목 tag</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <h4>------수정 필요-------</h4>
+  <button class="js-select_setAll">모두선택</button>
+  <button class="js-select_resetAll">모두 선택해제</button>
+  <br><br>
 
+
+  
+  <h3>trpSelectedItem</h3>
   <div class="selected_item-area js-selected_item-area" data-wrap_id = "select_id" style="width: 50%;">
     <div class="selected_item_complete js-selected_item_complete">
       <div class="complete-inner">
@@ -34,6 +92,8 @@
   </div>  
 
   <br>
+
+  <h3>trpSelectedItem + search</h3>
   <div class="selected_item-area js-selected_item-area"  data-wrap_id = "select_id" style="width: 50%;">
     <div class="selected_item_complete js-selected_item_complete">
       <div class="complete-inner">
@@ -91,10 +151,11 @@
     *  @method getIdArr()	           : Array                          | 선택ID 
     *  @method getItemArr()	         : Array                          | 선택Item
     */
-    var selected_item1 = $(".js-selected_item-area").trpSelectedItem(function($arr, $selectArr){ 
-      console.log("select_id", $arr);
+    var selected_item1 = $(".js-selected_item-area").trpSelectedItem(function($idArr, $itemArr){
+      
+      console.log("select_id", $idArr);
 
-      $selectArr.forEach(function($item){
+      $itemArr.forEach(function($item){
         console.log("select_id.data-mix",  $($item).attr("data-mix"));
       })
 
@@ -103,6 +164,17 @@
       
     });
 
+
+
+
+
+    /* 모두선택, 모두 해제 */
+    $(".js-select_setAll").on("click", function(e){
+      selected_item1.setListActive( selected_item1.getAllIdArr() , ".js-selected_item-area");
+    });
+    $(".js-select_resetAll").on("click", function(e){
+      selected_item1.setListReset( ".js-selected_item-area");
+    });
   </script>
 
 </body>

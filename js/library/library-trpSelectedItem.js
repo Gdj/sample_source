@@ -1,44 +1,60 @@
-//
+
+
 /********************* trpSelectedItem ************************/
-//
-/*  trpSelectedItem                           : 셀렉티드 아이템
-    @param	$fn(arr:array, seleted:array)     : 선택 상태 이벤트
-    @param	$option : {}                      : option
+/* trpSelectedItem( $fn, $option );                : 셀렉티드 아이템
+ *  @param	$fn($arr : array , $selectArr : array)  : function      | (선택ID :array, 선택 li 선택자 : array)
+ *  @param	$option : {}                             : option
+*  @method setListActive(array)	 : none                           | (활성ID :array) 선택 ID 값
+*  @method setListReset()	       : none                           | 선택 해제
+*  @method getIdArr()	           : Array                          | 선택ID 
+*  @method getItemArr()	         : Array                          | 선택Item
 */
 jQuery.fn.trpSelectedItem = function($fn, $option){
   var _wrapId   = undefined;  // data-wrap_id
   var _conId    = undefined;  // data-con_id
   var _wrap     = this;       // selected_item-area
   $(_wrap).each(function($idx){
-    console.log("$idx : ", $idx);
     _wrapId = $(this).data("wrap_id");
     $(this).attr("data-con_id", "conid-"+_wrapId+"-"+$idx );
     $(".js-selected_item_complete", this).attr("data-con_id", "conid-"+_wrapId+"-"+$idx );
     $(".js-selected_item_target"  , this).attr("data-con_id", "conid-"+_wrapId+"-"+$idx );
-    console.log("_wrapId : ", _wrapId)
+    // console.log("_wrapId : ", _wrapId)
   })
   
   var _parent          = undefined;   // 현재 : selected_item-area
   var _completeWrap    = undefined;   // 현재 : selected_item_complete
   var _completeItems   = undefined;   // complete items
   var _targetItems     = undefined;   // target   items 
-  var _selectIdArr   = [];            // 선택항목 ID
+  var _allIdArr       = [];           // 모든항목 ID 
+  var _selectIdArr   = [];            // 선택항목 ID 
   var _selectItemArr = [];            // 선택항목 Item
   var _NotSelectItemArr = [];         // 미선택항목 Item
   var _settings = {
-    target_out : true,       // 선택 타겟 생성위치 (true, false) true : #layout-wrapper , false : 현재위치
+    target_out : true,                // 선택 타겟 생성위치 (true, false) true : #layout-wrapper , false : 현재위치
   };
   if( $option ) { $.extend(_settings, $option) }; // 팝업일때  target_out:false 검색 포커스
+  
+  /* === 컨테이너 동일 */
+  _completeWrap   = $(".js-selected_item_complete", _wrap);
+  _parent         = _completeWrap.closest(".selected_item-area");
+  _conId          = $(".js-selected_item_complete", _parent).data("con_id");
+  _completeItems  = ".js-selected_item_complete[data-con_id="+ _conId+"]";
+  _targetItems    = ".js-selected_item_target[data-con_id="+   _conId+"]";
 
+
+  /* === 모든 항목 id 저장 */
+  $(".js-selected_item_target .org>li", _wrap).each(function($index, $item){
+    _allIdArr.push($(this).attr("data-id"));
+  })
 
   /* === 완료타겟 선택 open (드롭다운 & 선택해제 이벤트)  selected_item_complete  */
   $(_wrap).off("click", ".js-selected_item_complete");
   $(_wrap).on( "click", ".js-selected_item_complete", function($e){   
     $e.preventDefault();
 
-    if( $(".js-selected_item_complete").hasClass("active"))  { closeEventAction(); console.log("창닫기") }    // 창닫기
-    if( $(this).hasClass("disabled")) { return false; }                                                  // disabled 클래스 있을때 실행 안함. 
-    selected_item_target_open(this);
+    if( $(".js-selected_item_complete").hasClass("active"))  { closeEventAction(); console.log("창닫기") }     // 열려 있으면 창닫기
+    if( $(this).hasClass("disabled")) { return false; }                                                       // disabled 클래스 있을때 실행 안함. 
+    selected_item_target_open(this);                                                                          // select 창 열리기
   });
   function selected_item_target_open($this){ 
     _completeWrap   = $this;
@@ -46,7 +62,7 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
     _conId          = $(".js-selected_item_complete", _parent).data("con_id");
     _completeItems  = ".js-selected_item_complete[data-con_id="+ _conId+"]";
     _targetItems    = ".js-selected_item_target[data-con_id="+   _conId+"]";
-    setTimeout(searchEventSet, 100);
+    setTimeout(searchEventSet, 100);   // 검색 이벤트
 
     $(_completeItems).addClass("active");
     $(_targetItems).addClass("open")
@@ -55,7 +71,7 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
     setTimeout(closeEvent, 100);
     $("#layout-wrapper").append( $(_targetItems) );
     $(_targetItems).find(".js-selected_item_search").focus();
-    selected_item_target_Event();     // 리스트 타겟 선택
+    selected_item_target_Event();     // 리스트 타겟 선택 이벤트 실행
     selectEvent();                    // 선택 이벤트 실행
   }
 
@@ -97,7 +113,7 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
         <button type="button" class="complete-btn js-complete_item-del">Remove item</button>
       </div>
     `
-
+    /* 선택된것을 클릭하면 삭제 & 서택한것을 추가 */
     if($tag.hasClass("active")){
       $($tag).data("id", _id).removeClass("active");
       $(".js-selected_item_complete .complete-inner .complete-item[data-id="+_id+"]", _wrap).remove();
@@ -207,10 +223,10 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
       $(".js-selected_item_complete .complete-item", _wrap).remove();
       $(".js-selected_item_target ul li", _wrap).removeClass("active");
     }else{
-      var _completeItems  = ".js-selected_item_complete[data-con_id="+ _conId+"]";
-      var _targetItems    = ".js-selected_item_target[data-con_id="+   _conId+"]";
-      $(_completeItems + " .complete-item").remove();
-      $(_targetItems + " ul li").removeClass("active");
+      var _$completeItems  = ".js-selected_item_complete[data-con_id="+ _conId+"]";
+      var _$targetItems    = ".js-selected_item_target[data-con_id="+   _conId+"]";
+      $(_$completeItems + " .complete-item").remove();
+      $(_$targetItems + " ul li").removeClass("active");
     }
     selectEvent();
   }
@@ -235,6 +251,8 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
       }
     })
 
+
+
     /* 타겟 선택 메시지 */
     if(_idArr.length == _total){
       $(".data-empty", _targetItems).addClass("on");
@@ -248,7 +266,7 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
     }else{
       $(".complete-inner", _wrap).removeClass("data_none");
     }
-
+   
     _selectIdArr      = _idArr;
     _selectItemArr    = _tagArr;
     _NotSelectItemArr = _notTagArr;
@@ -304,8 +322,10 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
   function closeEventTrigger(){
     $(window).off("scroll resize")
   }
+
   /* 리스트타겟 Layer위치 트래킹 */
   function targetlistRenewalFn(){ 
+    if(_completeWrap == undefined) return;  // 셀렉트 선택이 아니라 메소드 호출일때는 _completeWrap 없다.
     var scroll_top    = document.scrollingElement.scrollTop;
     var com_offset    = $(_completeWrap).offset();
     var com_width     = $(_completeWrap).innerWidth();
@@ -324,13 +344,17 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
 
 
   return {
+    /* 선택된 리스트
+    * @param	$arr : array   = id array
+    * @param	$conId : string
+    */
     setListActive: function($arr, $conId){
       var _id;
       var _tag;
       var _txt; 
       var _addTag = "";
+      selectedItem_resetFN($conId);  // 선택 초기화
       setTimeout(function(){
-        selectedItem_resetFN($conId);
         for( i = 0; i < $arr.length; i++){
           _id = $arr[i];
           _tag = $(".js-selected_item_target ul li[data-id="+_id+"]", _wrap);
@@ -350,14 +374,21 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
         selectEvent();
       },100)
     },
+    /* 선택 초기화 */
     setListReset: function($conId){
       selectedItem_resetFN($conId);
     },
+    /*  모든항목 ID  */
+    getAllIdArr : function(){
+      return _allIdArr;
+    },
+    /*  선택항목 ID  */
     getIdArr : function(){
       return _selectIdArr;
     },
+    /*  선택항목 Item */
     getItemArr : function(){
       return _selectItemArr;
     },
-	} 
+  } 
 }
