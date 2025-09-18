@@ -25,9 +25,9 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
   var _completeWrap    = undefined;   // 현재 : selected_item_complete
   var _completeItems   = undefined;   // complete items
   var _targetItems     = undefined;   // target   items 
-  var _allIdArr       = [];           // 모든항목 ID 
-  var _selectIdArr   = [];            // 선택항목 ID 
-  var _selectItemArr = [];            // 선택항목 Item
+  var _allIdArr        = [];          // 모든항목 ID 
+  var _selectIdArr     = [];          // 선택항목 ID 
+  var _selectItemArr   = [];          // 선택항목 Item
   var _NotSelectItemArr = [];         // 미선택항목 Item
   var _settings = {
     target_out : true,                // 선택 타겟 생성위치 (true, false) true : #layout-wrapper , false : 현재위치
@@ -42,10 +42,11 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
   _targetItems    = ".js-selected_item_target[data-con_id="+   _conId+"]";
 
 
-  /* === 모든 항목 id 저장 */
-  $(".js-selected_item_target .org>li", _wrap).each(function($index, $item){
+  /* === 모든 항목 id 저장 : 동일 클래스면 중복 방지를 위해 첫번째 것만 담는다. */
+  $(_wrap).eq(0).find(".js-selected_item_target .org>li").each(function($index, $item){
     _allIdArr.push($(this).attr("data-id"));
   })
+
 
   /* === 완료타겟 선택 open (드롭다운 & 선택해제 이벤트)  selected_item_complete  */
   $(_wrap).off("click", ".js-selected_item_complete");
@@ -219,14 +220,66 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
 
   // === 전체 해제
   function selectedItem_resetFN($conId){
-    if($conId == undefined){
+    if($conId == undefined || $conId == ""){
       $(".js-selected_item_complete .complete-item", _wrap).remove();
       $(".js-selected_item_target ul li", _wrap).removeClass("active");
     }else{
-      var _$completeItems  = ".js-selected_item_complete[data-con_id="+ _conId+"]";
-      var _$targetItems    = ".js-selected_item_target[data-con_id="+   _conId+"]";
+      var _$completeItems  = ".js-selected_item_complete[data-con_id="+ $conId+"]";
+      var _$targetItems    = ".js-selected_item_target[data-con_id="+   $conId+"]";
       $(_$completeItems + " .complete-item").remove();
       $(_$targetItems + " ul li").removeClass("active");
+    }
+    selectEvent();
+  }
+
+  // === 전체 선택 or item Array 선택
+  function itemList_setFN($itemIdArr, $conID){
+    var $id;                        // item id
+    var $txt;                       // item text
+    var $addTag = "";               // item add tag
+    var $activeIdArr = $itemIdArr;  // 선택된 item id array : 기본은 보내온 $itemIdArr
+   
+
+    /* $itemIdArr 없으면 모든 항목 */
+    if($itemIdArr == undefined || $itemIdArr == "" || $itemIdArr.length == 0){
+      $activeIdArr = _allIdArr;  
+    }
+    console.log('_$activeIdArr : ', $activeIdArr)
+   
+    /// setTimeout(function(){ },10);
+    if($conID == undefined || $conID == ""){
+      for( i = 0; i < $activeIdArr.length; i++){
+        $id = $activeIdArr[i];
+        $txt = $(_wrap).eq(0).find(".js-selected_item_target ul li[data-id="+$id+"]").text();    // _wrap 첫번째 리스트 li 텍스트 추출 (중보 X)
+  
+        $addTag += `
+        <div class="complete-item" data-id="${$id}" >
+          <span>${$txt}</span>
+          <button type="button" class="complete-btn js-complete_item-del">Remove item</button>
+        </div>
+        `;
+  
+        $(".js-selected_item_target ul li[data-id="+$id+"]", _wrap).addClass("active");           // 모든 _wrap list 항목 active
+      }
+      $(".js-selected_item_complete .complete-inner", _wrap).append($addTag);                     // 모든 _wrap complete 항목 추가
+    }else{
+      var _$completeItems  = ".js-selected_item_complete[data-con_id="+ $conID+"]";
+      var _$targetItems    = ".js-selected_item_target[data-con_id="+   $conID+"]";
+
+      for( i = 0; i < $activeIdArr.length; i++){
+        $id = $activeIdArr[i];
+        $txt = $("ul li[data-id="+$id+"]", _$targetItems).text();    // _wrap 첫번째 리스트 li 텍스트 추출 (중보 X)
+  
+        $addTag += `
+        <div class="complete-item" data-id="${$id}" >
+          <span>${$txt}</span>
+          <button type="button" class="complete-btn js-complete_item-del">Remove item</button>
+        </div>
+        `;
+  
+        $("ul li[data-id="+$id+"]", _$targetItems).addClass("active");           // 모든 _wrapID list 항목 active
+      }
+      $(".complete-inner", _$completeItems).append($addTag);                     // 모든 _wrapID complete 항목 추가
     }
     selectEvent();
   }
@@ -349,44 +402,22 @@ jQuery.fn.trpSelectedItem = function($fn, $option){
     * @param	$conId : string
     */
     setListActive: function($arr, $conId){
-      var _id;
-      var _tag;
-      var _txt; 
-      var _addTag = "";
       selectedItem_resetFN($conId);  // 선택 초기화
-      setTimeout(function(){
-        for( i = 0; i < $arr.length; i++){
-          _id = $arr[i];
-          _tag = $(".js-selected_item_target ul li[data-id="+_id+"]", _wrap);
-          _txt = _tag.text();
-  
-          _addTag += `
-          <div class="complete-item" data-id="${_id}" >
-            <span> ${_txt}</span>
-            <button type="button" class="complete-btn js-complete_item-del">Remove item</button>
-          </div>
-          `;
-          /// if( _addItemTag != ""){ _addTag = _addItemTag }; // 사용자 정의 테그아이템
-          
-          _tag.addClass("active");
-        }
-        $(".js-selected_item_complete .complete-inner", _wrap).append(_addTag);
-        selectEvent();
-      },100)
+      itemList_setFN($arr, $conId);  // 리스트선택 세팅
     },
     /* 선택 초기화 */
     setListReset: function($conId){
       selectedItem_resetFN($conId);
     },
-    /*  모든항목 ID  */
+    /*  모든항목 item ID  */
     getAllIdArr : function(){
       return _allIdArr;
     },
-    /*  선택항목 ID  */
+    /*  선택항목 item ID  */
     getIdArr : function(){
       return _selectIdArr;
     },
-    /*  선택항목 Item */
+    /*  선택항목 Item tag */
     getItemArr : function(){
       return _selectItemArr;
     },

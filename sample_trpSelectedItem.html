@@ -18,56 +18,69 @@
   </style>
   
   <table style="border: 1px solid #ccc;">
+    <thead>
+      <tr>
+        <th colspan="2">trpSelectedItem 선언 방법</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <th>$($conId).trpSelectedItem($fn())</th>
+        <th>$($conId).trpSelectedItem($fn(idArr, $itemArr))</th>
         <td>
-          $conId : container id <br>
-          $fn(idArr, $itemArr) <br>
-          $idArr : 선택된 아이템 ID <br>
-          $itemArr : 선택된 아이템 tag
+          <strong>$conId</strong> : container id <br>
+          <strong>$idArr</strong>   : 선택된 아이템 ID <br>
+          <strong>$itemArr</strong> : 선택된 아이템 tag
         </td>
       </tr>
     </tbody>
   </table>
   <br>
+  
   <table>
+    <thead>
+      <tr>
+        <th colspan="2">trpSelectedItem Method</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
         <th>setListActive($arr, $conId)</th>
         <td>
           선택항목 배열넘기면 선택됨 <br>
-          $arr : item id array <br>
-          $conId : container id
+          <strong>$arr</strong>   : item id array <br>
+          <strong>$conId</strong> : 자동 생성된 "data-con_id" 고유값
         </td>
       </tr>
       <tr>
         <th>setListReset($conId)</th>
         <td>
           선택된 항목 초기화 <br>
-          $conId : container id
+          <strong>빈 값</strong> : 플러그인 선택자 (js-selected_item-area) <br>
+          <strong>$conId</strong> : 자동 생성된 "data-con_id" 고유값
         </td>
       </tr>
       <tr>
         <th>getAllIdArr()</th>
-        <td>모든 항목 ID</td>
+        <td>모든 아이템 항목 ID</td>
       </tr>
       <tr>
         <th>getIdArr()</th>
-        <td>선택항목 항목 ID</td>
+        <td>선택 아이템 항목 ID</td>
       </tr>
       <tr>
         <th>getItemArr()</th>
-        <td>선택항목 항목 tag</td>
+        <td>선택 아이템 항목 tag</td>
       </tr>
     </tbody>
   </table>
 
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <h4>------수정 필요-------</h4>
-  <button class="js-select_setAll">모두선택</button>
-  <button class="js-select_resetAll">모두 선택해제</button>
+  <h4>------수정 완요-------</h4>
+  <button class="" onclick=" selected_item1.setListActive()" >모두선택</button>
+  <button class="" onclick=" selected_item1.setListReset()" >모두 선택해제</button>
   <br><br>
+  <button class="js-select_setAll">선택 trpSelectedItem + search</button>
+  <button class="js-select_resetAll">선택해제 trpSelectedItem + search</button>
 
 
   
@@ -146,18 +159,18 @@
 
     /* trpSelectedItem( $fn );
     *  @param	$fn($arr : array , $selectArr : array)  : function      | (선택ID :array, 선택 li 선택자 : array)
-    *  @method setListActive(array)	 : none                           | (활성ID :array) 선택 ID 값
-    *  @method setListReset()	       : none                           | 선택 해제
-    *  @method getIdArr()	           : Array                          | 선택ID 
-    *  @method getItemArr()	         : Array                          | 선택Item
+    *  @method setListActive($arr, $conId)	 : none                   | (활성 아이템 ID :array, $conId :자동생성된 "data-con_id" 고유값
+    *  @method setListReset()	               : none                   | 선택 해제
+    *  @method getIdArr()	                   : Array                  | 선택ID 
+    *  @method getItemArr()	                 : Array                  | 선택Item
     */
     var selected_item1 = $(".js-selected_item-area").trpSelectedItem(function($idArr, $itemArr){
       
       console.log("select_id", $idArr);
 
-      $itemArr.forEach(function($item){
-        console.log("select_id.data-mix",  $($item).attr("data-mix"));
-      })
+      // $itemArr.forEach(function($item){
+      //   console.log("select_id.data-mix",  $($item).attr("data-mix"));
+      // })
 
       console.log("IdArr",   selected_item1.getIdArr()   );
       console.log("ItemArr", selected_item1.getItemArr() );
@@ -170,11 +183,13 @@
 
     /* 모두선택, 모두 해제 */
     $(".js-select_setAll").on("click", function(e){
-      selected_item1.setListActive( selected_item1.getAllIdArr() , ".js-selected_item-area");
+      selected_item1.setListActive([3,4,6], "conid-select_id-1" );
     });
     $(".js-select_resetAll").on("click", function(e){
-      selected_item1.setListReset( ".js-selected_item-area");
+      selected_item1.setListReset("conid-select_id-1");
     });
+
+    console.log("getAllIdArr >>>> : ",   selected_item1.getAllIdArr("")   );
   </script>
 
 </body>
